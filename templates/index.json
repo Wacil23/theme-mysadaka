@@ -68,7 +68,7 @@
         "logo_x4tCPH": {
           "type": "logo",
           "settings": {
-            "logo_image": "shopify://shop_images/Reassurance_badge_2d16fbd4-2f87-4e62-adb2-49838746654e.svg",
+            "logo_image": "shopify://shop_images/Badges.png",
             "logo_alt": "Logo",
             "logo_link": "",
             "logo_width": 230,
@@ -148,7 +148,7 @@
         "header_overlay": false,
         "header_transparent": false,
         "block_type": "plain",
-        "umm_bg_enable": true,
+        "umm_bg_enable": false,
         "umm_bg_image_desktop": "shopify://shop_images/Simple_hero_2b759649-7af2-419c-ae42-c846ce5721a9.png",
         "umm_bg_fit": "cover",
         "umm_bg_position": "top right",
@@ -171,6 +171,22 @@
         "vertical_alignment": "top",
         "padding_top": "xs",
         "padding_bottom": "no-indent"
+      }
+    },
+    "separateur_avec_texte_gJw7Xw": {
+      "type": "separateur-avec-texte",
+      "name": "Séparateur avec texte",
+      "settings": {
+        "text": "Des milliers de clients nous font confiance",
+        "text_tag": "p",
+        "width_mode": "full",
+        "custom_width": 80,
+        "text_color": "#6B7280",
+        "line_color": "#D1D5DB",
+        "line_thickness": 1,
+        "font_size": 14,
+        "gap": 16,
+        "padding_y": 26
       }
     },
     "logo_list_EEy6nx": {
@@ -251,7 +267,9 @@
         "logo_FKdBLy",
         "logo_LcWrFF"
       ],
-      "custom_css": [".logo-list__item.swiper-slide {opacity: 0.4;}"],
+      "custom_css": [
+        ".logo-list__item.swiper-slide {opacity: 0.4;}"
+      ],
       "name": "t:sections.logo-list.name",
       "settings": {
         "layout": "horizontal-carousel",
@@ -497,35 +515,10 @@
         "show_sound_toggle": true
       }
     },
-    "rich_text_dcDcFW": {
-      "type": "rich-text",
+    "cartes_media_AttRTx": {
+      "type": "cartes-media",
       "blocks": {
-        "heading_MgLExf": {
-          "type": "heading",
-          "settings": {
-            "heading": "Une sadaqa, là où la Ummah en a vraiment besoin",
-            "heading_size": "medium",
-            "heading_level": "h2"
-          }
-        }
-      },
-      "block_order": ["heading_MgLExf"],
-      "custom_css": [],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "background-1",
-        "full_width": true,
-        "alignment": "center",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent",
-        "padding_top": "l",
-        "padding_bottom": "no-indent"
-      }
-    },
-    "image_with_text_v2_kmxjmQ": {
-      "type": "image-with-text-v2",
-      "blocks": {
-        "logo_PFr3XU": {
+        "logo_jwWeGf": {
           "type": "logo",
           "settings": {
             "target_card": 3,
@@ -533,86 +526,122 @@
             "logo_alt": "Logo"
           }
         },
-        "card_AtJ6GY": {
+        "card_X8M64m": {
           "type": "card",
           "settings": {
             "eyebrow": "Fauteuil roulant, Coran...",
             "heading": "À Makkah",
+            "heading_tag": "h3",
+            "heading_style": "h3",
             "text": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple. Vos salariés accèdent à un large inventaire, et vous gardez le contrôle sur votre budget voyage.",
             "button_label": "Choisir une sadaqa à Makkah",
-            "button_link": "shopify://products/citerne-deau-a-gaza",
+            "button_link": "shopify://collections/sadaqa-jariya",
             "image_desktop": "shopify://shop_images/586548592_122259007934218186_2292578439084185566_n.png",
             "image_alt": "Visuel",
             "image_fit": "cover",
             "desktop_layout": "auto",
             "show_logos": false,
-            "logos_label": "Compatible avec :"
+            "logos_label": "Compatible avec :",
+            "borderless": false
           }
         },
-        "card_WRxBVP": {
+        "card_Lx47H8": {
           "type": "card",
           "settings": {
             "eyebrow": "Citerne d'eau, Repas...",
             "heading": "En Palestine",
+            "heading_tag": "h3",
+            "heading_style": "h3",
             "text": "Simplifiez la gestion des notes de frais du paiement à la réconciliation. Automatisez la catégorisation, le reporting et les remboursements. Gagnez en productivité et boostez vos économies grâce à des analyses basées sur l'IA.",
             "button_label": "Choisir une sadaqa en Palestine",
-            "button_link": "shopify://products/pain-palestinien-pour-20-personnes",
-            "image_desktop": "shopify://shop_images/2_40988281-58f3-46cf-80a4-d3cfd81e0a30.png",
+            "button_link": "shopify://collections/palestine",
+            "image_desktop": "shopify://shop_images/83a75da1-a130-4fa0-89f9-70b4a1b0ded5_0.png",
             "image_alt": "Visuel",
-            "image_fit": "contain",
+            "image_fit": "cover",
             "desktop_layout": "auto",
             "show_logos": false,
-            "logos_label": "Compatible avec :"
+            "logos_label": "Compatible avec :",
+            "borderless": false
           }
         },
-        "card_7TLYKE": {
+        "card_krz3jB": {
           "type": "card",
           "settings": {
             "eyebrow": "Place d'ablution",
             "heading": "Au Pakistan",
+            "heading_tag": "h3",
+            "heading_style": "h3",
             "text": "Profitez d’un maximum de contrôle et d’efficacité avec les cartes Navan, Navan Connect (compatible avec les cartes Visa, Mastercard et American Express) et des remboursements rapides en cas d’avance de frais.",
             "button_label": "Choisir une sadaqa au Pakistan",
-            "button_link": "shopify://pages/gdpr-1",
-            "image_desktop": "shopify://shop_images/PHOTO-2025-08-27-16-00-23_3.jpg",
+            "button_link": "shopify://products/place-d-ablution-1-18-a-votre-nom",
+            "image_desktop": "shopify://shop_images/PHOTO-2025-08-27-16-00-23_6.jpg",
             "image_alt": "Visuel",
-            "image_fit": "contain",
+            "image_fit": "cover",
             "desktop_layout": "auto",
-            "show_logos": false,
-            "logos_label": "Compatible avec :"
+            "show_logos": true,
+            "logos_label": "Compatible avec :",
+            "borderless": false
           }
         }
       },
       "block_order": [
-        "logo_PFr3XU",
-        "card_AtJ6GY",
-        "card_WRxBVP",
-        "card_7TLYKE"
+        "logo_jwWeGf",
+        "card_X8M64m",
+        "card_Lx47H8",
+        "card_krz3jB"
       ],
-      "name": "Text with image v2",
+      "name": "Cartes media",
       "settings": {
         "color_scheme": "",
-        "title": "",
+        "title": "Une sadaqa, là où la Ummah en a vraiment besoin",
+        "title_size": "h1",
         "description": "",
-        "card_bg": "#fffaf4",
-        "media_bg": "#fffaf4",
-        "accent_color": "#13392a",
+        "card_bg": "#fffbf5",
         "card_shadow": "",
         "card_radius": 18,
-        "media_radius": 14,
+        "card_border_enable": true,
+        "card_border_color": "#faf6f2",
+        "card_border_thickness": 1,
+        "cards_gap": 22,
         "card_padding": 64,
-        "card_padding_mobile": 34,
-        "cards_gap": 24,
+        "card_padding_mobile": 44,
+        "media_bg": "#fffbf5",
+        "media_card_bg": "#FFFFFF",
+        "media_card_border_color": "rgba(0,0,0,0.06)",
+        "media_card_border_thickness": 0,
+        "media_radius": 14,
         "media_ratio": "4 / 3",
-        "media_ratio_mobile": "16 / 9",
-        "media_padding": 26,
+        "media_max_width": 820,
+        "media_padding": 20,
         "media_padding_mobile": 18,
-        "media_max_width": 560,
         "card_min_height": 320,
         "card_min_height_tablet": 300,
+        "button_color": "#13392a",
+        "button_border_color": "#13392a",
+        "button_border_thickness": 1,
+        "button_radius": 100,
         "button_width_desktop": "280px",
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "logo_height": 28
+        "icon_size": 16,
+        "logo_height": 16,
+        "enable_slider_desktop": false,
+        "enable_slider_mobile": true,
+        "slides_per_view_desktop": "1.1",
+        "slides_per_view_mobile": "1.08",
+        "slider_gap_desktop": 24,
+        "slider_gap_mobile": 16,
+        "slider_edge_padding": 0,
+        "show_bullets": true,
+        "show_arrows": false,
+        "borderless_second_slide": false,
+        "bullets_color": "rgba(0,0,0,0.25)",
+        "bullets_active_color": "rgba(0,0,0,0.6)",
+        "nav_bg": "#FFFFFF",
+        "nav_color": "#111827",
+        "nav_radius": 22,
+        "nav_border_thickness": 1,
+        "nav_border_color": "rgba(0,0,0,0.08)",
+        "padding_top": "xl",
+        "padding_bottom": "xl"
       }
     },
     "umm_text_image_steps_G3a6dx": {
@@ -652,7 +681,11 @@
           }
         }
       },
-      "block_order": ["step_qfizB8", "step_wy3HRj", "step_CMYfR4"],
+      "block_order": [
+        "step_qfizB8",
+        "step_wy3HRj",
+        "step_CMYfR4"
+      ],
       "name": "UMM — Text + image steps",
       "settings": {
         "color_scheme": "",
@@ -723,7 +756,9 @@
         "testimonials_slide_cV3mNw",
         "testimonials_slide_k744Uk"
       ],
-      "custom_css": ["p.testimonials__text.h6 {font-weight: 300 !important;}"],
+      "custom_css": [
+        "p.testimonials__text.h6 {font-weight: 300 !important;}"
+      ],
       "name": "t:sections.testimonials.name",
       "settings": {
         "layout": "simple_slider",
@@ -1618,10 +1653,10 @@
   "order": [
     "floating_sticky_cta_xcAxKG",
     "hero",
+    "separateur_avec_texte_gJw7Xw",
     "logo_list_EEy6nx",
     "hero_animate_jDMYFi",
-    "rich_text_dcDcFW",
-    "image_with_text_v2_kmxjmQ",
+    "cartes_media_AttRTx",
     "umm_text_image_steps_G3a6dx",
     "testimonials_cdjnwe",
     "c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e",
