@@ -1,0 +1,1246 @@
+{% liquid
+  assign sid = 'cards-media-' | append: section.id
+%}
+
+{%- style -%}
+  {% render 'section-padding' %}
+
+  #shopify-section-{{ section.id }} .{{ sid }}{
+    --cm-gap: {{ section.settings.cards_gap }}px;
+    --cm-card-radius: {{ section.settings.card_radius }}px;
+    --cm-card-bg: {{ section.settings.card_bg }};
+    --cm-card-border: {% if section.settings.card_border_enable %}{{ section.settings.card_border_thickness }}px solid {{ section.settings.card_border_color }}{% else %}0 solid transparent{% endif %};
+    --cm-card-shadow: {{ section.settings.card_shadow }};
+
+    --cm-media-bg: {{ section.settings.media_bg }};
+    --cm-media-radius: {{ section.settings.media_radius }}px;
+    --cm-media-card-bg: {{ section.settings.media_card_bg }};
+    --cm-media-card-border: {{ section.settings.media_card_border_thickness }}px solid {{ section.settings.media_card_border_color }};
+    --cm-media-padding: {{ section.settings.media_padding }}px;
+    --cm-media-max-width: {{ section.settings.media_max_width }}px;
+    --cm-media-aspect-ratio: {{ section.settings.media_ratio }};
+
+    --cm-btn-color: {{ section.settings.button_color }};
+    --cm-btn-border: {{ section.settings.button_border_thickness }}px solid {{ section.settings.button_border_color }};
+    --cm-btn-radius: {{ section.settings.button_radius }}px;
+
+    --cm-bullets: {{ section.settings.bullets_color }};
+    --cm-bullets-active: {{ section.settings.bullets_active_color }};
+    --cm-nav-bg: {{ section.settings.nav_bg }};
+    --cm-nav-color: {{ section.settings.nav_color }};
+    --cm-nav-radius: {{ section.settings.nav_radius }}px;
+    --cm-nav-border: {{ section.settings.nav_border_thickness }}px solid {{ section.settings.nav_border_color }};
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__head{
+    text-align: center;
+    margin: 0 auto 28px;
+    max-width: 860px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__title{
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__desc{
+    margin: 12px auto 0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__track{
+    display: flex;
+    flex-direction: column;
+    gap: var(--cm-gap);
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__card{
+    background: var(--cm-card-bg);
+    border-radius: var(--cm-card-radius);
+    border: var(--cm-card-border);
+    box-shadow: var(--cm-card-shadow);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__inner{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: {{ section.settings.card_min_height }}px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__col{
+    padding: {{ section.settings.card_padding }}px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__eyebrow{
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__heading{
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__body{
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__button{
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 22px;
+    height: 44px;
+    border-radius: var(--cm-btn-radius);
+    border: var(--cm-btn-border);
+    color: var(--cm-btn-color);
+    background: transparent;
+    text-decoration: none;
+    width: {{ section.settings.button_width_desktop }};
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__icontexts{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__icontext{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__icontext img{
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    object-fit: contain;
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__logos{
+    margin-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__logos-row{
+    display: flex;
+    align-items: center;
+    gap: 10px 12px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__logos-label{
+    font-size: 12px;
+    opacity: .92;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__logos-list{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__logos-list img{
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__media-wrap{
+    background: var(--cm-media-bg);
+    padding: var(--cm-media-padding);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .is-reverse .cards-media__media-wrap{
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__media-card{
+    width: 100%;
+    max-width: var(--cm-media-max-width);
+    aspect-ratio: var(--cm-media-aspect-ratio);
+    border-radius: var(--cm-media-radius);
+    background: var(--cm-media-card-bg);
+    border: var(--cm-media-card-border);
+    overflow: hidden;
+    display: flex;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__media-card img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: var(--cm-fit);
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .is-reverse .cards-media__inner{
+    direction: rtl;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .is-reverse .cards-media__col{
+    direction: ltr;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__ui{
+    display: none;
+    margin-top: 14px;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__bullets{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__bullet{
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--cm-bullets);
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__bullet[aria-current="true"]{
+    background: var(--cm-bullets-active);
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__nav{
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    padding-inline: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__nav button{
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--cm-nav-radius);
+    border: var(--cm-nav-border);
+    background: var(--cm-nav-bg);
+    color: var(--cm-nav-color);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__nav button:disabled{
+    opacity: .45;
+    cursor: default;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport{
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider .cards-media__track{
+    flex-direction: row;
+    gap: var(--cm-slider-gap);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-inline: {{ section.settings.slider_edge_padding }}px;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider .cards-media__track::-webkit-scrollbar{
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider .cards-media__card{
+    flex: 0 0 var(--cm-slide-width);
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider .cards-media__nav{
+    display: flex;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider + .cards-media__ui{
+    display: flex;
+  }
+
+  #shopify-section-{{ section.id }} .{{ sid }} .cards-media__viewport.is-slider .cards-media__card.is-borderless--auto{
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  @media (max-width: 989px){
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__inner{
+      min-height: {{ section.settings.card_min_height_tablet }}px;
+    }
+  }
+
+  @media (max-width: 749px){
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__inner{
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__col{
+      padding: {{ section.settings.card_padding_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__body{
+      max-width: none;
+    }
+
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__button{
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .{{ sid }} .cards-media__media-wrap{
+      padding: {{ section.settings.media_padding_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .{{ sid }} .is-reverse .cards-media__inner{
+      direction: ltr;
+    }
+  }
+{%- endstyle -%}
+
+<section class="{{ sid }} color-{{ section.settings.color_scheme }} background section-{{ section.id }}-padding">
+  <div class="page-width">
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="cards-media__head">
+        {% if section.settings.title != blank %}
+          <h2 class="cards-media__title {{ section.settings.title_size }}">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="cards-media__desc rte">{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div
+      class="cards-media__viewport"
+      data-slider-mobile="{{ section.settings.enable_slider_mobile }}"
+      data-slider-desktop="{{ section.settings.enable_slider_desktop }}"
+      data-slides-mobile="{{ section.settings.slides_per_view_mobile }}"
+      data-slides-desktop="{{ section.settings.slides_per_view_desktop }}"
+      data-gap-mobile="{{ section.settings.slider_gap_mobile }}"
+      data-gap-desktop="{{ section.settings.slider_gap_desktop }}"
+      data-show-bullets="{{ section.settings.show_bullets }}"
+      data-show-arrows="{{ section.settings.show_arrows }}"
+      data-borderless-second="{{ section.settings.borderless_second_slide }}"
+    >
+      <div class="cards-media__track" role="list">
+        {% assign card_index = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            {% assign card_index = card_index | plus: 1 %}
+
+            {% liquid
+              assign reverse = false
+              if block.settings.desktop_layout == 'reverse'
+                assign reverse = true
+              elsif block.settings.desktop_layout == 'auto'
+                if card_index == 2 or card_index == 4 or card_index == 6
+                  assign reverse = true
+                endif
+              endif
+            %}
+
+            <article
+              class="cards-media__card{% if reverse %} is-reverse{% endif %}{% if block.settings.borderless %} is-borderless{% endif %}{% if card_index == 2 %} is-borderless--auto{% endif %}"
+              style="--cm-fit: {{ block.settings.image_fit }};"
+              role="listitem"
+              {{ block.shopify_attributes }}
+              data-card-index="{{ card_index }}"
+            >
+              <div class="cards-media__inner">
+                <div class="cards-media__col cards-media__text">
+                  {% if block.settings.eyebrow != blank %}
+                    <div class="cards-media__eyebrow">{{ block.settings.eyebrow | escape }}</div>
+                  {% endif %}
+
+                  {% if block.settings.heading != blank %}
+                    <{{ block.settings.heading_tag }} class="cards-media__heading {{ block.settings.heading_style }}">{{ block.settings.heading | escape }}</{{ block.settings.heading_tag }}>
+                  {% endif %}
+
+                  {% if block.settings.text != blank %}
+                    <div class="cards-media__body">{{ block.settings.text | escape | newline_to_br }}</div>
+                  {% endif %}
+
+                  {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                    <a class="cards-media__button" href="{{ block.settings.button_link }}">
+                      {{ block.settings.button_label | escape }}
+                    </a>
+                  {% endif %}
+
+                  {% assign has_icontext = false %}
+                  {% for b in section.blocks %}
+                    {% if b.type == 'icon_text' and b.settings.target_card == card_index %}
+                      {% assign has_icontext = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if has_icontext %}
+                    <div class="cards-media__icontexts" role="list">
+                      {% for b in section.blocks %}
+                        {% if b.type == 'icon_text' and b.settings.target_card == card_index %}
+                          <div class="cards-media__icontext" role="listitem" {{ b.shopify_attributes }}>
+                            {% if b.settings.icon_image != blank %}
+                              {{
+                                b.settings.icon_image
+                                | image_url: width: 64
+                                | image_tag:
+                                  loading: 'lazy',
+                                  alt: b.settings.icon_alt
+                              }}
+                            {% endif %}
+                            <span>{{ b.settings.text | escape }}</span>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.show_logos %}
+                    {% assign has_logo = false %}
+                    {% for b in section.blocks %}
+                      {% if b.type == 'logo' and b.settings.target_card == card_index and b.settings.logo_image != blank %}
+                        {% assign has_logo = true %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if has_logo %}
+                      <div class="cards-media__logos">
+                        <div class="cards-media__logos-row">
+                          {% if block.settings.logos_label != blank %}
+                            <span class="cards-media__logos-label">{{ block.settings.logos_label | escape }}</span>
+                          {% endif %}
+                          <div class="cards-media__logos-list">
+                            {% for b in section.blocks %}
+                              {% if b.type == 'logo' and b.settings.target_card == card_index and b.settings.logo_image != blank %}
+                                {{
+                                  b.settings.logo_image
+                                  | image_url: width: 220
+                                  | image_tag:
+                                    loading: 'lazy',
+                                    alt: b.settings.logo_alt
+                                }}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                </div>
+
+                <div class="cards-media__media-wrap">
+                  <div class="cards-media__media-card">
+                    {% if block.settings.image_desktop != blank %}
+                      <picture>
+                        {% if block.settings.image_mobile != blank %}
+                          <source
+                            media="(max-width: 749px)"
+                            srcset="
+                              {{ block.settings.image_mobile | image_url: width: 600 }} 600w,
+                              {{ block.settings.image_mobile | image_url: width: 900 }} 900w,
+                              {{ block.settings.image_mobile | image_url: width: 1200 }} 1200w
+                            "
+                            sizes="90vw"
+                          >
+                        {% endif %}
+                        {{
+                          block.settings.image_desktop
+                          | image_url: width: 1800
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '(min-width: 750px) 50vw, 90vw',
+                            widths: '400, 600, 800, 1000, 1200, 1600, 1800',
+                            alt: block.settings.image_alt
+                        }}
+                      </picture>
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="cards-media__nav" aria-hidden="true">
+        <button type="button" class="cards-media__prev" aria-label="Précédent">
+          {% render 'icon-caret-left' %}
+        </button>
+        <button type="button" class="cards-media__next" aria-label="Suivant">
+          {% render 'icon-caret-right' %}
+        </button>
+      </div>
+    </div>
+
+    <div class="cards-media__ui" aria-hidden="true">
+      <div class="cards-media__bullets"></div>
+    </div>
+  </div>
+</section>
+
+{% javascript %}
+  ;(() => {
+    const clamp = (n, min, max) => Math.max(min, Math.min(max, n))
+
+    const init = (section) => {
+      const viewport = section.querySelector('.cards-media__viewport')
+      if (!viewport) return
+      const track = viewport.querySelector('.cards-media__track')
+      const cards = [...viewport.querySelectorAll('.cards-media__card')]
+      const prevBtn = viewport.querySelector('.cards-media__prev')
+      const nextBtn = viewport.querySelector('.cards-media__next')
+      const ui = section.querySelector('.cards-media__ui')
+      const bulletsWrap = section.querySelector('.cards-media__bullets')
+
+      let isSlider = false
+      let step = 0
+      let active = 0
+      let bullets = []
+
+      const showBullets = viewport.dataset.showBullets === 'true'
+      const showArrows = viewport.dataset.showArrows === 'true'
+      const borderlessSecond = viewport.dataset.borderlessSecond === 'true'
+
+      const calcStep = () => {
+        const first = cards[0]
+        if (!first) return 0
+        const rect = first.getBoundingClientRect()
+        const styles = window.getComputedStyle(track)
+        const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0
+        return rect.width + gap
+      }
+
+      const applyBorderlessSecond = () => {
+        cards.forEach((c) => c.classList.remove('is-borderless--auto'))
+        if (!borderlessSecond) return
+        if (!isSlider) return
+        if (cards[1]) cards[1].classList.add('is-borderless--auto')
+      }
+
+      const setUI = (enabled) => {
+        if (!ui) return
+        ui.style.display = enabled && showBullets ? '' : 'none'
+        if (!showArrows) viewport.querySelector('.cards-media__nav')?.style.setProperty('display', 'none')
+      }
+
+      const buildBullets = () => {
+        if (!bulletsWrap) return
+        bulletsWrap.innerHTML = ''
+        bullets = cards.map((_, i) => {
+          const b = document.createElement('button')
+          b.type = 'button'
+          b.className = 'cards-media__bullet'
+          b.setAttribute('aria-label', `Aller au slide ${i + 1}`)
+          b.addEventListener('click', () => {
+            track.scrollTo({ left: i * step, behavior: 'smooth' })
+          })
+          bulletsWrap.appendChild(b)
+          return b
+        })
+      }
+
+      const setActive = (index) => {
+        active = clamp(index, 0, cards.length - 1)
+        bullets.forEach((b, i) => b.setAttribute('aria-current', i === active ? 'true' : 'false'))
+        if (prevBtn) prevBtn.disabled = active === 0
+        if (nextBtn) nextBtn.disabled = active >= cards.length - 1
+      }
+
+      const onScroll = () => {
+        if (!isSlider) return
+        if (!step) step = calcStep()
+        const idx = step ? Math.round(track.scrollLeft / step) : 0
+        setActive(idx)
+      }
+
+      const scrollByDir = (dir) => {
+        if (!step) step = calcStep()
+        track.scrollBy({ left: dir * step, behavior: 'smooth' })
+      }
+
+      const enable = () => {
+        if (isSlider) return
+        isSlider = true
+        viewport.classList.add('is-slider')
+        step = calcStep()
+        setUI(true)
+        buildBullets()
+        setActive(0)
+        applyBorderlessSecond()
+        track.addEventListener('scroll', onScroll, { passive: true })
+        if (prevBtn) prevBtn.addEventListener('click', () => scrollByDir(-1))
+        if (nextBtn) nextBtn.addEventListener('click', () => scrollByDir(1))
+      }
+
+      const disable = () => {
+        if (!isSlider) return
+        isSlider = false
+        viewport.classList.remove('is-slider')
+        setUI(false)
+        bulletsWrap && (bulletsWrap.innerHTML = '')
+        bullets = []
+        track.removeEventListener('scroll', onScroll)
+      }
+
+      const update = () => {
+        const w = section.getBoundingClientRect().width
+        const enableOnMobile = viewport.dataset.sliderMobile === 'true'
+        const enableOnDesktop = viewport.dataset.sliderDesktop === 'true'
+        const slidesMobile = parseFloat(viewport.dataset.slidesMobile || '1.08')
+        const slidesDesktop = parseFloat(viewport.dataset.slidesDesktop || '1.1')
+        const gapMobile = parseInt(viewport.dataset.gapMobile || '18', 10)
+        const gapDesktop = parseInt(viewport.dataset.gapDesktop || '24', 10)
+
+        const isMobile = w < 750
+        const should = isMobile ? enableOnMobile : enableOnDesktop
+        const slides = isMobile ? slidesMobile : slidesDesktop
+        const gap = isMobile ? gapMobile : gapDesktop
+
+        viewport.style.setProperty('--cm-slider-gap', `${gap}px`)
+        viewport.style.setProperty('--cm-slide-width', `${100 / slides}%`)
+
+        if (should) enable()
+        else disable()
+      }
+
+      const ro = new ResizeObserver(() => update())
+      ro.observe(section)
+      update()
+
+      section.addEventListener('shopify:section:unload', () => {
+        ro.disconnect()
+        disable()
+      })
+    }
+
+    const boot = (root) => {
+      if (!root) return
+      if (!root.matches('.shopify-section')) return
+      const viewport = root.querySelector('.cards-media__viewport')
+      if (!viewport) return
+      init(root)
+    }
+
+    if (document.currentScript?.parentElement) boot(document.currentScript.parentElement)
+    document.addEventListener('shopify:section:load', (e) => boot(e.target))
+  })()
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Cartes media",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Schéma de couleurs",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Visibilité, contrôle et économies à portée de main"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Taille du titre (classe thème)",
+      "default": "h1",
+      "options": [
+        { "value": "h0", "label": "h0" },
+        { "value": "h1", "label": "h1" },
+        { "value": "h2", "label": "h2" },
+        { "value": "h3", "label": "h3" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Style des cards"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond card",
+      "default": "#F3F1FA"
+    },
+    {
+      "type": "text",
+      "id": "card_shadow",
+      "label": "Ombre card (CSS)",
+      "default": "0 10px 30px rgba(0,0,0,.06)"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Arrondi card",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "checkbox",
+      "id": "card_border_enable",
+      "label": "Activer bordure card",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Couleur bordure card",
+      "default": "rgba(0,0,0,0.08)"
+    },
+    {
+      "type": "range",
+      "id": "card_border_thickness",
+      "label": "Épaisseur bordure card",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Espace entre cards (mode stack)",
+      "min": 12,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding card (desktop)",
+      "min": 18,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "Padding card (mobile)",
+      "min": 16,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Media (zone image)"
+    },
+    {
+      "type": "color",
+      "id": "media_bg",
+      "label": "Fond zone image",
+      "default": "#ECECEF"
+    },
+    {
+      "type": "color",
+      "id": "media_card_bg",
+      "label": "Fond carte image",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "media_card_border_color",
+      "label": "Couleur bordure carte image",
+      "default": "rgba(0,0,0,0.06)"
+    },
+    {
+      "type": "range",
+      "id": "media_card_border_thickness",
+      "label": "Épaisseur bordure carte image",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "media_radius",
+      "label": "Arrondi carte image",
+      "min": 0,
+      "max": 26,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Ratio carte image (desktop/tablette)",
+      "default": "16 / 9",
+      "options": [
+        { "value": "1 / 1", "label": "1:1" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "3 / 2", "label": "3:2" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "media_max_width",
+      "label": "Max width carte image",
+      "min": 260,
+      "max": 820,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "media_padding",
+      "label": "Padding zone image (desktop)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "media_padding_mobile",
+      "label": "Padding zone image (mobile)",
+      "min": 0,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Hauteur"
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "label": "Min height desktop",
+      "min": 260,
+      "max": 560,
+      "step": 10,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "card_min_height_tablet",
+      "label": "Min height tablette",
+      "min": 240,
+      "max": 560,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Couleur texte bouton",
+      "default": "#2D0B5A"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Couleur bordure bouton",
+      "default": "#2D0B5A"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Épaisseur bordure bouton",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Arrondi bouton",
+      "min": 0,
+      "max": 999,
+      "step": 1,
+      "unit": "px",
+      "default": 999
+    },
+    {
+      "type": "select",
+      "id": "button_width_desktop",
+      "label": "Largeur bouton desktop",
+      "default": "280px",
+      "options": [
+        { "value": "220px", "label": "220px" },
+        { "value": "260px", "label": "260px" },
+        { "value": "280px", "label": "280px" },
+        { "value": "320px", "label": "320px" },
+        { "value": "auto", "label": "Auto" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Icon with text"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Taille icône",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Logos"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Hauteur logos",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_desktop",
+      "label": "Activer slider desktop + tablette",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_mobile",
+      "label": "Activer slider mobile",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_desktop",
+      "label": "Aperçu desktop/tablette",
+      "default": "1.1",
+      "options": [
+        { "value": "1", "label": "1.0" },
+        { "value": "1.05", "label": "1.05" },
+        { "value": "1.1", "label": "1.1" },
+        { "value": "1.2", "label": "1.2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_mobile",
+      "label": "Aperçu mobile",
+      "default": "1.08",
+      "options": [
+        { "value": "1", "label": "1.0" },
+        { "value": "1.03", "label": "1.03" },
+        { "value": "1.08", "label": "1.08" },
+        { "value": "1.12", "label": "1.12" },
+        { "value": "1.2", "label": "1.2" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slider_gap_desktop",
+      "label": "Espace entre slides (desktop)",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "slider_gap_mobile",
+      "label": "Espace entre slides (mobile)",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "slider_edge_padding",
+      "label": "Padding bord (pour aperçu)",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bullets",
+      "label": "Afficher bullets",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Afficher flèches",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "borderless_second_slide",
+      "label": "2e slide sans bordure/ombre",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bullets_color",
+      "label": "Couleur bullets",
+      "default": "rgba(0,0,0,0.25)"
+    },
+    {
+      "type": "color",
+      "id": "bullets_active_color",
+      "label": "Couleur bullet active",
+      "default": "rgba(0,0,0,0.6)"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg",
+      "label": "Fond flèches",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Couleur icône flèches",
+      "default": "#111827"
+    },
+    {
+      "type": "range",
+      "id": "nav_radius",
+      "label": "Arrondi flèches",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "nav_border_thickness",
+      "label": "Épaisseur bordure flèches",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "nav_border_color",
+      "label": "Couleur bordure flèches",
+      "default": "rgba(0,0,0,0.08)"
+    },
+    {
+      "type": "header",
+      "content": "Espacements section"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        { "value": "no-indent", "label": "no-indent" },
+        { "value": "xs", "label": "xs" },
+        { "value": "s", "label": "s" },
+        { "value": "m", "label": "m" },
+        { "value": "l", "label": "l" },
+        { "value": "xl", "label": "xl" }
+      ],
+      "default": "l",
+      "label": "Padding top"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        { "value": "no-indent", "label": "no-indent" },
+        { "value": "xs", "label": "xs" },
+        { "value": "s", "label": "s" },
+        { "value": "m", "label": "m" },
+        { "value": "l", "label": "l" },
+        { "value": "xl", "label": "xl" }
+      ],
+      "default": "l",
+      "label": "Padding bottom"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Subheading", "default": "Navan Travel" },
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Les voyages d'affaires simplifiés" },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Balise titre",
+          "default": "h3",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "p", "label": "P" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "heading_style",
+          "label": "Style titre (classe thème)",
+          "default": "h2",
+          "options": [
+            { "value": "h1", "label": "h1" },
+            { "value": "h2", "label": "h2" },
+            { "value": "h3", "label": "h3" },
+            { "value": "h4", "label": "h4" }
+          ]
+        },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple." },
+        { "type": "text", "id": "button_label", "label": "Texte bouton", "default": "En savoir plus" },
+        { "type": "url", "id": "button_link", "label": "Lien bouton" },
+        { "type": "header", "content": "Images" },
+        { "type": "image_picker", "id": "image_desktop", "label": "Image desktop" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image mobile (optionnel)" },
+        { "type": "text", "id": "image_alt", "label": "Alt image", "default": "Visuel" },
+        {
+          "type": "select",
+          "id": "image_fit",
+          "label": "Image fit",
+          "default": "contain",
+          "options": [
+            { "value": "contain", "label": "Contain" },
+            { "value": "cover", "label": "Cover" }
+          ]
+        },
+        { "type": "header", "content": "Disposition desktop" },
+        {
+          "type": "select",
+          "id": "desktop_layout",
+          "label": "Disposition",
+          "default": "auto",
+          "options": [
+            { "value": "auto", "label": "Auto (1 normal, 2 inversée...)" },
+            { "value": "normal", "label": "Texte gauche / image droite" },
+            { "value": "reverse", "label": "Image gauche / texte droite" }
+          ]
+        },
+        { "type": "header", "content": "Logos (optionnel)" },
+        { "type": "checkbox", "id": "show_logos", "label": "Afficher ligne logos", "default": false },
+        { "type": "text", "id": "logos_label", "label": "Texte ligne logos", "default": "Compatible avec :" },
+        { "type": "header", "content": "Bordure/ombre (optionnel)" },
+        { "type": "checkbox", "id": "borderless", "label": "Désactiver bordure/ombre sur cette card", "default": false }
+      ]
+    },
+    {
+      "type": "icon_text",
+      "name": "Icon with text",
+      "settings": [
+        {
+          "type": "range",
+          "id": "target_card",
+          "label": "Afficher dans la card n°",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3
+        },
+        { "type": "image_picker", "id": "icon_image", "label": "Icône" },
+        { "type": "text", "id": "icon_alt", "label": "Alt icône", "default": "Icône" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Compatible avec Visa" }
+      ]
+    },
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "range",
+          "id": "target_card",
+          "label": "Afficher dans la card n°",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3
+        },
+        { "type": "image_picker", "id": "logo_image", "label": "Logo" },
+        { "type": "text", "id": "logo_alt", "label": "Alt logo", "default": "Logo" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cartes media",
+      "category": "Image",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
