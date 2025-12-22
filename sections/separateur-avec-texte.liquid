@@ -1,0 +1,185 @@
+<div
+  class="separator-with-text separator-with-text--{{ section.id }}"
+  style="
+    --swt-text-color: {{ section.settings.text_color }};
+    --swt-line-color: {{ section.settings.line_color }};
+    --swt-line-thickness: {{ section.settings.line_thickness }}px;
+    --swt-gap: {{ section.settings.gap }}px;
+    --swt-padding-y: {{ section.settings.padding_y }}px;
+    --swt-width: {% if section.settings.width_mode == 'custom' %}{{ section.settings.custom_width }}%{% else %}100%{% endif %};
+    --swt-font-size: {{ section.settings.font_size }}px;
+  "
+>
+  <div class="separator-with-text__inner">
+    <span class="separator-with-text__line" aria-hidden="true"></span>
+    <{{ section.settings.text_tag }} class="separator-with-text__text">
+      {{ section.settings.text | escape }}
+    </{{ section.settings.text_tag }}>
+    <span class="separator-with-text__line" aria-hidden="true"></span>
+  </div>
+</div>
+
+{% stylesheet %}
+  .separator-with-text {
+    width: 100%;
+    padding-block: var(--swt-padding-y);
+  }
+
+  .separator-with-text__inner {
+    width: min(var(--swt-width), 100%);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--swt-gap);
+  }
+
+  .separator-with-text__line {
+    height: var(--swt-line-thickness);
+    background: var(--swt-line-color);
+    flex: 1 1 auto;
+  }
+
+  .separator-with-text__text {
+    color: var(--swt-text-color);
+    font-size: var(--swt-font-size);
+    line-height: 1.2;
+    margin: 0;
+    flex: 0 0 auto;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 749px) {
+    .separator-with-text__inner {
+      width: min(100%, 100%);
+      padding-inline: 1rem;
+      gap: max(8px, calc(var(--swt-gap) * 0.75));
+    }
+
+    .separator-with-text__text {
+      font-size: max(12px, calc(var(--swt-font-size) * 0.9));
+      white-space: normal;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Séparateur avec texte",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "default": "Des milliers de clients nous font confiance"
+    },
+    {
+      "type": "select",
+      "id": "text_tag",
+      "label": "Niveau du texte (balise HTML)",
+      "default": "p",
+      "options": [
+        { "value": "p", "label": "Paragraphe (p)" },
+        { "value": "h1", "label": "Titre H1" },
+        { "value": "h2", "label": "Titre H2" },
+        { "value": "h3", "label": "Titre H3" },
+        { "value": "h4", "label": "Titre H4" },
+        { "value": "span", "label": "Span" },
+        { "value": "div", "label": "Div" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Largeur"
+    },
+    {
+      "type": "select",
+      "id": "width_mode",
+      "label": "Mode de largeur",
+      "default": "full",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "custom", "label": "Personnalisée (%)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Largeur personnalisée",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#6B7280"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Couleur des lignes",
+      "default": "#D1D5DB"
+    },
+    {
+      "type": "range",
+      "id": "line_thickness",
+      "label": "Épaisseur des lignes",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Taille du texte",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espace entre texte et lignes",
+      "min": 6,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "label": "Espacement vertical",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "Séparateur avec texte",
+      "category": "Texte"
+    }
+  ]
+}
+{% endschema %}
+
+
