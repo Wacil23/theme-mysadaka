@@ -1,11 +1,3 @@
-{% comment %}
-  UMM — Feature cards (Navan-like)
-  Desktop: stacked cards, each card = 2 columns (text/media), alternating layout
-  Mobile: cards stack vertical (text top, media bottom)
-  Supports per-card desktop+mobile image + cover/contain
-  Supports optional logos row per card via "logo" blocks targeting card index
-{% endcomment %}
-
 {% liquid
   assign sid = 'umm-fc-' | append: section.id
 %}
@@ -16,6 +8,32 @@
     color: rgb(var(--color-foreground));
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    --umm-card-bg: {{ section.settings.card_bg }};
+    --umm-card-radius: {{ section.settings.card_radius }}px;
+    --umm-card-shadow: {{ section.settings.card_shadow }};
+    --umm-card-border-thickness: {{ section.settings.card_border_thickness }}px;
+    --umm-card-border-color: {{ section.settings.card_border_color }};
+
+    --umm-media-bg: {{ section.settings.media_bg }};
+    --umm-media-padding: {{ section.settings.media_padding }}px;
+    --umm-media-padding-mobile: {{ section.settings.media_padding_mobile }}px;
+    --umm-media-radius: {{ section.settings.media_radius }}px;
+    --umm-media-card-bg: {{ section.settings.media_card_bg }};
+    --umm-media-card-border-thickness: {{ section.settings.media_card_border_thickness }}px;
+    --umm-media-card-border-color: {{ section.settings.media_card_border_color }};
+
+    --umm-accent: {{ section.settings.accent_color }};
+    --umm-slider-space-mobile: {{ section.settings.slider_space_mobile }}px;
+    --umm-slider-space-desktop: {{ section.settings.slider_space_desktop }}px;
+
+    --umm-nav-bg: {{ section.settings.nav_bg }};
+    --umm-nav-color: {{ section.settings.nav_color }};
+    --umm-nav-radius: {{ section.settings.nav_radius }}px;
+    --umm-nav-border-thickness: {{ section.settings.nav_border_thickness }}px;
+    --umm-nav-border-color: {{ section.settings.nav_border_color }};
+    --umm-bullets-color: {{ section.settings.bullets_color }};
+    --umm-bullets-active: {{ section.settings.bullets_active_color }};
   }
 
   .{{ sid }} .umm-fc__head{
@@ -49,10 +67,26 @@
 
   /* Card shell */
   .{{ sid }} .umm-fc__card{
-    background: {{ section.settings.card_bg }};
-    border-radius: {{ section.settings.card_radius }}px;
+    background: var(--umm-card-bg);
+    border-radius: var(--umm-card-radius);
     overflow: hidden;
-    box-shadow: {{ section.settings.card_shadow }};
+    box-shadow: var(--umm-card-shadow);
+    border: {% if section.settings.card_border_enable %}var(--umm-card-border-thickness) solid var(--umm-card-border-color){% else %}0 solid transparent{% endif %};
+  }
+
+  .{{ sid }} .umm-fc__card.is-borderless{
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  .{{ sid }} .umm-fc__slider.is-slider-active .umm-fc__card.is-borderless--auto{
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  .{{ sid }} .umm-fc__slider:not(.is-slider-active) .umm-fc__card.is-borderless--auto{
+    box-shadow: var(--umm-card-shadow);
+    border-color: var(--umm-card-border-color);
   }
 
   /* Inner layout */
@@ -110,8 +144,8 @@
     height: 42px;
     padding: 0 22px;
     border-radius: 999px;
-    border: 1px solid {{ section.settings.accent_color }};
-    color: {{ section.settings.accent_color }};
+    border: 1px solid var(--umm-accent);
+    color: var(--umm-accent);
     text-decoration: none;
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
@@ -149,11 +183,11 @@
 
   /* Media column */
   .{{ sid }} .umm-fc__media-wrap{
-    background: {{ section.settings.media_bg }};
+    background: var(--umm-media-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: {{ section.settings.media_padding }}px;
+    padding: var(--umm-media-padding);
     position: relative;
   }
 
@@ -162,11 +196,13 @@
     width: 100%;
     max-width: {{ section.settings.media_max_width }}px;
     aspect-ratio: {{ section.settings.media_ratio }};
-    border-radius: {{ section.settings.media_radius }}px;
+    border-radius: var(--umm-media-radius);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--umm-media-card-bg);
+    border: var(--umm-media-card-border-thickness) solid var(--umm-media-card-border-color);
   }
 
   .{{ sid }} .umm-fc__media img{
@@ -212,7 +248,7 @@
 
     /* Keep the screenshot feel: text block sits above media */
     .{{ sid }} .umm-fc__media-wrap{
-      padding: {{ section.settings.media_padding_mobile }}px;
+      padding: var(--umm-media-padding-mobile);
     }
 
     .{{ sid }} .umm-fc__media{
@@ -222,6 +258,98 @@
 
     /* Reverse should not RTL on mobile (always text then media) */
     .{{ sid }} .is-reverse .umm-fc__inner{ direction: ltr; }
+  }
+
+  /* Icon with text row (flex) */
+  .{{ sid }} .umm-fc__icon-texts{
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    align-items: center;
+  }
+
+  .{{ sid }} .umm-fc__icon-text{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.2;
+    opacity: .95;
+  }
+
+  .{{ sid }} .umm-fc__icon-text img{
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    object-fit: contain;
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  /* Slider UI */
+  .{{ sid }} .umm-fc__slider{
+    position: relative;
+  }
+
+  .{{ sid }} .umm-fc__slider.is-slider-active{
+    overflow: visible;
+  }
+
+  .{{ sid }} .umm-fc__slider.is-slider-active .umm-fc__list{
+    gap: 0;
+  }
+
+  .{{ sid }} .umm-fc__slider .umm-fc__nav{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    justify-content: space-between;
+    padding-inline: 10px;
+  }
+
+  .{{ sid }} .umm-fc__slider.is-slider-active .umm-fc__nav{
+    display: flex;
+  }
+
+  .{{ sid }} .umm-fc__slider .umm-fc__nav button{
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--umm-nav-radius);
+    background: var(--umm-nav-bg);
+    border: var(--umm-nav-border-thickness) solid var(--umm-nav-border-color);
+    color: var(--umm-nav-color);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .{{ sid }} .umm-fc__slider .umm-fc__nav button:disabled{
+    opacity: .45;
+    cursor: default;
+  }
+
+  .{{ sid }} .umm-fc__slider .umm-fc__pagination{
+    display: none;
+    margin-top: 14px;
+    justify-content: center;
+  }
+
+  .{{ sid }} .umm-fc__slider.is-slider-active .umm-fc__pagination{
+    display: flex;
+  }
+
+  .{{ sid }} .umm-fc__slider .swiper-pagination-bullet{
+    background: var(--umm-bullets-color);
+    opacity: 1;
+  }
+
+  .{{ sid }} .umm-fc__slider .swiper-pagination-bullet-active{
+    background: var(--umm-bullets-active);
   }
 {% endstyle %}
 
@@ -237,113 +365,280 @@
       {% endif %}
     </div>
 
-    <div class="umm-fc__list">
-      {% assign card_index = 0 %}
+    <div
+      class="umm-fc__slider"
+      data-slider-mobile="{{ section.settings.enable_slider_mobile }}"
+      data-slider-desktop="{{ section.settings.enable_slider_desktop }}"
+      data-slides-mobile="{{ section.settings.slides_per_view_mobile }}"
+      data-slides-desktop="{{ section.settings.slides_per_view_desktop }}"
+      data-space-mobile="{{ section.settings.slider_space_mobile }}"
+      data-space-desktop="{{ section.settings.slider_space_desktop }}"
+      data-pagination="{{ section.settings.show_bullets }}"
+      data-navigation="{{ section.settings.show_arrows }}"
+    >
+      <div class="umm-fc__list">
+        {% assign card_index = 0 %}
 
-      {% for block in section.blocks %}
-        {% if block.type == 'card' %}
-          {% assign card_index = card_index | plus: 1 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            {% assign card_index = card_index | plus: 1 %}
 
-          {% liquid
-            assign img_d = block.settings.image_desktop
-            assign img_m = block.settings.image_mobile
-            assign fit = block.settings.image_fit
-            assign layout = block.settings.desktop_layout
-            assign reverse = false
+            {% liquid
+              assign img_d = block.settings.image_desktop
+              assign img_m = block.settings.image_mobile
+              assign fit = block.settings.image_fit
+              assign layout = block.settings.desktop_layout
+              assign reverse = false
 
-            if layout == 'reverse'
-              assign reverse = true
-            elsif layout == 'auto'
-              if card_index == 2 or card_index == 4 or card_index == 6
+              if layout == 'reverse'
                 assign reverse = true
+              elsif layout == 'auto'
+                if card_index == 2 or card_index == 4 or card_index == 6
+                  assign reverse = true
+                endif
               endif
-            endif
-          %}
+            %}
 
-          <div class="umm-fc__card{% if reverse %} is-reverse{% endif %}" {{ block.shopify_attributes }}>
-            <div class="umm-fc__inner">
+            <div class="umm-fc__card{% if reverse %} is-reverse{% endif %}{% if block.settings.borderless %} is-borderless{% endif %}{% if section.settings.borderless_second_slide and card_index == 2 %} is-borderless--auto{% endif %}" {{ block.shopify_attributes }}>
+              <div class="umm-fc__inner">
 
-              <div class="umm-fc__col umm-fc__text">
-                {% if block.settings.eyebrow != blank %}
-                  <div class="umm-fc__eyebrow">{{ block.settings.eyebrow }}</div>
-                {% endif %}
-
-                {% if block.settings.heading != blank %}
-                  <h3 class="umm-fc__h h2">{{ block.settings.heading }}</h3>
-                {% endif %}
-
-                {% if block.settings.text != blank %}
-                  <div class="umm-fc__p">{{ block.settings.text }}</div>
-                {% endif %}
-
-                {% if block.settings.button_label != blank and block.settings.button_link != blank %}
-                  <a class="umm-fc__btn" href="{{ block.settings.button_link }}">
-                    {{ block.settings.button_label }}
-                  </a>
-                {% endif %}
-
-                {% if block.settings.show_logos %}
-                  {% if block.settings.logos_label != blank %}
-                    <div class="umm-fc__logos-label">{{ block.settings.logos_label }}</div>
+                <div class="umm-fc__col umm-fc__text">
+                  {% if block.settings.eyebrow != blank %}
+                    <div class="umm-fc__eyebrow">{{ block.settings.eyebrow }}</div>
                   {% endif %}
-                  <div class="umm-fc__logos">
-                    {% comment %}
-                      Render logo blocks that target this card_index
-                    {% endcomment %}
-                    {% for b in section.blocks %}
-                      {% if b.type == 'logo' and b.settings.target_card == card_index %}
-                        {% if b.settings.logo_image != blank %}
-                          <img
-                            src="{{ b.settings.logo_image | image_url: width: 200 }}"
-                            alt="{{ b.settings.logo_alt | escape }}"
-                            loading="lazy"
-                            width="{{ b.settings.logo_image.width }}"
-                            height="{{ b.settings.logo_image.height }}"
-                          >
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                {% endif %}
-              </div>
 
-              <div class="umm-fc__media-wrap">
-                <div class="umm-fc__media">
-                  {% if img_d != blank %}
-                    <picture>
-                      {% if img_m != blank %}
-                        <source
-                          media="(max-width: 749px)"
-                          srcset="{{ img_m | image_url: width: 900 }} 900w, {{ img_m | image_url: width: 600 }} 600w"
-                          sizes="90vw">
-                      {% endif %}
-                      <img
-                        src="{{ img_d | image_url: width: 1400 }}"
-                        alt="{{ block.settings.image_alt | escape }}"
-                        loading="lazy"
-                        width="{{ img_d.width }}"
-                        height="{{ img_d.height }}"
-                        style="object-fit: {{ fit }};"
-                      >
-                    </picture>
-                  {% else %}
-                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% if block.settings.heading != blank %}
+                    <{{ block.settings.heading_tag }} class="umm-fc__h {{ block.settings.heading_style }}">{{ block.settings.heading }}</{{ block.settings.heading_tag }}>
+                  {% endif %}
+
+                  {% if block.settings.text != blank %}
+                    <div class="umm-fc__p">{{ block.settings.text | escape | newline_to_br }}</div>
+                  {% endif %}
+
+                  {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                    <a class="umm-fc__btn" href="{{ block.settings.button_link }}">
+                      {{ block.settings.button_label }}
+                    </a>
+                  {% endif %}
+
+                  {% assign has_icon_text = false %}
+                  {% for b in section.blocks %}
+                    {% if b.type == 'icon_text' and b.settings.target_card == card_index %}
+                      {% assign has_icon_text = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if has_icon_text %}
+                    <div class="umm-fc__icon-texts" role="list">
+                      {% for b in section.blocks %}
+                        {% if b.type == 'icon_text' and b.settings.target_card == card_index %}
+                          <div class="umm-fc__icon-text" role="listitem" {{ b.shopify_attributes }}>
+                            {% if b.settings.icon_image != blank %}
+                              {{
+                                b.settings.icon_image
+                                | image_url: width: 64
+                                | image_tag:
+                                  loading: 'lazy',
+                                  alt: b.settings.icon_alt
+                              }}
+                            {% endif %}
+                            <span>{{ b.settings.text | escape }}</span>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.show_logos %}
+                    {% if block.settings.logos_label != blank %}
+                      <div class="umm-fc__logos-label">{{ block.settings.logos_label }}</div>
+                    {% endif %}
+                    <div class="umm-fc__logos">
+                      {% for b in section.blocks %}
+                        {% if b.type == 'logo' and b.settings.target_card == card_index %}
+                          {% if b.settings.logo_image != blank %}
+                            {{
+                              b.settings.logo_image
+                              | image_url: width: 220
+                              | image_tag:
+                                loading: 'lazy',
+                                alt: b.settings.logo_alt,
+                                class: 'umm-fc__logo-img'
+                            }}
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
                   {% endif %}
                 </div>
-              </div>
 
+                <div class="umm-fc__media-wrap">
+                  <div class="umm-fc__media">
+                    {% if img_d != blank %}
+                      <picture>
+                        {% if img_m != blank %}
+                          <source
+                            media="(max-width: 749px)"
+                            srcset="
+                              {{ img_m | image_url: width: 600 }} 600w,
+                              {{ img_m | image_url: width: 900 }} 900w,
+                              {{ img_m | image_url: width: 1200 }} 1200w
+                            "
+                            sizes="90vw">
+                        {% endif %}
+                        {{
+                          img_d
+                          | image_url: width: 1600
+                          | image_tag:
+                            loading: 'lazy',
+                            sizes: '(min-width: 750px) 50vw, 90vw',
+                            widths: '400, 600, 800, 1000, 1200, 1600',
+                            alt: block.settings.image_alt,
+                            style: 'object-fit: ' | append: fit | append: ';'
+                        }}
+                      </picture>
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
-        {% endif %}
-      {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="umm-fc__nav" aria-hidden="true">
+        <button class="swiper-button-prev" type="button" aria-label="Précédent">
+          {% render 'icon-caret-left' %}
+        </button>
+        <button class="swiper-button-next" type="button" aria-label="Suivant">
+          {% render 'icon-caret-right' %}
+        </button>
+      </div>
+
+      <div class="umm-fc__pagination swiper-pagination" aria-hidden="true"></div>
     </div>
 
   </div>
 </section>
 
+{% javascript %}
+  ;(() => {
+    const initSection = (section) => {
+      if (!section) return
+      const slider = section.querySelector('.umm-fc__slider')
+      if (!slider) return
+      if (!window.Swiper) return
+
+      let instance = null
+
+      const enableMobile = slider.dataset.sliderMobile === 'true'
+      const enableDesktop = slider.dataset.sliderDesktop === 'true'
+
+      const wrapper = slider.querySelector('.umm-fc__list')
+      const slides = slider.querySelectorAll('.umm-fc__card')
+      const paginationEl = slider.querySelector('.umm-fc__pagination')
+      const prevEl = slider.querySelector('.swiper-button-prev')
+      const nextEl = slider.querySelector('.swiper-button-next')
+
+      const addSwiperDom = () => {
+        slider.classList.add('swiper')
+        slider.classList.add('is-slider-active')
+        wrapper.classList.add('swiper-wrapper')
+        slides.forEach((s) => s.classList.add('swiper-slide'))
+      }
+
+      const removeSwiperDom = () => {
+        slider.classList.remove('swiper')
+        slider.classList.remove('is-slider-active')
+        wrapper.classList.remove('swiper-wrapper')
+        slides.forEach((s) => s.classList.remove('swiper-slide'))
+      }
+
+      const destroy = () => {
+        if (!instance) return
+        instance.destroy(true, true)
+        instance = null
+        removeSwiperDom()
+      }
+
+      const init = () => {
+        if (instance) return
+        addSwiperDom()
+
+        const slidesPerViewMobile = parseFloat(slider.dataset.slidesMobile || '1.1')
+        const slidesPerViewDesktop = parseFloat(slider.dataset.slidesDesktop || '1.1')
+        const spaceMobile = parseInt(slider.dataset.spaceMobile || '20', 10)
+        const spaceDesktop = parseInt(slider.dataset.spaceDesktop || '24', 10)
+
+        const swiperParams = {
+          loop: false,
+          speed: 800,
+          slidesPerView: slidesPerViewMobile,
+          spaceBetween: spaceMobile,
+          mousewheel: { forceToAxis: true },
+          watchOverflow: true,
+          breakpoints: {
+            750: {
+              slidesPerView: slidesPerViewDesktop,
+              spaceBetween: spaceDesktop,
+            },
+          },
+        }
+
+        if (slider.dataset.pagination === 'true') {
+          swiperParams.pagination = {
+            el: paginationEl,
+            type: 'bullets',
+            clickable: true,
+          }
+        }
+
+        if (slider.dataset.navigation === 'true') {
+          swiperParams.navigation = {
+            nextEl,
+            prevEl,
+          }
+        }
+
+        instance = new Swiper(slider, swiperParams)
+      }
+
+      const shouldEnable = (width) => {
+        if (width < 750) return enableMobile
+        return enableDesktop
+      }
+
+      const update = () => {
+        const width = section.getBoundingClientRect().width
+        if (shouldEnable(width)) init()
+        else destroy()
+      }
+
+      const ro = new ResizeObserver(() => update())
+      ro.observe(section)
+      update()
+
+      section.addEventListener('shopify:section:unload', () => {
+        ro.disconnect()
+        destroy()
+      })
+    }
+
+    if (document.currentScript?.parentElement) {
+      initSection(document.currentScript.parentElement)
+    }
+
+    document.addEventListener('shopify:section:load', (e) => initSection(e.target))
+  })()
+{% endjavascript %}
+
 {% schema %}
 {
-  "name": "Text with image v2",
+  "name": "Image avec texte v2",
   "settings": [
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" },
 
@@ -354,11 +649,19 @@
     { "type": "header", "content": "Style global" },
     { "type": "color", "id": "card_bg", "label": "Fond card", "default": "#F3F1FA" },
     { "type": "color", "id": "media_bg", "label": "Fond zone image", "default": "#ECECEF" },
+    { "type": "color", "id": "media_card_bg", "label": "Fond carte image (intérieur)", "default": "#FFFFFF" },
     { "type": "color", "id": "accent_color", "label": "Couleur bouton (bord + texte)", "default": "#2D0B5A" },
     { "type": "text", "id": "card_shadow", "label": "Box-shadow card (CSS)", "default": "0 10px 30px rgba(0,0,0,.06)" },
 
     { "type": "range", "id": "card_radius", "label": "Radius card", "min": 0, "max": 40, "step": 1, "default": 18 },
     { "type": "range", "id": "media_radius", "label": "Radius media", "min": 0, "max": 26, "step": 1, "default": 14 },
+
+    { "type": "checkbox", "id": "card_border_enable", "label": "Bordure autour des cards", "default": false },
+    { "type": "color", "id": "card_border_color", "label": "Couleur bordure card", "default": "#E5E7EB" },
+    { "type": "range", "id": "card_border_thickness", "label": "Épaisseur bordure card", "min": 0, "max": 6, "step": 1, "unit": "px", "default": 1 },
+
+    { "type": "color", "id": "media_card_border_color", "label": "Couleur bordure carte image", "default": "rgba(0,0,0,0.06)" },
+    { "type": "range", "id": "media_card_border_thickness", "label": "Épaisseur bordure carte image", "min": 0, "max": 6, "step": 1, "unit": "px", "default": 0 },
 
     { "type": "range", "id": "card_padding", "label": "Padding card (desktop)", "min": 18, "max": 64, "step": 1, "default": 44 },
     { "type": "range", "id": "card_padding_mobile", "label": "Padding card (mobile)", "min": 16, "max": 40, "step": 1, "default": 22 },
@@ -418,8 +721,52 @@
     { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 140, "step": 4, "default": 72 },
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 140, "step": 4, "default": 72 },
 
+    { "type": "header", "content": "Icon with text (taille)" },
+    { "type": "range", "id": "icon_size", "label": "Taille icône", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16 },
+
     { "type": "header", "content": "Logos (si utilisés)" },
-    { "type": "range", "id": "logo_height", "label": "Hauteur logos", "min": 10, "max": 28, "step": 1, "default": 16 }
+    { "type": "range", "id": "logo_height", "label": "Hauteur logos", "min": 10, "max": 28, "step": 1, "default": 16 },
+
+    { "type": "header", "content": "Slider (Swiper)" },
+    { "type": "checkbox", "id": "enable_slider_desktop", "label": "Activer en slider sur desktop + tablette", "default": false },
+    { "type": "checkbox", "id": "enable_slider_mobile", "label": "Activer en slider sur mobile", "default": true },
+    {
+      "type": "select",
+      "id": "slides_per_view_desktop",
+      "label": "Aperçu (desktop/tablette)",
+      "default": "1.1",
+      "options": [
+        { "value": "1", "label": "1.0" },
+        { "value": "1.05", "label": "1.05" },
+        { "value": "1.1", "label": "1.1" },
+        { "value": "1.2", "label": "1.2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_mobile",
+      "label": "Aperçu (mobile)",
+      "default": "1.08",
+      "options": [
+        { "value": "1", "label": "1.0" },
+        { "value": "1.03", "label": "1.03" },
+        { "value": "1.08", "label": "1.08" },
+        { "value": "1.12", "label": "1.12" },
+        { "value": "1.2", "label": "1.2" }
+      ]
+    },
+    { "type": "range", "id": "slider_space_desktop", "label": "Espace entre slides (desktop)", "min": 12, "max": 48, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "slider_space_mobile", "label": "Espace entre slides (mobile)", "min": 10, "max": 32, "step": 1, "unit": "px", "default": 18 },
+    { "type": "checkbox", "id": "show_bullets", "label": "Afficher les bullets", "default": true },
+    { "type": "checkbox", "id": "show_arrows", "label": "Afficher les flèches", "default": true },
+    { "type": "color", "id": "bullets_color", "label": "Couleur bullets", "default": "rgba(0,0,0,0.25)" },
+    { "type": "color", "id": "bullets_active_color", "label": "Couleur bullet active", "default": "rgba(0,0,0,0.6)" },
+    { "type": "color", "id": "nav_bg", "label": "Fond flèches", "default": "#FFFFFF" },
+    { "type": "color", "id": "nav_color", "label": "Couleur icône flèches", "default": "#111827" },
+    { "type": "range", "id": "nav_radius", "label": "Arrondi flèches", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 22 },
+    { "type": "checkbox", "id": "borderless_second_slide", "label": "2e slide sans bordure/ombre", "default": true },
+    { "type": "range", "id": "nav_border_thickness", "label": "Épaisseur bordure flèches", "min": 0, "max": 6, "step": 1, "unit": "px", "default": 1 },
+    { "type": "color", "id": "nav_border_color", "label": "Couleur bordure flèches", "default": "rgba(0,0,0,0.08)" }
   ],
   "blocks": [
     {
@@ -428,7 +775,31 @@
       "settings": [
         { "type": "text", "id": "eyebrow", "label": "Mini titre (eyebrow)", "default": "Navan Travel" },
         { "type": "text", "id": "heading", "label": "Titre", "default": "Les voyages d'affaires simplifiés" },
-        { "type": "textarea", "id": "text", "label": "Texte", "default": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple." },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Balise titre",
+          "default": "h3",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "p", "label": "P" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "heading_style",
+          "label": "Style titre (classe thème)",
+          "default": "h2",
+          "options": [
+            { "value": "h1", "label": "h1" },
+            { "value": "h2", "label": "h2" },
+            { "value": "h3", "label": "h3" },
+            { "value": "h4", "label": "h4" }
+          ]
+        },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple." },
 
         { "type": "text", "id": "button_label", "label": "Texte bouton", "default": "En savoir plus" },
         { "type": "url", "id": "button_link", "label": "Lien bouton" },
@@ -461,9 +832,30 @@
           ]
         },
 
+        { "type": "header", "content": "Bordure/ombre (optionnel)" },
+        { "type": "checkbox", "id": "borderless", "label": "Désactiver bordure/ombre sur cette card", "default": false },
+
         { "type": "header", "content": "Ligne logos (optionnel)" },
         { "type": "checkbox", "id": "show_logos", "label": "Afficher ligne logos", "default": false },
         { "type": "text", "id": "logos_label", "label": "Texte au-dessus des logos", "default": "Compatible avec :" }
+      ]
+    },
+    {
+      "type": "icon_text",
+      "name": "Icon with text",
+      "settings": [
+        {
+          "type": "range",
+          "id": "target_card",
+          "label": "Afficher dans la card n°",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        { "type": "image_picker", "id": "icon_image", "label": "Icône" },
+        { "type": "text", "id": "icon_alt", "label": "Alt icône", "default": "Icône" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Compatible avec Visa" }
       ]
     },
     {
@@ -487,7 +879,7 @@
   "max_blocks": 18,
   "presets": [
     {
-      "name": "Text with image v2",
+      "name": "Image avec texte v2",
       "blocks": [
         { "type": "card" },
         { "type": "card" },
