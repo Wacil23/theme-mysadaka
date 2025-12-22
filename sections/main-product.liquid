@@ -1381,6 +1381,173 @@
                   </div>
                 </div>
               </div>
+
+            {%- when 'cross_image_text' -%}
+              {%- style -%}
+                .product-cross-grid--{{ block.id }} {
+                  --pcg-line-thickness: {{ block.settings.line_thickness }}px;
+                  --pcg-icon-size: {{ block.settings.image_size }}px;
+                  --pcg-gap: {{ block.settings.gap }}px;
+
+                  {% if block.settings.padding_top == 'no-indent' or block.settings.padding_top == blank %}
+                    padding-top: 0;
+                  {% elsif block.settings.padding_top == 'xl' %}
+                    padding-top: 10rem;
+                  {% elsif block.settings.padding_top == 'l' %}
+                    padding-top: 6.4rem;
+                  {% elsif block.settings.padding_top == 'm' %}
+                    padding-top: 4.8rem;
+                  {% elsif block.settings.padding_top == 's' %}
+                    padding-top: 3.2rem;
+                  {% else %}
+                    padding-top: 2.4rem;
+                  {% endif %}
+
+                  {% if block.settings.padding_bottom == 'no-indent' or block.settings.padding_bottom == blank %}
+                    padding-bottom: 0;
+                  {% elsif block.settings.padding_bottom == 'xl' %}
+                    padding-bottom: 10rem;
+                  {% elsif block.settings.padding_bottom == 'l' %}
+                    padding-bottom: 6.4rem;
+                  {% elsif block.settings.padding_bottom == 'm' %}
+                    padding-bottom: 4.8rem;
+                  {% elsif block.settings.padding_bottom == 's' %}
+                    padding-bottom: 3.2rem;
+                  {% else %}
+                    padding-bottom: 2.4rem;
+                  {% endif %}
+                }
+
+                @media screen and (min-width: 750px) {
+                  .product-cross-grid--{{ block.id }} {
+                    {% if block.settings.padding_top == 'no-indent' or block.settings.padding_top == blank %}
+                      padding-top: 0;
+                    {% elsif block.settings.padding_top == 'xl' %}
+                      padding-top: 13.6rem;
+                    {% elsif block.settings.padding_top == 'l' %}
+                      padding-top: 8rem;
+                    {% elsif block.settings.padding_top == 'm' %}
+                      padding-top: 5.6rem;
+                    {% elsif block.settings.padding_top == 's' %}
+                      padding-top: 3.2rem;
+                    {% else %}
+                      padding-top: 2.4rem;
+                    {% endif %}
+
+                    {% if block.settings.padding_bottom == 'no-indent' or block.settings.padding_bottom == blank %}
+                      padding-bottom: 0;
+                    {% elsif block.settings.padding_bottom == 'xl' %}
+                      padding-bottom: 13.6rem;
+                    {% elsif block.settings.padding_bottom == 'l' %}
+                      padding-bottom: 8rem;
+                    {% elsif block.settings.padding_bottom == 'm' %}
+                      padding-bottom: 5.6rem;
+                    {% elsif block.settings.padding_bottom == 's' %}
+                      padding-bottom: 3.2rem;
+                    {% else %}
+                      padding-bottom: 2.4rem;
+                    {% endif %}
+                  }
+                }
+
+                @media screen and (min-width: 1440px) {
+                  .product-cross-grid--{{ block.id }} {
+                    {% if block.settings.padding_top == 'no-indent' or block.settings.padding_top == blank %}
+                      padding-top: 0;
+                    {% elsif block.settings.padding_top == 'xl' %}
+                      padding-top: 15.2rem;
+                    {% elsif block.settings.padding_top == 'l' %}
+                      padding-top: 12rem;
+                    {% elsif block.settings.padding_top == 'm' %}
+                      padding-top: 5.6rem;
+                    {% elsif block.settings.padding_top == 's' %}
+                      padding-top: 3.2rem;
+                    {% else %}
+                      padding-top: 2.4rem;
+                    {% endif %}
+
+                    {% if block.settings.padding_bottom == 'no-indent' or block.settings.padding_bottom == blank %}
+                      padding-bottom: 0;
+                    {% elsif block.settings.padding_bottom == 'xl' %}
+                      padding-bottom: 15.2rem;
+                    {% elsif block.settings.padding_bottom == 'l' %}
+                      padding-bottom: 12rem;
+                    {% elsif block.settings.padding_bottom == 'm' %}
+                      padding-bottom: 5.6rem;
+                    {% elsif block.settings.padding_bottom == 's' %}
+                      padding-bottom: 3.2rem;
+                    {% else %}
+                      padding-bottom: 2.4rem;
+                    {% endif %}
+                  }
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__grid {
+                  display: grid;
+                  grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell {
+                  padding: 1.2rem;
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell:nth-child(1),
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell:nth-child(3) {
+                  border-right: var(--pcg-line-thickness) solid rgba(var(--color-foreground), 0.15);
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell:nth-child(1),
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell:nth-child(2) {
+                  border-bottom: var(--pcg-line-thickness) solid rgba(var(--color-foreground), 0.15);
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__cell-inner {
+                  display: flex;
+                  align-items: center;
+                  gap: var(--pcg-gap);
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__image {
+                  width: var(--pcg-icon-size);
+                  height: var(--pcg-icon-size);
+                  object-fit: contain;
+                  flex: 0 0 auto;
+                }
+
+                .product-cross-grid--{{ block.id }} .product-cross-grid__text {
+                  margin: 0;
+                }
+              {%- endstyle -%}
+
+              <div class="product-cross-grid product-cross-grid--{{ block.id }}" {{ block.shopify_attributes }}>
+                <div class="product-cross-grid__grid" role="list">
+                  {%- for i in (1..4) -%}
+                    {%- liquid
+                      assign img_key = 'item_' | append: i | append: '_image'
+                      assign text_key = 'item_' | append: i | append: '_text'
+                      assign img = block.settings[img_key]
+                      assign txt = block.settings[text_key]
+                    -%}
+                    <div class="product-cross-grid__cell" role="listitem">
+                      <div class="product-cross-grid__cell-inner">
+                        {%- if img != blank -%}
+                          {{
+                            img
+                            | image_url: width: 96
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'product-cross-grid__image',
+                              alt: img.alt
+                          }}
+                        {%- endif -%}
+                        <{{ block.settings.text_tag }} class="product-cross-grid__text">
+                          {{ txt | escape }}
+                        </{{ block.settings.text_tag }}>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </div>
             {%- when '@app' -%}
               {% render block %}
           {%- endcase -%}
@@ -3320,6 +3487,177 @@
           "id": "default_open",
           "default": false,
           "label": "t:sections.main-product.blocks.dropdown_information.settings.default_open.label"
+        }
+      ]
+    },
+    {
+      "type": "cross_image_text",
+      "name": "Grille croisée (image + texte)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Contenu"
+        },
+        {
+          "type": "select",
+          "id": "text_tag",
+          "label": "Niveau du texte (balise HTML)",
+          "default": "p",
+          "options": [
+            { "value": "p", "label": "Paragraphe (p)" },
+            { "value": "h2", "label": "Titre H2" },
+            { "value": "h3", "label": "Titre H3" },
+            { "value": "h4", "label": "Titre H4" },
+            { "value": "span", "label": "Span" },
+            { "value": "div", "label": "Div" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "item_1_image",
+          "label": "Image 1"
+        },
+        {
+          "type": "text",
+          "id": "item_1_text",
+          "label": "Texte 1",
+          "default": "Réduit le stress"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_2_image",
+          "label": "Image 2"
+        },
+        {
+          "type": "text",
+          "id": "item_2_text",
+          "label": "Texte 2",
+          "default": "Améliore l'humeur"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_3_image",
+          "label": "Image 3"
+        },
+        {
+          "type": "text",
+          "id": "item_3_text",
+          "label": "Texte 3",
+          "default": "Réduit la fatigue"
+        },
+        {
+          "type": "image_picker",
+          "id": "item_4_image",
+          "label": "Image 4"
+        },
+        {
+          "type": "text",
+          "id": "item_4_text",
+          "label": "Texte 4",
+          "default": "Améliore le sommeil"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "range",
+          "id": "line_thickness",
+          "label": "Épaisseur des séparateurs",
+          "min": 1,
+          "max": 8,
+          "step": 1,
+          "unit": "px",
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "image_size",
+          "label": "Taille des images",
+          "min": 16,
+          "max": 64,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "label": "Espace image/texte",
+          "min": 6,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "header",
+          "content": "t:sections.all.section-padding.header.content"
+        },
+        {
+          "type": "select",
+          "id": "padding_top",
+          "options": [
+            {
+              "value": "no-indent",
+              "label": "t:sections.all.section-padding.options__1.label"
+            },
+            {
+              "value": "xs",
+              "label": "t:sections.all.section-padding.options__2.label"
+            },
+            {
+              "value": "s",
+              "label": "t:sections.all.section-padding.options__3.label"
+            },
+            {
+              "value": "m",
+              "label": "t:sections.all.section-padding.options__4.label"
+            },
+            {
+              "value": "l",
+              "label": "t:sections.all.section-padding.options__5.label"
+            },
+            {
+              "value": "xl",
+              "label": "t:sections.all.section-padding.options__6.label"
+            }
+          ],
+          "default": "m",
+          "label": "t:sections.all.section-padding.padding_top.label"
+        },
+        {
+          "type": "select",
+          "id": "padding_bottom",
+          "options": [
+            {
+              "value": "no-indent",
+              "label": "t:sections.all.section-padding.options__1.label"
+            },
+            {
+              "value": "xs",
+              "label": "t:sections.all.section-padding.options__2.label"
+            },
+            {
+              "value": "s",
+              "label": "t:sections.all.section-padding.options__3.label"
+            },
+            {
+              "value": "m",
+              "label": "t:sections.all.section-padding.options__4.label"
+            },
+            {
+              "value": "l",
+              "label": "t:sections.all.section-padding.options__5.label"
+            },
+            {
+              "value": "xl",
+              "label": "t:sections.all.section-padding.options__6.label"
+            }
+          ],
+          "default": "m",
+          "label": "t:sections.all.section-padding.padding_bottom.label"
         }
       ]
     },
