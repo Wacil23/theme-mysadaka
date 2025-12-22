@@ -87,7 +87,7 @@
         "block_2": {
           "type": "title",
           "settings": {
-            "heading": "Votre projet de sadaqa, réalisé avec excellence pour ceux qui comptent pour vous.",
+            "heading": "Votre projet de sadaqa TEST, réalisé avec excellence pour ceux qui comptent pour vous.",
             "heading_size": "h1",
             "heading_level": "h1",
             "heading_line": "background",
@@ -251,9 +251,7 @@
         "logo_FKdBLy",
         "logo_LcWrFF"
       ],
-      "custom_css": [
-        ".logo-list__item.swiper-slide {opacity: 0.4;}"
-      ],
+      "custom_css": [".logo-list__item.swiper-slide {opacity: 0.4;}"],
       "name": "t:sections.logo-list.name",
       "settings": {
         "layout": "horizontal-carousel",
@@ -511,9 +509,7 @@
           }
         }
       },
-      "block_order": [
-        "heading_MgLExf"
-      ],
+      "block_order": ["heading_MgLExf"],
       "custom_css": [],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -656,11 +652,7 @@
           }
         }
       },
-      "block_order": [
-        "step_qfizB8",
-        "step_wy3HRj",
-        "step_CMYfR4"
-      ],
+      "block_order": ["step_qfizB8", "step_wy3HRj", "step_CMYfR4"],
       "name": "UMM — Text + image steps",
       "settings": {
         "color_scheme": "",
@@ -731,9 +723,7 @@
         "testimonials_slide_cV3mNw",
         "testimonials_slide_k744Uk"
       ],
-      "custom_css": [
-        "p.testimonials__text.h6 {font-weight: 300 !important;}"
-      ],
+      "custom_css": ["p.testimonials__text.h6 {font-weight: 300 !important;}"],
       "name": "t:sections.testimonials.name",
       "settings": {
         "layout": "simple_slider",
