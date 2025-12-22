@@ -1,0 +1,115 @@
+{% for block in blocks %}
+{% assign mega_menu_trigger = block.settings.menu_trigger | handle | strip %}
+{% if link.handle == mega_menu_trigger and block.type == 'mega_menu_only_collection' %}
+<div
+  class="header__mega-menu {% if from_mobile == false %} mega-menu{% endif %} mega-menu--columns mega-menu--columns-{{ block.settings.column_to_show }} color-background-1">
+  <div class="mega-menu__columns mega-menu__columns--{{ block.settings.column_to_show }}">
+    <ul class="collections-list collections-grid collections-grid--{{ block.settings.layout }} 
+        collections-grid--{{ block.settings.collections_to_show }} 
+        collections-grid--{{ block.settings.columns_mobile }}-mobile load-more-grid" role="list">
+      {%- for collection in block.settings.collection_list -%}
+        <li class="
+                collections-grid__item  collections-grid__item--{{ collection.id }}
+                collections-grid__item--simple
+                 {% if block.settings.layout == 'overlay' %} color-{{ block.settings.color_scheme }} {% endif %}
+                {% if block.settings.image_ratio == 'portrait' or block.settings.image_ratio == 'portrait' %} collections-grid__card--portrait {% endif %}
+                collections-grid__item--{{- block.settings.image_ratio }}
+              ">
+        {% if block.settings.layout == 'overlay' %}
+        <span class="collections-grid__overlay" style="--opacity: {{ block.settings.overlay_opacity }};"></span>
+        {% endif %}
+
+        {% assign collection_product_image = collection.featured_image %}
+
+        {% if block.settings.image_ratio == 'adapt' and collection_product_image != blank %}
+        {% if block.settings.layout == 'overlay' %}
+        {% style %}
+        .collections-grid__item--{{ collection.id }}::after {
+        padding-bottom: {{ 1 | divided_by: collection_product_image.aspect_ratio | times: 100 }}%;
+        }
+        {% endstyle %}
+        {% else %}
+        {% style %}
+        .collections-grid__item--{{ collection.id }} .collections-grid__image {
+        padding-bottom: {{ 1 | divided_by: collection_product_image.aspect_ratio | times: 100 }}%;
+        }
+        {% endstyle %}
+        {% endif %}
+        {% endif %}
+        {% if block.type == 'mega_menu_only_collection' %}  
+          {% style  %} 
+            .collections-grid__item{
+              flex-direction: column;
+            }
+            @media screen and (min-width: 1200px) {
+              .collections-grid--4, .collections-grid--5, .collections-grid--4.collections-grid--simple,
+              .collections-grid--5.collections-grid--simple {
+              grid-template-columns: repeat(3, 1fr);
+              }
+            }
+            .mega-menu--columns {
+            container-name: none;
+            }
+          {% endstyle %}
+        {% endif %}
+
+        <div
+          class="collections-grid__image collections-grid__image--{{ block.settings.image_ratio }} collections-grid__image--{{- block.settings.image_fit -}}">
+          {%- if collection_product_image != blank -%}
+          {% assign columns = block.settings.collections_to_show %}
+          {%- capture sizes -%}
+          {% if columns == 6 %}
+          (min-width: 1600px) calc((100vw - 40px) / 6),
+          {% endif %}
+          {% if columns >= 5 %}
+          (min-width: 1360px) calc((100vw - 40px) / 5),
+          {% endif %}
+          {% if columns >= 4 %}
+          (min-width: 1200px) calc((100vw - 40px) / 4),
+          {% endif %}
+          {% if columns >= 3 %}
+          (min-width: 990px) calc((100vw - 40px) / 3),
+          {% endif %}
+          {% if columns >= 2 %}
+          (min-width: 750px) calc((100vw - 40px) / 2),
+          {% endif %}
+          calc(((100vw - 40px)) * {{ width_ratio }})
+          {%- endcapture -%}
+
+          {{
+          collection_product_image
+          | image_url: width: collection_product_image.width
+          | image_tag:
+          loading: 'lazy',
+          sizes: sizes,
+          widths: '360, 550, 750, 900, 1100, 1420, 1700, 1920, 2200, 2400, 2600'
+          }}
+          {% endif %}
+        </div>
+        <div class="collections-grid__information">
+          <h2 class="collections-grid__title h5">
+            <span>{{- collection.title -}}</span>
+          </h2>
+          {% if block.settings.show_desc %}
+          {% if block.settings.alt_desc and collection.metafields.custom.description != blank %}
+          <p class="collections-grid__desc">
+            {{- collection.metafields.custom.description | strip_html | truncatewords: 50, '...' -}}
+          </p>
+          {%- elsif collection.description != blank -%}
+          <p class="collections-grid__desc">
+            {{- collection.description | strip_html | truncatewords: 50, '...' -}}
+          </p>
+          {% endif %}
+          {% endif %}
+        </div>
+        <a href="{{ collection.url | default: '#' }}" class=" collections-grid__link_overlay"
+          aria-label="{{ collection.title }}">
+          <span class="visibility-hidden">{{ collection.title }}</span>
+        </a>
+        </li>
+        {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{% endif %}
+{% endfor %}

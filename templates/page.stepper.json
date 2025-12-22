@@ -1,0 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".drawer {display: none;}"
+      ],
+      "settings": {
+        "padding_top": "no-indent",
+        "padding_bottom": "m"
+      }
+    },
+    "17661836149b310144": {
+      "type": "apps",
+      "blocks": {
+        "stepper_subscription_stepper_Q9fNh6": {
+          "type": "shopify://apps/stepper/blocks/subscription-stepper/eb4ad5d3-817f-46d3-8369-160512b421b8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "stepper_subscription_stepper_Q9fNh6"
+      ],
+      "custom_css": [
+        ".spaced-section .container {max-width: 100%; padding: 0;}"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "17661836149b310144"
+  ]
+}

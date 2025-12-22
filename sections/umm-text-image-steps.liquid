@@ -1,0 +1,336 @@
+
+
+{% liquid
+  assign sid = 'umm-steps-' | append: section.id
+  assign slider_enabled = false
+  if section.settings.enable_mobile_slider and section.blocks.size > 1
+    assign slider_enabled = true
+  endif
+%}
+
+{% style %}
+  .{{ sid }}{
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .{{ sid }} .page-width{
+    position: relative;
+  }
+
+  .{{ sid }} .umm-steps__head{
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .{{ sid }} .umm-steps__title{
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    line-height: 1.05;
+  }
+
+  .{{ sid }} .umm-steps__desc{
+    margin: 14px auto 0;
+    max-width: 720px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+    line-height: 1.45;
+    opacity: .92;
+  }
+
+  /* === Cards === */
+  .{{ sid }} .umm-steps__card{
+    background: {{ section.settings.card_bg }};
+    border-radius: {{ section.settings.card_radius }}px;
+    padding: {{ section.settings.card_padding }}px;
+    box-shadow: {{ section.settings.card_shadow }};
+    height: 100%;
+  }
+
+  /* Fixed media ratio => card height stable whatever the image */
+  .{{ sid }} .umm-steps__media{
+    border-radius: {{ section.settings.media_radius }}px;
+    background: {{ section.settings.media_bg }};
+    overflow: hidden;
+
+    aspect-ratio: {{ section.settings.media_ratio }};
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .{{ sid }} .umm-steps__media img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-position: center;
+  }
+
+  .{{ sid }} .umm-steps__meta{
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .{{ sid }} .umm-steps__num{
+    flex: 0 0 auto;
+    width: clamp(44px, 10vw, 76px);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+
+    line-height: 1;
+    opacity: .95;
+    font-size: clamp(44px, 9vw, 92px);
+  }
+
+  .{{ sid }} .umm-steps__text{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .{{ sid }} .umm-steps__item-title{
+    margin: 0 0 10px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .{{ sid }} .umm-steps__item-desc{
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+    line-height: 1.55;
+    opacity: .92;
+  }
+
+  /* === Layout desktop/tablet (grid) === */
+  .{{ sid }} .umm-steps__items{
+    display: grid;
+    gap: 56px;
+    align-items: stretch;
+  }
+
+  @media (min-width: 990px){
+    .{{ sid }} .umm-steps__items{
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 750px) and (max-width: 989px){
+    .{{ sid }} .umm-steps__items{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px;
+    }
+  }
+
+  @media (max-width: 749px){
+    .{{ sid }} .umm-steps__items{
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  /* === MOBILE SLIDER MODE === */
+  @media (max-width: 749px){
+    .{{ sid }}.is-slider .umm-steps__items{
+      display: flex;
+      gap: {{ section.settings.slider_gap }}px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+
+      margin-left: calc(var(--page-width-padding) * -1);
+      margin-right: calc(var(--page-width-padding) * -1);
+    }
+
+    .{{ sid }}.is-slider .umm-steps__items::-webkit-scrollbar{ display:none; }
+    .{{ sid }}.is-slider .umm-steps__items{ scrollbar-width:none; }
+
+    /* LEFT GUTTER ON FIRST VIEW (scrollable away) */
+    .{{ sid }}.is-slider .umm-steps__items::before{
+      content: "";
+      flex: 0 0 {{ section.settings.slider_left_gutter }}px;
+    }
+
+    .{{ sid }}.is-slider .umm-steps__item{
+      flex: 0 0 auto;
+      width: {{ section.settings.slider_card_width }}%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .{{ sid }} .umm-steps__meta{
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .{{ sid }} .umm-steps__num{
+      width: clamp(40px, 12vw, 60px);
+      font-size: clamp(40px, 12vw, 70px);
+    }
+  }
+{% endstyle %}
+
+<section class="{{ sid }} color-{{ section.settings.color_scheme }}{% if slider_enabled %} is-slider{% endif %}">
+  <div class="page-width">
+
+    <div class="umm-steps__head">
+      {% if section.settings.title != blank %}
+        <h2 class="umm-steps__title h1">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="umm-steps__desc rte">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="umm-steps__items">
+      {% for block in section.blocks %}
+        {% assign img_d = block.settings.image_desktop %}
+        {% assign img_m = block.settings.image_mobile %}
+        {% assign fit = block.settings.image_fit %}
+
+        <div class="umm-steps__item" {{ block.shopify_attributes }}>
+          <div class="umm-steps__card">
+
+            <div class="umm-steps__media">
+              {% if img_d != blank %}
+                <picture>
+                  {% if img_m != blank %}
+                    <source
+                      media="(max-width: 749px)"
+                      srcset="{{ img_m | image_url: width: 900 }} 900w, {{ img_m | image_url: width: 600 }} 600w"
+                      sizes="90vw">
+                  {% endif %}
+                  <img
+                    src="{{ img_d | image_url: width: 1200 }}"
+                    alt="{{ block.settings.image_alt | escape }}"
+                    loading="lazy"
+                    width="{{ img_d.width }}"
+                    height="{{ img_d.height }}"
+                    style="object-fit: {{ fit }};"
+                  >
+                </picture>
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+
+            <div class="umm-steps__meta">
+              <div class="umm-steps__num">{{ block.settings.number }}</div>
+
+              <div class="umm-steps__text">
+                {% if block.settings.title != blank %}
+                  <div class="umm-steps__item-title">{{ block.settings.title }}</div>
+                {% endif %}
+                {% if block.settings.description != blank %}
+                  <div class="umm-steps__item-desc">{{ block.settings.description }}</div>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Step with image",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" },
+
+    { "type": "header", "content": "Contenu" },
+    { "type": "text", "id": "title", "label": "Titre de section", "default": "Des économies record" },
+    { "type": "richtext", "id": "description", "label": "Description de section", "default": "<p>Des leviers efficaces pour réduire les coûts de voyage de votre entreprise</p>" },
+
+    { "type": "header", "content": "Style cards" },
+    { "type": "color", "id": "card_bg", "label": "Fond card", "default": "#F3F1FA" },
+    { "type": "color", "id": "media_bg", "label": "Fond zone image", "default": "#F3F1FA" },
+    { "type": "range", "id": "card_radius", "label": "Radius card", "min": 0, "max": 40, "step": 1, "default": 22 },
+    { "type": "range", "id": "media_radius", "label": "Radius image", "min": 0, "max": 30, "step": 1, "default": 16 },
+    { "type": "range", "id": "card_padding", "label": "Padding card", "min": 12, "max": 44, "step": 1, "default": 28 },
+    { "type": "text", "id": "card_shadow", "label": "Box-shadow card (CSS)", "default": "0 10px 30px rgba(0,0,0,.06)" },
+
+    { "type": "header", "content": "Ratio image (fixe = cards stables)" },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Ratio",
+      "default": "4 / 3",
+      "options": [
+        { "value": "1 / 1", "label": "1:1 (carré)" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "16 / 9", "label": "16:9" }
+      ]
+    },
+
+    { "type": "header", "content": "Espacements section" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "default": 72 },
+
+    { "type": "header", "content": "Slider mobile" },
+    { "type": "checkbox", "id": "enable_mobile_slider", "label": "Activer slider sur mobile", "default": true },
+    { "type": "range", "id": "slider_card_width", "label": "Largeur card (%)", "min": 70, "max": 95, "step": 1, "default": 86 },
+    { "type": "range", "id": "slider_gap", "label": "Gap entre cards (px)", "min": 8, "max": 30, "step": 1, "default": 16 },
+    { "type": "range", "id": "slider_left_gutter", "label": "Espace gauche initial (px)", "min": 0, "max": 40, "step": 1, "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Élément",
+      "settings": [
+        { "type": "header", "content": "Image" },
+        { "type": "image_picker", "id": "image_desktop", "label": "Image desktop" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image mobile (optionnel)" },
+        { "type": "text", "id": "image_alt", "label": "Alt image", "default": "Visuel" },
+        {
+          "type": "select",
+          "id": "image_fit",
+          "label": "Image fit",
+          "default": "cover",
+          "options": [
+            { "value": "cover", "label": "Cover" },
+            { "value": "contain", "label": "Contain" }
+          ]
+        },
+
+        { "type": "header", "content": "Texte" },
+        { "type": "text", "id": "number", "label": "Chiffre", "default": "1" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Un inventaire inégalé" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Avec Navan, vous accédez à un vaste inventaire de voyage..." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "UMM — Text + image steps (native)",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

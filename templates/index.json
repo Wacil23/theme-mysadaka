@@ -1,0 +1,1647 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "floating_sticky_cta_xcAxKG": {
+      "type": "floating-sticky-cta",
+      "name": "Floating Sticky CTA",
+      "settings": {
+        "show_on_mobile": true,
+        "show_on_desktop": true,
+        "target_selector": ".hero__buttons",
+        "show_when": "out_of_view",
+        "observer_root_margin": "",
+        "observer_threshold": "0",
+        "hide_enabled": true,
+        "hide_selector": "footer",
+        "hide_root_margin": "0px 0px 0px 0px",
+        "hide_threshold": "0",
+        "button_title": "Dedicate now",
+        "button_subtitle": "Click & discover all sadaqas",
+        "button_link": "",
+        "icon_size": 50,
+        "container_width_mode": "full",
+        "button_width_mode": "auto",
+        "container_bg": "rgba(0,0,0,0)",
+        "container_radius": 0,
+        "container_pad_y": 15,
+        "container_pad_x": 50,
+        "container_shadow": "",
+        "container_border_top_width": 0,
+        "container_border_top_color": "#e9e9ef",
+        "button_use_gradient": false,
+        "button_color_1": "#277355",
+        "button_color_2": "#9e8457",
+        "button_text_color": "#ffffff",
+        "gradient_animated": false,
+        "gradient_speed": 34,
+        "shine_enabled": true,
+        "shine_speed": 15,
+        "shine_intensity": 25,
+        "button_radius": 100,
+        "button_pad_y": 14,
+        "button_pad_x": 40,
+        "button_shadow": "",
+        "max_width": 1260,
+        "horizontal_position": "center",
+        "text_align": "center",
+        "bottom_offset": 0,
+        "side_offset": 0,
+        "z_index": 100,
+        "title_size": 16,
+        "subtitle_size": 12,
+        "title_size_mobile": 15,
+        "subtitle_size_mobile": 11,
+        "anim_duration": 220
+      }
+    },
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "logo_x4tCPH": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Reassurance_badge_2d16fbd4-2f87-4e62-adb2-49838746654e.svg",
+            "logo_alt": "Logo",
+            "logo_link": "",
+            "logo_width": 230,
+            "logo_align": "left"
+          }
+        },
+        "block_1": {
+          "type": "subtitle",
+          "disabled": true,
+          "settings": {
+            "subheading": "Votre agence de sadaqa en ligne",
+            "subheading_style": "subtitle",
+            "subheading_icon": "none"
+          }
+        },
+        "block_2": {
+          "type": "title",
+          "settings": {
+            "heading": "Votre projet de sadaqa, réalisé avec excellence pour ceux qui comptent pour vous.",
+            "heading_size": "h1",
+            "heading_level": "h1",
+            "heading_line": "background",
+            "line_color": "#000000",
+            "word_break": true,
+            "heading_animation": "appearing",
+            "word_break_an": true
+          }
+        },
+        "block_3": {
+          "type": "description",
+          "settings": {
+            "description": "Une sadaqa au nom de ceux qui vous sont chers, qui soulage vos frères et sœurs de la Ummah et porte, par la permission d’Allah, une bénédiction pour eux et pour vous."
+          }
+        },
+        "captions_6zGxFK": {
+          "type": "captions",
+          "disabled": true,
+          "settings": {
+            "show_caption_1": true,
+            "caption_text_1": "Preuve vidéo",
+            "caption_icon_1": "check-2",
+            "show_caption_2": true,
+            "caption_text_2": "Certificat",
+            "caption_icon_2": "check-2",
+            "show_caption_3": false,
+            "caption_text_3": "",
+            "caption_icon_3": "check-2"
+          }
+        },
+        "block_4": {
+          "type": "buttons",
+          "settings": {
+            "show_button_1": true,
+            "button_label_1": "Choose a sadaqa",
+            "button_link_1": "shopify://products/citerne-deau-a-gaza",
+            "button_style_1": "primary",
+            "show_button_2": true,
+            "button_label_2": "How it work",
+            "button_link_2": "shopify://products/place-d-ablution-1-18-a-votre-nom",
+            "button_style_2": "simple_link"
+          }
+        }
+      },
+      "block_order": [
+        "logo_x4tCPH",
+        "block_1",
+        "block_2",
+        "block_3",
+        "captions_6zGxFK",
+        "block_4"
+      ],
+      "custom_css": [
+        "h1.hero__title.title.h1.hero__title--background.title--background.js-anim-appearing.hero__title--word_break.hero__title--word_break_an {margin-top: 2rem;}"
+      ],
+      "settings": {
+        "layout": "horizontal",
+        "header_overlay": false,
+        "header_transparent": false,
+        "block_type": "plain",
+        "umm_bg_enable": true,
+        "umm_bg_image_desktop": "shopify://shop_images/Simple_hero_2b759649-7af2-419c-ae42-c846ce5721a9.png",
+        "umm_bg_fit": "cover",
+        "umm_bg_position": "top right",
+        "umm_bg_opacity": 67,
+        "umm_bg_blur": 0,
+        "umm_bg_tint_color": "#000000",
+        "umm_bg_tint_opacity": 0,
+        "color_scheme": "background-1",
+        "full_screen": true,
+        "image": "shopify://shop_images/herosectionMysadaka.png",
+        "image_mobile": "shopify://shop_images/her.png",
+        "show_video": false,
+        "overlay_opacity": 0,
+        "image_ratio": "adapt",
+        "object_fit": "contain",
+        "desktop_image_position": "after",
+        "mobile_image_position": "after",
+        "mobile_image_overlay": "after",
+        "horizontal_alignment": "left",
+        "vertical_alignment": "top",
+        "padding_top": "xs",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "logo_list_EEy6nx": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_UQDTjN": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/heineken-blue.svg",
+            "image_width": 100,
+            "logo_link": ""
+          }
+        },
+        "logo_BFqeWc": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/teads-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        },
+        "logo_zAjxiD": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/vestiaire-collective-blue.svg",
+            "image_width": 125,
+            "logo_link": ""
+          }
+        },
+        "logo_HtEB39": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/aircall-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        },
+        "logo_DDUqM6": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/sorare-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        },
+        "logo_YV4pbC": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/primark-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        },
+        "logo_FKdBLy": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/pinterest-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        },
+        "logo_LcWrFF": {
+          "type": "logo",
+          "settings": {
+            "image_1": "shopify://shop_images/zoom-blue.svg",
+            "image_width": 140,
+            "logo_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_UQDTjN",
+        "logo_BFqeWc",
+        "logo_zAjxiD",
+        "logo_HtEB39",
+        "logo_DDUqM6",
+        "logo_YV4pbC",
+        "logo_FKdBLy",
+        "logo_LcWrFF"
+      ],
+      "custom_css": [
+        ".logo-list__item.swiper-slide {opacity: 0.4;}"
+      ],
+      "name": "t:sections.logo-list.name",
+      "settings": {
+        "layout": "horizontal-carousel",
+        "color_scheme": "background-1",
+        "enable_border": false,
+        "border_full": true,
+        "subheading": "",
+        "subheading_style": "subtitle",
+        "subheading_icon": "none",
+        "heading": "",
+        "heading_size": "h3",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "",
+        "horizontal_alignment": "center",
+        "vertical_alignment": "middle",
+        "speed_slider_1": 4000,
+        "speed_slider_2": 6000,
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "hero_animate_jDMYFi": {
+      "type": "hero-animate",
+      "blocks": {
+        "card_ATFC3W": {
+          "type": "card",
+          "settings": {
+            "title": "My wheelchair in Makkah",
+            "subtitle": "Vidéo de dépôt (anonymisée)",
+            "pill_enable": true,
+            "pill_url": "shopify://products/mon-fauteuil-roulant-a-makkah",
+            "pill_subtitle": "",
+            "pill_title": "Discover this service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/ProductImageWheel.png",
+            "video_desktop": "shopify://files/videos/Wheelchair_FR.mp4",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 2,
+            "shadow_y_px": 2,
+            "shadow_blur_px": 4,
+            "shadow_opacity": 20
+          }
+        },
+        "card_PmXHiL": {
+          "type": "card",
+          "settings": {
+            "title": "Olive Tree",
+            "subtitle": "Vidéo de plantation (anonymisée)",
+            "pill_enable": true,
+            "pill_url": "shopify://products/citerne-deau-a-gaza",
+            "pill_subtitle": "",
+            "pill_title": "Discover this service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/83a75da1-a130-4fa0-89f9-70b4a1b0ded5_0.png",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 2,
+            "shadow_y_px": 2,
+            "shadow_blur_px": 4,
+            "shadow_opacity": 30
+          }
+        },
+        "card_xXjVyq": {
+          "type": "card",
+          "settings": {
+            "title": "My quran in Makkah",
+            "subtitle": "Vidéo de dépôt (anonymisée)",
+            "pill_enable": true,
+            "pill_url": "shopify://products/hajj-mysadaka",
+            "pill_subtitle": "",
+            "pill_title": "Discover this service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/ProductImageQuran.png",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 0,
+            "shadow_y_px": 16,
+            "shadow_blur_px": 40,
+            "shadow_opacity": 14
+          }
+        },
+        "card_GFTRdB": {
+          "type": "card",
+          "settings": {
+            "title": "Ablution place",
+            "subtitle": "Vidéo d'installation (anonymisée)",
+            "pill_enable": true,
+            "pill_url": "shopify://blogs/sadaqa-3",
+            "pill_subtitle": "",
+            "pill_title": "Discover this service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/step_2.webp",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 0,
+            "shadow_y_px": 16,
+            "shadow_blur_px": 40,
+            "shadow_opacity": 14
+          }
+        },
+        "card_rmtCe3": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "title": "Navan Rewards",
+            "subtitle": "Un aperçu du produit",
+            "pill_enable": false,
+            "pill_url": "",
+            "pill_subtitle": "Service",
+            "pill_title": "Découvrir",
+            "pill_position": "top-left",
+            "image_desktop": "shopify://shop_images/1938571.png",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 0,
+            "shadow_y_px": 16,
+            "shadow_blur_px": 40,
+            "shadow_opacity": 14
+          }
+        },
+        "card_aPwLLc": {
+          "type": "card",
+          "settings": {
+            "title": "Umrah badal",
+            "subtitle": "Vidéo de dépôt (anonymisée)",
+            "pill_enable": true,
+            "pill_url": "shopify://blogs/sadaqa-3",
+            "pill_subtitle": "",
+            "pill_title": "Discover this service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/Captured_ecran2024-05-23163429.png",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 0,
+            "shadow_y_px": 16,
+            "shadow_blur_px": 40,
+            "shadow_opacity": 14
+          }
+        },
+        "card_4TdAnG": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "title": "Islamic flag",
+            "subtitle": "in Makkah",
+            "pill_enable": true,
+            "pill_url": "shopify://products/citerne-deau-a-gaza",
+            "pill_subtitle": "",
+            "pill_title": "View service",
+            "pill_position": "top-right",
+            "image_desktop": "shopify://shop_images/ChatGPTImage30sept.2025_17_28_46.png",
+            "fit": "cover",
+            "alt": "alt",
+            "size": "md",
+            "shadow_custom": false,
+            "shadow_x_px": 0,
+            "shadow_y_px": 16,
+            "shadow_blur_px": 40,
+            "shadow_opacity": 14
+          }
+        }
+      },
+      "block_order": [
+        "card_ATFC3W",
+        "card_PmXHiL",
+        "card_xXjVyq",
+        "card_GFTRdB",
+        "card_rmtCe3",
+        "card_aPwLLc",
+        "card_4TdAnG"
+      ],
+      "name": "UMM — Animated media cards",
+      "settings": {
+        "full_bleed": true,
+        "center_card_position": "1",
+        "desktop_safe_x_px": 0,
+        "heading": "Une vidéo personnalisée pour chacune de vos sadaqas",
+        "text": "<p>Que ce sois une sadaqa à Makkah, en Palestine ou au Pakistan, vous recevez une vidéo avec des duaas en faveur du bénéficiaire de la sadaqa attestant de la réalisation de celle-ci sur place.</p>",
+        "max_text_w_px": 620,
+        "bg_desktop": "linear-gradient(0deg, rgba(255, 243, 228, 1), rgba(255, 255, 255, 1) 70%)",
+        "bg_mobile": "linear-gradient(0deg, rgba(255, 243, 228, 1), rgba(255, 255, 255, 1) 70%)",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "desktop_scene_margin_top_px": 30,
+        "card_bg": "#fffbf5",
+        "card_border_color": "#f1f1f1",
+        "card_border_w_px": 0,
+        "card_radius_px": 22,
+        "shadow_x_px": 0,
+        "shadow_y_px": 0,
+        "shadow_blur_px": 0,
+        "shadow_opacity": 0,
+        "desktop_card_w_px": 220,
+        "desktop_card_h_px": 420,
+        "desktop_base_top_px": 100,
+        "desktop_top_step_px": 0,
+        "desktop_step_x_px": 279,
+        "desktop_curve_x_px": 0,
+        "desktop_spread_px": 88,
+        "desktop_speed_pct": 160,
+        "desktop_distance_curve_pct": 145,
+        "play_size_px": 60,
+        "play_icon_px": 50.2,
+        "pill_bg": "#ffffff",
+        "pill_color": "#000000",
+        "pill_pad_x_px": 14,
+        "pill_pad_y_px": 12,
+        "pill_radius_px": 100,
+        "enable_mobile_carousel": true,
+        "mobile_card_h_px": 460,
+        "mobile_slide_width_vw": 70,
+        "mobile_gap_px": 10,
+        "mobile_side_opacity": 30,
+        "mobile_side_blur_pct": 0,
+        "mobile_active_scale_pct": 100,
+        "mobile_side_scale_pct": 89,
+        "show_bullets": true,
+        "bullets_size_px": 8,
+        "bullets_gap_px": 8,
+        "bullets_color": "#00000040",
+        "bullets_active_color": "#277355",
+        "video_default_muted": false,
+        "show_sound_toggle": true
+      }
+    },
+    "rich_text_dcDcFW": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_MgLExf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Une sadaqa, là où la Ummah en a vraiment besoin",
+            "heading_size": "medium",
+            "heading_level": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MgLExf"
+      ],
+      "custom_css": [],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true,
+        "alignment": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "l",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "image_with_text_v2_kmxjmQ": {
+      "type": "image-with-text-v2",
+      "blocks": {
+        "logo_PFr3XU": {
+          "type": "logo",
+          "settings": {
+            "target_card": 3,
+            "logo_image": "shopify://shop_images/images.png",
+            "logo_alt": "Logo"
+          }
+        },
+        "card_AtJ6GY": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "Fauteuil roulant, Coran...",
+            "heading": "À Makkah",
+            "text": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple. Vos salariés accèdent à un large inventaire, et vous gardez le contrôle sur votre budget voyage.",
+            "button_label": "Choisir une sadaqa à Makkah",
+            "button_link": "shopify://products/citerne-deau-a-gaza",
+            "image_desktop": "shopify://shop_images/586548592_122259007934218186_2292578439084185566_n.png",
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "desktop_layout": "auto",
+            "show_logos": false,
+            "logos_label": "Compatible avec :"
+          }
+        },
+        "card_WRxBVP": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "Citerne d'eau, Repas...",
+            "heading": "En Palestine",
+            "text": "Simplifiez la gestion des notes de frais du paiement à la réconciliation. Automatisez la catégorisation, le reporting et les remboursements. Gagnez en productivité et boostez vos économies grâce à des analyses basées sur l'IA.",
+            "button_label": "Choisir une sadaqa en Palestine",
+            "button_link": "shopify://products/pain-palestinien-pour-20-personnes",
+            "image_desktop": "shopify://shop_images/2_40988281-58f3-46cf-80a4-d3cfd81e0a30.png",
+            "image_alt": "Visuel",
+            "image_fit": "contain",
+            "desktop_layout": "auto",
+            "show_logos": false,
+            "logos_label": "Compatible avec :"
+          }
+        },
+        "card_7TLYKE": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "Place d'ablution",
+            "heading": "Au Pakistan",
+            "text": "Profitez d’un maximum de contrôle et d’efficacité avec les cartes Navan, Navan Connect (compatible avec les cartes Visa, Mastercard et American Express) et des remboursements rapides en cas d’avance de frais.",
+            "button_label": "Choisir une sadaqa au Pakistan",
+            "button_link": "shopify://pages/gdpr-1",
+            "image_desktop": "shopify://shop_images/PHOTO-2025-08-27-16-00-23_3.jpg",
+            "image_alt": "Visuel",
+            "image_fit": "contain",
+            "desktop_layout": "auto",
+            "show_logos": false,
+            "logos_label": "Compatible avec :"
+          }
+        }
+      },
+      "block_order": [
+        "logo_PFr3XU",
+        "card_AtJ6GY",
+        "card_WRxBVP",
+        "card_7TLYKE"
+      ],
+      "name": "Text with image v2",
+      "settings": {
+        "color_scheme": "",
+        "title": "",
+        "description": "",
+        "card_bg": "#fffaf4",
+        "media_bg": "#fffaf4",
+        "accent_color": "#13392a",
+        "card_shadow": "",
+        "card_radius": 18,
+        "media_radius": 14,
+        "card_padding": 64,
+        "card_padding_mobile": 34,
+        "cards_gap": 24,
+        "media_ratio": "4 / 3",
+        "media_ratio_mobile": "16 / 9",
+        "media_padding": 26,
+        "media_padding_mobile": 18,
+        "media_max_width": 560,
+        "card_min_height": 320,
+        "card_min_height_tablet": 300,
+        "button_width_desktop": "280px",
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "logo_height": 28
+      }
+    },
+    "umm_text_image_steps_G3a6dx": {
+      "type": "umm-text-image-steps",
+      "blocks": {
+        "step_qfizB8": {
+          "type": "step",
+          "settings": {
+            "image_desktop": "shopify://shop_images/IMG-3265.png",
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "1",
+            "title": "Votre certificat de sadaqa",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage et à de nombreux tarifs négociés auprès des principaux fournisseurs du marché."
+          }
+        },
+        "step_wy3HRj": {
+          "type": "step",
+          "settings": {
+            "image_desktop": "shopify://shop_images/WhatsApp_Image_2025-02-27_a_16.57.43_ff858755.jpg",
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "2",
+            "title": "Une video unique",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage et à de nombreux tarifs négociés auprès des principaux fournisseurs du marché."
+          }
+        },
+        "step_CMYfR4": {
+          "type": "step",
+          "settings": {
+            "image_desktop": "shopify://shop_images/te.png",
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "3",
+            "title": "Un suivi régulier",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage et à de nombreux tarifs négociés auprès des principaux fournisseurs du marché."
+          }
+        }
+      },
+      "block_order": [
+        "step_qfizB8",
+        "step_wy3HRj",
+        "step_CMYfR4"
+      ],
+      "name": "UMM — Text + image steps",
+      "settings": {
+        "color_scheme": "",
+        "title": "How it work ?",
+        "description": "<p>Une prestation à l'image de ce noble geste, réalisé avec le plus grand soin par notre équipe sur place</p>",
+        "card_bg": "#ffffff",
+        "media_bg": "#fff3e4",
+        "card_radius": 22,
+        "media_radius": 16,
+        "card_padding": 28,
+        "card_shadow": "",
+        "media_ratio": "4 / 3",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "enable_mobile_slider": true,
+        "slider_card_width": 80,
+        "slider_gap": 9,
+        "slider_left_gutter": 0
+      }
+    },
+    "testimonials_cdjnwe": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonials_slide_9ELKLJ": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Thank you for granting us this beautiful opportunity to donate to such a great cause in the most wonderful place on earth. The service was great and what a nice gift to receive the dua, video and QR code. May Allah reward you greatly 🤲🏼”",
+            "image": "shopify://shop_images/step_2.webp",
+            "slide_name": "Najat",
+            "slide_position": "My wheelchair in Makkah"
+          }
+        },
+        "testimonials_slide_VbXDLc": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“I absolutely loved getting a video of how my contribution impacted everyone in need. It reassured me that my donation was going to the right place. I will continue to donate through this project and will continue to pray for Palestina 🇵🇸”",
+            "image": "shopify://shop_images/ProductImageQuran.png",
+            "slide_name": "Mariana C.",
+            "slide_position": "Water tank in Gaza"
+          }
+        },
+        "testimonials_slide_cV3mNw": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "image": "shopify://shop_images/9c982834bab634b7c22b8cee3b2741a6.jpg",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_k744Uk": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "image": "shopify://shop_images/9c982834bab634b7c22b8cee3b2741a6.jpg",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        }
+      },
+      "block_order": [
+        "testimonials_slide_9ELKLJ",
+        "testimonials_slide_VbXDLc",
+        "testimonials_slide_cV3mNw",
+        "testimonials_slide_k744Uk"
+      ],
+      "custom_css": [
+        "p.testimonials__text.h6 {font-weight: 300 !important;}"
+      ],
+      "name": "t:sections.testimonials.name",
+      "settings": {
+        "layout": "simple_slider",
+        "color_scheme": "background-1",
+        "subheading": "Trusted by 50.000+ Muslims",
+        "subheading_style": "subtitle subtitle--secondary",
+        "subheading_icon": "none",
+        "heading": "The ummah's feedback",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#4fcccc",
+        "word_break": false,
+        "heading_animation": "appearing",
+        "word_break_an": false,
+        "text": "",
+        "text_align": "center",
+        "slide_color_scheme": "scheme-c2e4940a-afaa-44d2-8c6a-5026ef353818",
+        "slide_text_size": "h6",
+        "enable_navigation": true,
+        "enable_navigation_mobile": true,
+        "navigation_color_scheme": "background-1",
+        "enable_pagination": false,
+        "enable_pagination_mobile": false,
+        "pagination_color_scheme": "background-1",
+        "padding_top": "xl",
+        "padding_bottom": "xl",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e": {
+      "type": "banner-grid",
+      "blocks": {
+        "template--15231063785533__c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e-card-1": {
+          "type": "card",
+          "settings": {
+            "color_scheme": "",
+            "overlay_opacity": 0.2,
+            "icon": "none",
+            "icon_size": "recommended",
+            "logo_width": 135,
+            "heading": "Makkah",
+            "heading_size": "recommended",
+            "heading_level": "h3",
+            "show_button": true,
+            "button_style": "primary",
+            "button_label": "Know More",
+            "button_link": "",
+            "full_link": true
+          }
+        },
+        "card_A77TFD": {
+          "type": "card",
+          "settings": {
+            "color_scheme": "",
+            "overlay_opacity": 0.2,
+            "icon": "none",
+            "icon_size": "recommended",
+            "logo_width": 135,
+            "heading": "Go-To CRM Solution for Smarter Business Client Management",
+            "heading_size": "recommended",
+            "heading_level": "h3",
+            "show_button": true,
+            "button_style": "simple_link",
+            "button_label": "Know More",
+            "button_link": "",
+            "full_link": true
+          }
+        },
+        "template--15231063785533__c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e-card-2": {
+          "type": "card",
+          "settings": {
+            "color_scheme": "",
+            "overlay_opacity": 0.2,
+            "icon": "none",
+            "icon_size": "recommended",
+            "logo_width": 135,
+            "heading": "Streamline Your Workflow and Boost Team Productivity",
+            "heading_size": "recommended",
+            "heading_level": "h3",
+            "show_button": true,
+            "button_style": "simple_link",
+            "button_label": "Know More",
+            "button_link": "",
+            "full_link": true
+          }
+        }
+      },
+      "block_order": [
+        "template--15231063785533__c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e-card-1",
+        "card_A77TFD",
+        "template--15231063785533__c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e-card-2"
+      ],
+      "settings": {
+        "layout": "columns",
+        "columns": 3,
+        "enable_mobile_overflow_slider": false,
+        "color_scheme": "background-1",
+        "enable_border": false,
+        "border_full": false,
+        "subheading": "Comment démarrer",
+        "subheading_style": "subtitle subtitle--secondary",
+        "subheading_icon": "none",
+        "heading": "Où souhaitez-vous lancer votre projet de sadaqa ?",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "",
+        "text_align": "left",
+        "gap": "24",
+        "border_radius": true,
+        "text_align_content": "bottom-left",
+        "icon_style": "contrast",
+        "icon_fill_type": "gradient",
+        "padding_top": "xl",
+        "padding_bottom": "xl",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "multicolumn_VnU93p": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_DjkpnK": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "",
+            "icon_fill_type": "gradient",
+            "enable_link": false,
+            "link": "",
+            "heading": "Livraison standard",
+            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
+            "show_button": false,
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "simple"
+          }
+        },
+        "column_NQtfKa": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "",
+            "icon_fill_type": "gradient",
+            "enable_link": false,
+            "link": "",
+            "heading": "Paiement sécurisé",
+            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
+            "show_button": false,
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "simple"
+          }
+        },
+        "column_BJkXtM": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "",
+            "icon_fill_type": "gradient",
+            "enable_link": false,
+            "link": "",
+            "heading": "Retours et garanties",
+            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
+            "show_button": false,
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "simple"
+          }
+        },
+        "column_3ncJex": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "",
+            "icon_fill_type": "gradient",
+            "enable_link": false,
+            "link": "",
+            "heading": "Légifèré par savant",
+            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
+            "show_button": false,
+            "button_label": "Learn More",
+            "button_link": "",
+            "button_style": "simple"
+          }
+        }
+      },
+      "block_order": [
+        "column_DjkpnK",
+        "column_NQtfKa",
+        "column_BJkXtM",
+        "column_3ncJex"
+      ],
+      "disabled": true,
+      "name": "t:sections.multicolumn.name",
+      "settings": {
+        "section_type": "separators",
+        "color_scheme": "background-1",
+        "enable_border": false,
+        "border_full": false,
+        "multicolumn_to_show": 4,
+        "content_horizontal_alignment": "left",
+        "content_vertical_alignment": "center",
+        "gap": "large",
+        "enable_mobile_overflow_slider": true,
+        "subheading": "",
+        "subheading_style": "subtitle",
+        "subheading_icon": "none",
+        "heading": "",
+        "heading_size": "h3",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "",
+        "text_align": "left",
+        "icon_size": "small",
+        "box_shadow": false,
+        "icon_style": "colored",
+        "image_width": "small",
+        "image_ratio": "landscape",
+        "object_fit": "contain",
+        "card_heading_size": "h5",
+        "padding_top": "m",
+        "padding_bottom": "m",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "block_1": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-c2e4940a-afaa-44d2-8c6a-5026ef353818",
+            "icon": "none",
+            "image": "shopify://shop_images/te.png",
+            "overlay_opacity": 0,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "For honor my parent",
+            "heading_size": "h4",
+            "heading_level": "h2",
+            "description": "Monitor the performance of your email campaigns with real-time insights. Track open rates, replies, clicks, and bounces effortlessly, giving you the data you need to refine your strategy.",
+            "tab_heading": "Loved ones",
+            "show_button": true,
+            "button_style": "secondary",
+            "button_label": "Honor my parent",
+            "button_link": "shopify://products/omra-badal",
+            "overlay_link": false
+          }
+        },
+        "slide_tTkQbN": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-c2e4940a-afaa-44d2-8c6a-5026ef353818",
+            "icon": "none",
+            "image": "shopify://shop_images/te.png",
+            "overlay_opacity": 0,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "For honor my parent",
+            "heading_size": "h4",
+            "heading_level": "h2",
+            "description": "Monitor the performance of your email campaigns with real-time insights. Track open rates, replies, clicks, and bounces effortlessly, giving you the data you need to refine your strategy.",
+            "tab_heading": "Parents",
+            "show_button": true,
+            "button_style": "secondary",
+            "button_label": "Honor my parent",
+            "button_link": "shopify://products/omra-badal",
+            "overlay_link": false
+          }
+        },
+        "slide_Xm8nkn": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "background-2",
+            "icon": "none",
+            "image": "shopify://shop_images/te.png",
+            "overlay_opacity": 0,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "For honor my parent",
+            "heading_size": "h4",
+            "heading_level": "h2",
+            "description": "Monitor the performance of your email campaigns with real-time insights. Track open rates, replies, clicks, and bounces effortlessly, giving you the data you need to refine your strategy.",
+            "tab_heading": "Deceased",
+            "show_button": true,
+            "button_style": "secondary",
+            "button_label": "Honor my parent",
+            "button_link": "shopify://products/omra-badal",
+            "overlay_link": false
+          }
+        },
+        "slide_fXDApP": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "background-2",
+            "icon": "none",
+            "image": "shopify://shop_images/te.png",
+            "overlay_opacity": 0,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "For honor my parent",
+            "heading_size": "h4",
+            "heading_level": "h2",
+            "description": "Monitor the performance of your email campaigns with real-time insights. Track open rates, replies, clicks, and bounces effortlessly, giving you the data you need to refine your strategy.",
+            "tab_heading": "Parents",
+            "show_button": true,
+            "button_style": "secondary",
+            "button_label": "Honor my parent",
+            "button_link": "shopify://products/omra-badal",
+            "overlay_link": false
+          }
+        },
+        "slide_qNnpLi": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "background-3",
+            "icon": "none",
+            "overlay_opacity": 0.5,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "Spotlight on Bestsellers",
+            "heading_size": "recommended",
+            "heading_level": "h2",
+            "description": "This section is perfect for adding context—describe what makes this offer or collection special and why customers should check it out.",
+            "tab_heading": "Your tab heading",
+            "show_button": true,
+            "button_style": "simple_link",
+            "button_label": "Shop Now",
+            "button_link": "",
+            "overlay_link": false
+          }
+        },
+        "slide_Aa8iVd": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "background-2",
+            "icon": "none",
+            "image": "shopify://shop_images/te.png",
+            "overlay_opacity": 0,
+            "show_video": false,
+            "loop_video": true,
+            "heading": "For honor my parent",
+            "heading_size": "h4",
+            "heading_level": "h2",
+            "description": "Monitor the performance of your email campaigns with real-time insights. Track open rates, replies, clicks, and bounces effortlessly, giving you the data you need to refine your strategy.",
+            "tab_heading": "Parents",
+            "show_button": true,
+            "button_style": "secondary",
+            "button_label": "Honor my parent",
+            "button_link": "shopify://products/omra-badal",
+            "overlay_link": false
+          }
+        }
+      },
+      "block_order": [
+        "block_1",
+        "slide_tTkQbN",
+        "slide_Xm8nkn",
+        "slide_fXDApP",
+        "slide_qNnpLi",
+        "slide_Aa8iVd"
+      ],
+      "settings": {
+        "layout": "simple",
+        "header_overlay": false,
+        "full_width": false,
+        "color_scheme": "background-1",
+        "enable_border": false,
+        "border_full": false,
+        "subheading": "",
+        "subheading_style": "subtitle subtitle--secondary",
+        "subheading_icon": "none",
+        "heading": "For who is your sadaqa ?",
+        "heading_size": "h3",
+        "heading_level": "h2",
+        "heading_line": "rounded",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "text": "Explore a wide array of specialized services tailored to meet diverse client needs.",
+        "heading_animation": "appearing",
+        "word_break_an": false,
+        "text_align": "left",
+        "height": "21/9",
+        "text_align_content": "bottom-left",
+        "enable_autoplay": false,
+        "enable_parallax": true,
+        "enable_pagination": true,
+        "pagination_type": "tabs_full",
+        "pagination_color_scheme": "background-1",
+        "pagination_width": "full",
+        "enable_navigation": false,
+        "navigation_color_scheme": "scheme-eb0c4f1c-81e8-49bb-8034-b05ab22fc694",
+        "slide_duration": 5,
+        "icon_size": "recommended",
+        "icon_style": "contrast",
+        "icon_fill_type": "solid",
+        "show_tab_icon": true,
+        "padding_top": "xl",
+        "padding_bottom": "xl",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "custom_liquid_DHpFz3": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": ""
+      }
+    },
+    "fcdccba2-3798-4f1f-9704-3387ec1b3ca2": {
+      "type": "multicolumn",
+      "blocks": {
+        "template--15231063785533__fcdccba2-3798-4f1f-9704-3387ec1b3ca2-column-1": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "background-2",
+            "icon_fill_type": "gradient",
+            "image": "shopify://shop_images/omra1.png",
+            "enable_link": true,
+            "link": "",
+            "heading": "Makkah",
+            "text": "<p>Fauteuils roulants, Corans et autres projets pour servir les pèlerins dans le besoin.</p>",
+            "show_button": true,
+            "button_label": "Découvrir",
+            "button_link": "shopify://products/pain-palestinien-pour-20-personnes",
+            "button_style": "secondary"
+          }
+        },
+        "template--15231063785533__fcdccba2-3798-4f1f-9704-3387ec1b3ca2-column-2": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "",
+            "icon_fill_type": "gradient",
+            "image": "shopify://shop_images/HIW3.svg",
+            "enable_link": false,
+            "link": "",
+            "heading": "Palestine",
+            "text": "<p>Eau, repas, soutien aux familles et aux orphelins sur le terrain.</p>",
+            "show_button": true,
+            "button_label": "Découvrir",
+            "button_link": "shopify://collections/palestine",
+            "button_style": "secondary"
+          }
+        },
+        "56a7a52d-d565-47c8-82ec-725024f45a1e": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_color_scheme": "background-1",
+            "icon_fill_type": "gradient",
+            "enable_link": false,
+            "link": "",
+            "heading": "Document Storage",
+            "text": "<p>Securely store and organize client files in one central location, making them easy to find and manage anytime.</p>",
+            "show_button": false,
+            "button_label": "Label",
+            "button_link": "",
+            "button_style": "simple"
+          }
+        }
+      },
+      "block_order": [
+        "template--15231063785533__fcdccba2-3798-4f1f-9704-3387ec1b3ca2-column-1",
+        "template--15231063785533__fcdccba2-3798-4f1f-9704-3387ec1b3ca2-column-2",
+        "56a7a52d-d565-47c8-82ec-725024f45a1e"
+      ],
+      "custom_css": [],
+      "settings": {
+        "section_type": "solid",
+        "color_scheme": "background-1",
+        "enable_border": false,
+        "border_full": false,
+        "multicolumn_to_show": 3,
+        "content_horizontal_alignment": "left",
+        "content_vertical_alignment": "top",
+        "gap": "large",
+        "enable_mobile_overflow_slider": false,
+        "subheading": "",
+        "subheading_style": "subtitle subtitle--secondary",
+        "subheading_icon": "none",
+        "heading": "Choisir votre cause",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "<p>Où souhaitez-vous lancer votre projet de sadaqa ?</p>",
+        "text_align": "left",
+        "icon_size": "recommended",
+        "box_shadow": false,
+        "icon_style": "colored",
+        "image_width": "small",
+        "image_ratio": "square",
+        "object_fit": "cover",
+        "card_heading_size": "h5",
+        "padding_top": "xl",
+        "padding_bottom": "xl",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "testimonials_TBcRat": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonials_slide_HtHxpg": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_dUPFKG": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_BrNTXb": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_j4rNjp": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_Ep9Bap": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_4rN9RM": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_3WjD93": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_qTDEUx": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_Hamwi3": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_Tkxmeq": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_aHUwWy": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        },
+        "testimonials_slide_7CBrD6": {
+          "type": "testimonials_slide",
+          "settings": {
+            "rating": 5,
+            "slide_text": "“Description feedback from your buyers”",
+            "slide_name": "Buyer's name",
+            "slide_position": "Buyer's position"
+          }
+        }
+      },
+      "block_order": [
+        "testimonials_slide_HtHxpg",
+        "testimonials_slide_dUPFKG",
+        "testimonials_slide_BrNTXb",
+        "testimonials_slide_j4rNjp",
+        "testimonials_slide_Ep9Bap",
+        "testimonials_slide_4rN9RM",
+        "testimonials_slide_3WjD93",
+        "testimonials_slide_qTDEUx",
+        "testimonials_slide_Hamwi3",
+        "testimonials_slide_Tkxmeq",
+        "testimonials_slide_aHUwWy",
+        "testimonials_slide_7CBrD6"
+      ],
+      "name": "t:sections.testimonials.name",
+      "settings": {
+        "layout": "marquee",
+        "color_scheme": "background-1",
+        "subheading": "Satisfied customer count",
+        "subheading_style": "subtitle",
+        "subheading_icon": "none",
+        "heading": "Testimonials title",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#0043a6",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "Here can be a summary of how many people trust your brand and love your products. Use this space to highlight your customer satisfaction.",
+        "text_align": "center",
+        "slide_color_scheme": "background-2",
+        "slide_text_size": "recommended",
+        "enable_navigation": true,
+        "enable_navigation_mobile": false,
+        "navigation_color_scheme": "",
+        "enable_pagination": true,
+        "enable_pagination_mobile": true,
+        "pagination_color_scheme": "",
+        "padding_top": "l",
+        "padding_bottom": "l",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "",
+        "color_scheme": "background-1",
+        "post_layout": "columns",
+        "enable_carousel": true,
+        "navigation_color_scheme": "",
+        "background_card": true,
+        "columns": 3,
+        "post_limit": 6,
+        "card_color_scheme": "",
+        "subheading": "Newsroom",
+        "subheading_style": "subtitle",
+        "subheading_icon": "none",
+        "heading": "Tech Insights",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "Stay updated with the latest trends, news, and updates of tech services.",
+        "image_ratio": "landscape",
+        "post_heading_size": "recommended",
+        "show_image": true,
+        "show_tags": true,
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": false,
+        "show_view_all": true,
+        "button_label": "Explore Newsroom",
+        "button_style": "primary",
+        "padding_top": "l",
+        "padding_bottom": "l",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "collapsible-content": {
+      "type": "collapsible-content",
+      "blocks": {
+        "block_1": {
+          "type": "accordion",
+          "settings": {
+            "question": "What is the primary function of your service?",
+            "answer": "<p>Our service primarily aims to provide users with seamless digital solutions tailored to their needs, helping them enhance productivity and make the most of their time.</p>",
+            "opened": true
+          }
+        },
+        "block_2": {
+          "type": "accordion",
+          "settings": {
+            "question": "How can I get started with your service?",
+            "answer": "<p>Simply sign up, choose the desired package or feature, and follow the step-by-step onboarding process. Our user-friendly interface and dedicated support team ensure a quick start for all our users.</p>",
+            "opened": false
+          }
+        },
+        "block_3": {
+          "type": "accordion",
+          "settings": {
+            "question": "Are there any costs associated with using your service?",
+            "answer": "<p>The free version provides access to basic features, while our premium plans, available at varying price points, unlock advanced capabilities and functionalities tailored for professionals and businesses.</p>",
+            "opened": false
+          }
+        },
+        "7552c54f-3e3c-4f7a-9e1c-4d097610bea1": {
+          "type": "accordion",
+          "settings": {
+            "question": "How do you ensure the security and privacy of user data?",
+            "answer": "<p>User data security and privacy are our top priorities. We employ industry-leading encryption methods, regular security audits, and stringent data handling policies. Additionally, we never sell or share your data with third parties without explicit consent.</p>",
+            "opened": false
+          }
+        }
+      },
+      "block_order": [
+        "block_1",
+        "block_2",
+        "block_3",
+        "7552c54f-3e3c-4f7a-9e1c-4d097610bea1"
+      ],
+      "settings": {
+        "layout": "background",
+        "color_scheme": "",
+        "enable_border": true,
+        "border_full": true,
+        "subheading": "Frequently Asked Questions",
+        "subheading_style": "subtitle",
+        "subheading_icon": "none",
+        "heading": "Questions & Answers",
+        "heading_size": "h2",
+        "heading_level": "h2",
+        "heading_line": "simple",
+        "line_color": "#1566e0",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "Clarify any uncertainties you might have, ensuring a smooth and hassle-free experience for everyone.",
+        "text_align": "center",
+        "row_color_scheme": "",
+        "padding_top": "l",
+        "padding_bottom": "l",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "aa66337f-82f0-4c84-aea6-b5ef91ad5d40": {
+      "type": "animated-image-collage",
+      "blocks": {
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/ProductImageWheel.png",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/ProductImageQuran.png",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/2_40988281-58f3-46cf-80a4-d3cfd81e0a30.png",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-4": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2025-11-21_at_17.26.32_1.jpg",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-5": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/7cef2c03eb863fff630606962e7c28e0.jpg",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-10": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/PHOTO-2025-08-27-16-00-23_3.jpg",
+            "image_width": 420
+          }
+        },
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-11": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/step_2.png",
+            "image_width": 420
+          }
+        }
+      },
+      "block_order": [
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-1",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-2",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-3",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-4",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-5",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-10",
+        "template--15231063785533__aa66337f-82f0-4c84-aea6-b5ef91ad5d40-column-11"
+      ],
+      "settings": {
+        "section_type": "right",
+        "color_scheme": "background-2",
+        "header_overlay": false,
+        "header_transparent": false,
+        "column_to_show": 3,
+        "opacity_overlay": 0.3,
+        "full_width": true,
+        "icon": "none",
+        "icon_color_scheme": "",
+        "icon_style": "contrast",
+        "icon_fill_type": "gradient",
+        "icon_size": "recommended",
+        "box_shadow": true,
+        "subheading": "4.96 from 8764+ reviews",
+        "subheading_style": "subtitle subtitle--secondary",
+        "subheading_icon": "star",
+        "heading": "Prioritize Safety and Ethics in Your <span style=\"text-decoration:underline\">Services Spotlight</span>",
+        "heading_size": "h1",
+        "heading_level": "h2",
+        "heading_line": "background",
+        "line_color": "#ffffff",
+        "word_break": false,
+        "heading_animation": "none",
+        "word_break_an": false,
+        "text": "Expert guidance to conquer any challenge that comes your way.",
+        "enable_subscribe": false,
+        "button_label_subscribe": "Label",
+        "color_scheme_subscribe": "",
+        "enable_box_shadow": true,
+        "button_style_subscribe": "primary",
+        "show_button": true,
+        "button_label": "Shop All",
+        "button_link": "shopify://products/citerne-deau-a-gaza",
+        "button_style": "primary",
+        "show_button_2": true,
+        "button_label_2": "Explore Features",
+        "button_link_2": "",
+        "button_style_2": "simple_link",
+        "padding_top": "m",
+        "padding_bottom": "m",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    }
+  },
+  "order": [
+    "floating_sticky_cta_xcAxKG",
+    "hero",
+    "logo_list_EEy6nx",
+    "hero_animate_jDMYFi",
+    "rich_text_dcDcFW",
+    "image_with_text_v2_kmxjmQ",
+    "umm_text_image_steps_G3a6dx",
+    "testimonials_cdjnwe",
+    "c3d593f8-3b6a-4e76-bfd1-0394a9f39c3e",
+    "multicolumn_VnU93p",
+    "slideshow",
+    "custom_liquid_DHpFz3",
+    "fcdccba2-3798-4f1f-9704-3387ec1b3ca2",
+    "testimonials_TBcRat",
+    "featured_blog",
+    "collapsible-content",
+    "aa66337f-82f0-4c84-aea6-b5ef91ad5d40"
+  ]
+}

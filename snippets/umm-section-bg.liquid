@@ -1,0 +1,97 @@
+{%- comment -%}
+  UMM — Section Background (desktop/mobile)
+  Usage (dans une section) :
+  {% render 'umm-section-bg', section: section, wrapper_id: 'Hero-' | append: section.id %}
+
+  IMPORTANT :
+  - wrapper_id doit correspondre à l'ID réel du wrapper (ex: <div id="Hero-123">)
+  - Le fond est ABSOLUTE, donc n'impacte pas la hauteur de la section.
+{%- endcomment -%}
+
+{%- liquid
+  assign wrapper_id_value = wrapper_id
+  assign enabled_value = section.settings.umm_bg_enable
+
+  if enabled_value != true
+    break
+  endif
+
+  assign img_desktop_value = section.settings.umm_bg_image_desktop
+  assign img_mobile_value  = section.settings.umm_bg_image_mobile
+
+  if img_desktop_value == blank and img_mobile_value == blank
+    break
+  endif
+
+  assign fit_value = section.settings.umm_bg_fit | default: 'cover'
+  assign pos_value = section.settings.umm_bg_position | default: 'center'
+
+  assign opacity_value = section.settings.umm_bg_opacity | default: 100
+  assign blur_value    = section.settings.umm_bg_blur | default: 0
+
+  assign tint_color_value   = section.settings.umm_bg_tint_color | default: '#000000'
+  assign tint_opacity_value = section.settings.umm_bg_tint_opacity | default: 0
+
+  assign opacity_css = opacity_value | times: 0.01 | round: 3
+  assign tint_opacity_css = tint_opacity_value | times: 0.01 | round: 3
+-%}
+
+<div class="umm-section-bg" aria-hidden="true"></div>
+
+{%- style -%}
+  /* Wrapper must be relative so the bg can be absolute inside it */
+  #{{ wrapper_id_value }}{
+    position: relative;
+  }
+
+  /* Background layer (does NOT affect layout height) */
+  #{{ wrapper_id_value }} > .umm-section-bg{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  /* Force all other direct children to stay above bg */
+  #{{ wrapper_id_value }} > :not(.umm-section-bg){
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Image layer */
+  #{{ wrapper_id_value }} > .umm-section-bg::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-size: {{ fit_value }};
+    background-position: {{ pos_value }};
+    opacity: {{ opacity_css }};
+    filter: blur({{ blur_value }}px);
+    transform: scale(1.03); /* avoid blur edges */
+    {%- if img_desktop_value != blank -%}
+      background-image: url('{{ img_desktop_value | image_url: width: 2600 }}');
+    {%- endif -%}
+  }
+
+  /* Mobile swap */
+  @media (max-width: 749px){
+    #{{ wrapper_id_value }} > .umm-section-bg::before{
+      {%- if img_mobile_value != blank -%}
+        background-image: url('{{ img_mobile_value | image_url: width: 1800 }}');
+      {%- elsif img_desktop_value != blank -%}
+        background-image: url('{{ img_desktop_value | image_url: width: 1800 }}');
+      {%- endif -%}
+    }
+  }
+
+  /* Optional color tint overlay */
+  #{{ wrapper_id_value }} > .umm-section-bg::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: {{ tint_color_value }};
+    opacity: {{ tint_opacity_css }};
+  }
+{%- endstyle -%}

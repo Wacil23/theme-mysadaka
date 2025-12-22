@@ -1,0 +1,66 @@
+{%- liquid
+  assign account_url = routes.account_login_url
+  if customer
+    assign account_url = routes.account_url
+  endif
+-%}
+
+<div
+  class="header__custom-actions"
+  style="
+    --cta-gap: {{ section.settings.header_cta_gap }}px;
+    --cta-pad-x: {{ section.settings.header_cta_pad_x }}px;
+    --cta-pad-y: {{ section.settings.header_cta_pad_y }}px;
+    --cta-radius: {{ section.settings.header_cta_radius }}px;
+    --cta-shadow: {{ section.settings.header_cta_shadow }};
+    --actions-gap: {{ section.settings.header_actions_gap }}px;
+    --account-gap: {{ section.settings.header_account_gap }}px;
+  "
+>
+  {%- if section.settings.header_ctas_enable -%}
+    <div class="header__custom-ctas">
+      {%- if section.settings.header_cta_1_label != blank and section.settings.header_cta_1_link != blank -%}
+        <a
+          class="button button--{{ section.settings.header_cta_1_style }} header__cta-btn"
+          href="{{ section.settings.header_cta_1_link }}"
+        >
+          {{ section.settings.header_cta_1_label }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.header_cta_2_label != blank and section.settings.header_cta_2_link != blank -%}
+        <a
+          class="button button--{{ section.settings.header_cta_2_style }} header__cta-btn"
+          href="{{ section.settings.header_cta_2_link }}"
+        >
+          {{ section.settings.header_cta_2_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <a
+    class="header__login-link"
+    href="{% if section.settings.header_account_link != blank %}{{ section.settings.header_account_link }}{% else %}{{ account_url }}{% endif %}"
+    aria-label="{{ section.settings.header_account_text | escape }}"
+  >
+    {%- if section.settings.header_account_display == 'icon' -%}
+      <span class="header__login-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </span>
+    {%- elsif section.settings.header_account_display == 'text_icon' -%}
+      <span class="header__login-text">{{ section.settings.header_account_text }}</span>
+      <span class="header__login-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </span>
+    {%- else -%}
+      <span class="header__login-text">{{ section.settings.header_account_text }}</span>
+    {%- endif -%}
+  </a>
+</div>

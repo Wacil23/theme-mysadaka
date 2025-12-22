@@ -1,0 +1,167 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:sections.header.settings.header-group.label",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "height": 55,
+        "height_mobile": 50,
+        "color_scheme": "scheme-eb0c4f1c-81e8-49bb-8034-b05ab22fc694",
+        "text": "✨Gagnez une omra en dédiant votre sadaqa | <span style=\"text-decoration:underline\">En savoir plus</span>",
+        "icon": "none",
+        "icon_color_scheme": "",
+        "icon_style": "subtle",
+        "icon_fill_type": "gradient",
+        "enable_slider": false,
+        "rows_count": "1",
+        "rows_count_mobile": "1",
+        "slide_duration": 2,
+        "speed": 0.8,
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "e3238936-d23a-44a2-bdd2-be1bd78c266d": {
+          "type": "mega_menu",
+          "settings": {
+            "mega_menu_trigger": "Services",
+            "column_to_show": 3,
+            "enable_column_1": true,
+            "icon_1": "none",
+            "heading_1": "Makkah",
+            "description_1": "Sadaqas dans la ville sainte",
+            "link_1": "",
+            "menu_1": "makkah",
+            "enable_column_2": true,
+            "icon_2": "none",
+            "heading_2": "Palestine",
+            "description_2": "Pour nos frères et soeurs en Palestine",
+            "link_2": "",
+            "menu_2": "palestine",
+            "enable_column_3": true,
+            "icon_3": "none",
+            "heading_3": "Pèlerinage par procuration",
+            "description_3": "Pour un proche malade ou décédé",
+            "link_3": "",
+            "menu_3": "p-lerinage-par-procuration",
+            "enable_column_4": false,
+            "icon_4": "none",
+            "heading_4": "Column title",
+            "description_4": "Column description",
+            "link_4": "",
+            "menu_4": "",
+            "enable_column_5": false,
+            "icon_5": "none",
+            "heading_5": "Column title",
+            "description_5": "Column description",
+            "link_5": "",
+            "menu_5": "",
+            "enable_column_6": false,
+            "icon_6": "none",
+            "heading_6": "Column title",
+            "description_6": "Column description",
+            "link_6": "",
+            "menu_6": "",
+            "enable_column_7": false,
+            "icon_7": "none",
+            "heading_7": "Column title",
+            "description_7": "Column description",
+            "link_7": "",
+            "menu_7": "",
+            "enable_column_8": false,
+            "icon_8": "none",
+            "heading_8": "Column title",
+            "description_8": "Column description",
+            "link_8": "",
+            "menu_8": "",
+            "enable_promo": true,
+            "promo_heading": "Tous les services",
+            "promo_description": "Découvrir tous les options de sadaqa disponible.",
+            "promo_link_label": "Tout voir",
+            "promo_link": "shopify://collections/sadaqa-jariya",
+            "promo_button_style": "simple_link",
+            "icon_color_scheme": "background-1",
+            "icon_style": "subtle",
+            "icon_fill_type": "solid",
+            "icon_size": "recommended",
+            "box_shadow": true
+          }
+        }
+      },
+      "block_order": [
+        "e3238936-d23a-44a2-bdd2-be1bd78c266d"
+      ],
+      "custom_css": [
+        ".mega-menu__column-heading {font-weight: 500 !important;}",
+        ".mega-menu__tab-heading {font-weight: 500 !important;}"
+      ],
+      "settings": {
+        "header_glass_enable": true,
+        "header_glass_bg": "#ffffff",
+        "header_glass_opacity": 85,
+        "header_glass_blur": 16,
+        "header_glass_shadow": "0 10px 30px rgba(0,0,0,0.02)",
+        "header_glass_border": "1px solid rgba(0,0,0,0.05)",
+        "header_ctas_enable": true,
+        "header_cta_1_label": "Get started",
+        "header_cta_1_link": "https://shopify.com/authentication/79374123350/login?client_id=9c65caf4-541d-44df-8da6-be38cb4a5fce&locale=en&redirect_uri=%2Fauthentication%2F79374123350%2Foauth%2Fauthorize%3Fclient_id%3D9c65caf4-541d-44df-8da6-be38cb4a5fce%26locale%3Den%26nonce%3D929e8438-98bb-4943-9e51-48310c89a235%26redirect_uri%3Dhttps%253A%252F%252Fshopify.com%252F79374123350%252Faccount%252Fcallback%253Fsource%253Dcore%26region_country%3DUS%26response_type%3Dcode%26scope%3Dopenid%2Bemail%2Bcustomer-account-api%253Afull%26state%3DhWN6RejTZ5a6KuTdTOpHEV7O",
+        "header_cta_1_style": "primary",
+        "header_cta_2_label": "Sign up",
+        "header_cta_2_link": "shopify://products/repas-pour-gaza",
+        "header_cta_2_style": "tertiary",
+        "header_cta_pad_x": 25,
+        "header_cta_pad_y": 10,
+        "header_cta_gap": 12,
+        "header_cta_radius": 50,
+        "header_cta_shadow": "none",
+        "header_cta_font_size": 13,
+        "header_cta_font_weight": 400,
+        "header_account_display": "text",
+        "header_account_text": "Login",
+        "header_account_link": "",
+        "header_account_gap": 8,
+        "header_actions_gap": 12,
+        "header_mobile_minimal": true,
+        "h1_logo": true,
+        "header_type": "left-logo",
+        "full_width": true,
+        "logo": "shopify://shop_images/MysLogo_Black_430x_dfad3f90-8858-42ef-8653-b17028bea173.png",
+        "logo_2": "shopify://shop_images/MYSADAKA_lOGO_v3_400_x_100_px.png",
+        "logo_width": 130,
+        "enable_logo_mobile": true,
+        "enable_logo_desktop": true,
+        "menu": "main-menu-1",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_social": false,
+        "sticky_header_type": "always",
+        "enable_search": false,
+        "search_color_scheme": "background-1",
+        "enable_box_shadow": true,
+        "collection_list": [],
+        "product_list": [],
+        "image_ratio": "5/4",
+        "image_fit": "cover",
+        "show_secondary_image": true,
+        "show_vendor": false
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

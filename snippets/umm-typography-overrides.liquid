@@ -1,0 +1,389 @@
+<style>
+  /* --- Load THEME fonts (Shopify library) --- */
+  {{ settings.type_header_font | font_face }}
+  {{ settings.type_header_font_card | font_face }}
+  {{ settings.type_text_font_card | font_face }}
+  {{ settings.type_body_font | font_face }}
+  {{ settings.type_subtitle_font | font_face }}
+  {{ settings.type_subtitle_font_2 | font_face }}
+  {{ settings.type_button_font | font_face }}
+  {{ settings.type_header_menu_font | font_face }}
+  {{ settings.type_footer_menu_font | font_face }}
+  {{ settings.type_popups_heading_font | font_face }}
+  {{ settings.type_popups_text_font | font_face }}
+  {{ settings.type_additional_font | font_face }}
+
+  /* --- Custom Fonts from Assets --- */
+  {%- assign n = 'none' -%}
+
+  {%- if settings.umm_custom_font_1_enable -%}
+    {%- if settings.umm_custom_font_1_woff2_400 != blank and settings.umm_custom_font_1_woff2_400 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_1_family }}';
+        font-style:normal;
+        font-weight:400;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_1_woff2_400 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_1_woff_400 != blank and settings.umm_custom_font_1_woff_400 != n -%}
+          ,url('{{ settings.umm_custom_font_1_woff_400 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+    {%- if settings.umm_custom_font_1_woff2_700 != blank and settings.umm_custom_font_1_woff2_700 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_1_family }}';
+        font-style:normal;
+        font-weight:700;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_1_woff2_700 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_1_woff_700 != blank and settings.umm_custom_font_1_woff_700 != n -%}
+          ,url('{{ settings.umm_custom_font_1_woff_700 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if settings.umm_custom_font_2_enable -%}
+    {%- if settings.umm_custom_font_2_woff2_400 != blank and settings.umm_custom_font_2_woff2_400 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_2_family }}';
+        font-style:normal;
+        font-weight:400;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_2_woff2_400 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_2_woff_400 != blank and settings.umm_custom_font_2_woff_400 != n -%}
+          ,url('{{ settings.umm_custom_font_2_woff_400 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+    {%- if settings.umm_custom_font_2_woff2_700 != blank and settings.umm_custom_font_2_woff2_700 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_2_family }}';
+        font-style:normal;
+        font-weight:700;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_2_woff2_700 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_2_woff_700 != blank and settings.umm_custom_font_2_woff_700 != n -%}
+          ,url('{{ settings.umm_custom_font_2_woff_700 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if settings.umm_custom_font_3_enable -%}
+    {%- if settings.umm_custom_font_3_woff2_400 != blank and settings.umm_custom_font_3_woff2_400 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_3_family }}';
+        font-style:normal;
+        font-weight:400;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_3_woff2_400 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_3_woff_400 != blank and settings.umm_custom_font_3_woff_400 != n -%}
+          ,url('{{ settings.umm_custom_font_3_woff_400 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+    {%- if settings.umm_custom_font_3_woff2_700 != blank and settings.umm_custom_font_3_woff2_700 != n -%}
+      @font-face{
+        font-family:'{{ settings.umm_custom_font_3_family }}';
+        font-style:normal;
+        font-weight:700;
+        font-display:swap;
+        src:url('{{ settings.umm_custom_font_3_woff2_700 | asset_url }}') format('woff2')
+        {%- if settings.umm_custom_font_3_woff_700 != blank and settings.umm_custom_font_3_woff_700 != n -%}
+          ,url('{{ settings.umm_custom_font_3_woff_700 | asset_url }}') format('woff')
+        {%- endif -%};
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  /* --- Helpers: theme stacks --- */
+  {%- capture theme_headings -%}{{ settings.type_header_font.family | json }}, {{ settings.type_header_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_body -%}{{ settings.type_body_font.family | json }}, {{ settings.type_body_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_card_title -%}{{ settings.type_header_font_card.family | json }}, {{ settings.type_header_font_card.fallback_families }}{%- endcapture -%}
+  {%- capture theme_card_text -%}{{ settings.type_text_font_card.family | json }}, {{ settings.type_text_font_card.fallback_families }}{%- endcapture -%}
+
+  {%- capture theme_subtitle_1 -%}{{ settings.type_subtitle_font.family | json }}, {{ settings.type_subtitle_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_subtitle_2 -%}{{ settings.type_subtitle_font_2.family | json }}, {{ settings.type_subtitle_font_2.fallback_families }}{%- endcapture -%}
+  {%- capture theme_button -%}{{ settings.type_button_font.family | json }}, {{ settings.type_button_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_header_menu -%}{{ settings.type_header_menu_font.family | json }}, {{ settings.type_header_menu_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_footer_menu -%}{{ settings.type_footer_menu_font.family | json }}, {{ settings.type_footer_menu_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_popups_heading -%}{{ settings.type_popups_heading_font.family | json }}, {{ settings.type_popups_heading_font.fallback_families }}{%- endcapture -%}
+  {%- capture theme_popups_text -%}{{ settings.type_popups_text_font.family | json }}, {{ settings.type_popups_text_font.fallback_families }}{%- endcapture -%}
+
+  /* --- Pick families by mode --- */
+  {%- capture headings_family -%}
+    {%- if settings.umm_headings_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_headings_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_headings_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- else -%}{{ theme_headings }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture body_family -%}
+    {%- if settings.umm_body_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_body_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_body_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- else -%}{{ theme_body }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture card_title_family -%}
+    {%- if settings.umm_card_title_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_card_title_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_card_title_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- else -%}{{ theme_card_title }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture card_text_family -%}
+    {%- if settings.umm_card_text_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_card_text_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_card_text_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_card_text_font_mode == 'theme' -%}{{ theme_card_text }}
+    {%- else -%}{{ body_family }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture subheading_family -%}
+    {%- if settings.umm_subheading_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_subheading_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_subheading_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_subheading_font_mode == 'theme_subtitle_2' -%}{{ theme_subtitle_2 }}
+    {%- elsif settings.umm_subheading_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- elsif settings.umm_subheading_font_mode == 'theme_body' -%}{{ body_family }}
+    {%- else -%}{{ theme_subtitle_1 }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture button_family -%}
+    {%- if settings.umm_button_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_button_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_button_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_button_font_mode == 'theme_body' -%}{{ body_family }}
+    {%- elsif settings.umm_button_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- else -%}{{ theme_button }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture header_menu_family -%}
+    {%- if settings.umm_header_menu_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_header_menu_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_header_menu_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_header_menu_font_mode == 'theme_body' -%}{{ body_family }}
+    {%- elsif settings.umm_header_menu_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- else -%}{{ theme_header_menu }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture footer_menu_family -%}
+    {%- if settings.umm_footer_menu_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_footer_menu_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_footer_menu_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_footer_menu_font_mode == 'theme_body' -%}{{ body_family }}
+    {%- elsif settings.umm_footer_menu_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- else -%}{{ theme_footer_menu }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture popups_heading_family -%}
+    {%- if settings.umm_popups_heading_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_heading_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_heading_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_heading_font_mode == 'theme_body' -%}{{ body_family }}
+    {%- elsif settings.umm_popups_heading_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- else -%}{{ theme_popups_heading }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture popups_text_family -%}
+    {%- if settings.umm_popups_text_font_mode == 'custom_1' -%}{{ settings.umm_custom_font_1_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_text_font_mode == 'custom_2' -%}{{ settings.umm_custom_font_2_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_text_font_mode == 'custom_3' -%}{{ settings.umm_custom_font_3_family | json }}, sans-serif
+    {%- elsif settings.umm_popups_text_font_mode == 'theme_headings' -%}{{ headings_family }}
+    {%- else -%}{{ theme_popups_text }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  /* --- APPLY --- */
+  {%- if settings.umm_typo_overrides_enable -%}
+    :root{
+      --font-heading-family: {{ headings_family }} !important;
+      --font-body-family: {{ body_family }} !important;
+      --font-card-heading-family: {{ card_title_family }} !important;
+      --font-card-body-family: {{ card_text_family }} !important;
+
+      /* extra vars (au cas où ton thème les utilise) */
+      --umm-font-subheading-family: {{ subheading_family }} !important;
+      --umm-font-button-family: {{ button_family }} !important;
+      --umm-font-header-menu-family: {{ header_menu_family }} !important;
+      --umm-font-footer-menu-family: {{ footer_menu_family }} !important;
+      --umm-font-popups-heading-family: {{ popups_heading_family }} !important;
+      --umm-font-popups-text-family: {{ popups_text_family }} !important;
+    }
+
+    /* BODY */
+    body, button, input, select, textarea{
+      font-family: {{ body_family }} !important;
+      {%- if settings.umm_body_weight != 'auto' -%}font-weight: {{ settings.umm_body_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_body_rem_enable -%}
+      {%- assign body_px_m = settings.umm_body_rem_m | default: '16' | replace: 'px','' | strip -%}
+      {%- assign body_px_d = settings.umm_body_rem_d | default: body_px_m | replace: 'px','' | strip -%}
+      body{ font-size: {{ body_px_m }}px !important; }
+      @media(min-width:750px){
+        body{ font-size: {{ body_px_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* HEADINGS */
+    h1,h2,h3,h4,.h1,.h2,.h3,.h4{
+      font-family: {{ headings_family }} !important;
+      {%- if settings.umm_headings_weight != 'auto' -%}font-weight: {{ settings.umm_headings_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_headings_rem_enable -%}
+      {%- assign h1_m = settings.umm_h1_rem_m | default: '40' | replace: 'px','' | strip -%}
+      {%- assign h2_m = settings.umm_h2_rem_m | default: '28' | replace: 'px','' | strip -%}
+      {%- assign h3_m = settings.umm_h3_rem_m | default: '22' | replace: 'px','' | strip -%}
+      {%- assign h4_m = settings.umm_h4_rem_m | default: '18' | replace: 'px','' | strip -%}
+
+      {%- assign h1_d = settings.umm_h1_rem_d | default: '64' | replace: 'px','' | strip -%}
+      {%- assign h2_d = settings.umm_h2_rem_d | default: '40' | replace: 'px','' | strip -%}
+      {%- assign h3_d = settings.umm_h3_rem_d | default: '28' | replace: 'px','' | strip -%}
+      {%- assign h4_d = settings.umm_h4_rem_d | default: '22' | replace: 'px','' | strip -%}
+
+      h1,.h1{font-size:{{ h1_m }}px !important;}
+      h2,.h2{font-size:{{ h2_m }}px !important;}
+      h3,.h3{font-size:{{ h3_m }}px !important;}
+      h4,.h4{font-size:{{ h4_m }}px !important;}
+
+      @media(min-width:750px){
+        h1,.h1{font-size:{{ h1_d }}px !important;}
+        h2,.h2{font-size:{{ h2_d }}px !important;}
+        h3,.h3{font-size:{{ h3_d }}px !important;}
+        h4,.h4{font-size:{{ h4_d }}px !important;}
+      }
+    {%- endif -%}
+
+    /* SUBHEADINGS */
+    .subtitle, .subheading, .heading__subtitle, .section-header__subtitle, .caption-with-letter-spacing{
+      font-family: {{ subheading_family }} !important;
+      {%- if settings.umm_subheading_weight != 'auto' -%}font-weight: {{ settings.umm_subheading_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_subheading_px_enable -%}
+      {%- assign sh_m = settings.umm_subheading_px_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign sh_d = settings.umm_subheading_px_d | default: sh_m | replace:'px','' | strip -%}
+      .subtitle, .subheading, .heading__subtitle, .section-header__subtitle, .caption-with-letter-spacing{ font-size: {{ sh_m }}px !important; }
+      @media(min-width:750px){
+        .subtitle, .subheading, .heading__subtitle, .section-header__subtitle, .caption-with-letter-spacing{ font-size: {{ sh_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* BUTTONS */
+    button, .button, a.button, .btn,
+    input[type="submit"], input[type="button"], input[type="reset"],
+    .shopify-payment-button__button, .shopify-payment-button__button--unbranded{
+      font-family: {{ button_family }} !important;
+      {%- if settings.umm_button_weight != 'auto' -%}font-weight: {{ settings.umm_button_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_button_px_enable -%}
+      {%- assign bt_m = settings.umm_button_px_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign bt_d = settings.umm_button_px_d | default: bt_m | replace:'px','' | strip -%}
+      button, .button, a.button, .btn,
+      input[type="submit"], input[type="button"], input[type="reset"],
+      .shopify-payment-button__button, .shopify-payment-button__button--unbranded{ font-size: {{ bt_m }}px !important; }
+      @media(min-width:750px){
+        button, .button, a.button, .btn,
+        input[type="submit"], input[type="button"], input[type="reset"],
+        .shopify-payment-button__button, .shopify-payment-button__button--unbranded{ font-size: {{ bt_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* HEADER MENU */
+    header .header__menu-item, header .header__menu-item span,
+    header .header__inline-menu a, header .list-menu__item,
+    .menu-drawer__menu-item, .menu-drawer__navigation a{
+      font-family: {{ header_menu_family }} !important;
+      {%- if settings.umm_header_menu_weight != 'auto' -%}font-weight: {{ settings.umm_header_menu_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_header_menu_px_enable -%}
+      {%- assign hm_m = settings.umm_header_menu_px_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign hm_d = settings.umm_header_menu_px_d | default: hm_m | replace:'px','' | strip -%}
+      header .header__menu-item, header .header__menu-item span,
+      header .header__inline-menu a, header .list-menu__item,
+      .menu-drawer__menu-item, .menu-drawer__navigation a{ font-size: {{ hm_m }}px !important; }
+      @media(min-width:750px){
+        header .header__menu-item, header .header__menu-item span,
+        header .header__inline-menu a, header .list-menu__item,
+        .menu-drawer__menu-item, .menu-drawer__navigation a{ font-size: {{ hm_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* FOOTER MENU */
+    .footer .list-menu__item, .footer .list-menu__item a,
+    .footer__content-top a, .footer__menu a, footer a{
+      font-family: {{ footer_menu_family }} !important;
+      {%- if settings.umm_footer_menu_weight != 'auto' -%}font-weight: {{ settings.umm_footer_menu_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_footer_menu_px_enable -%}
+      {%- assign fm_m = settings.umm_footer_menu_px_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign fm_d = settings.umm_footer_menu_px_d | default: fm_m | replace:'px','' | strip -%}
+      .footer .list-menu__item, .footer .list-menu__item a,
+      .footer__content-top a, .footer__menu a, footer a{ font-size: {{ fm_m }}px !important; }
+      @media(min-width:750px){
+        .footer .list-menu__item, .footer .list-menu__item a,
+        .footer__content-top a, .footer__menu a, footer a{ font-size: {{ fm_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* POPUPS (modals / drawers) */
+    .modal__title, .drawer__heading, .drawer__title, .popup__title, .newsletter-modal__title{
+      font-family: {{ popups_heading_family }} !important;
+      {%- if settings.umm_popups_heading_weight != 'auto' -%}font-weight: {{ settings.umm_popups_heading_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_popups_heading_px_enable -%}
+      {%- assign ph_m = settings.umm_popups_heading_px_m | default: '18' | replace:'px','' | strip -%}
+      {%- assign ph_d = settings.umm_popups_heading_px_d | default: ph_m | replace:'px','' | strip -%}
+      .modal__title, .drawer__heading, .drawer__title, .popup__title, .newsletter-modal__title{ font-size: {{ ph_m }}px !important; }
+      @media(min-width:750px){
+        .modal__title, .drawer__heading, .drawer__title, .popup__title, .newsletter-modal__title{ font-size: {{ ph_d }}px !important; }
+      }
+    {%- endif -%}
+
+    .modal__content, .drawer__inner, .popup__content, .newsletter-modal__content{
+      font-family: {{ popups_text_family }} !important;
+      {%- if settings.umm_popups_text_weight != 'auto' -%}font-weight: {{ settings.umm_popups_text_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_popups_text_px_enable -%}
+      {%- assign pt_m = settings.umm_popups_text_px_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign pt_d = settings.umm_popups_text_px_d | default: pt_m | replace:'px','' | strip -%}
+      .modal__content, .drawer__inner, .popup__content, .newsletter-modal__content{ font-size: {{ pt_m }}px !important; }
+      @media(min-width:750px){
+        .modal__content, .drawer__inner, .popup__content, .newsletter-modal__content{ font-size: {{ pt_d }}px !important; }
+      }
+    {%- endif -%}
+
+    /* Product cards */
+    .card__heading,.card__heading a{
+      font-family: {{ card_title_family }} !important;
+      {%- if settings.umm_card_title_weight != 'auto' -%}font-weight: {{ settings.umm_card_title_weight }} !important;{%- endif -%}
+    }
+    .card__content,.card__information,.card-information,.card__content *{
+      font-family: {{ card_text_family }} !important;
+      {%- if settings.umm_card_text_weight != 'auto' -%}font-weight: {{ settings.umm_card_text_weight }} !important;{%- endif -%}
+    }
+    {%- if settings.umm_card_rem_enable -%}
+      {%- assign ct_m = settings.umm_card_title_rem_m | default: '16' | replace:'px','' | strip -%}
+      {%- assign ct_d = settings.umm_card_title_rem_d | default: ct_m | replace:'px','' | strip -%}
+      {%- assign cx_m = settings.umm_card_text_rem_m | default: '14' | replace:'px','' | strip -%}
+      {%- assign cx_d = settings.umm_card_text_rem_d | default: cx_m | replace:'px','' | strip -%}
+
+      .card__heading,.card__heading a{font-size:{{ ct_m }}px !important;}
+      .card__content,.card__information,.card-information{font-size:{{ cx_m }}px !important;}
+      @media(min-width:750px){
+        .card__heading,.card__heading a{font-size:{{ ct_d }}px !important;}
+        .card__content,.card__information,.card-information{font-size:{{ cx_d }}px !important;}
+      }
+    {%- endif -%}
+  {%- endif -%}
+</style>

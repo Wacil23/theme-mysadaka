@@ -1,0 +1,1282 @@
+{% liquid
+  assign section_id = 'umm-parallax-navan-' | append: section.id
+  assign count = section.blocks.size
+
+  assign enable_mobile = false
+  if section.settings.enable_mobile_carousel and count > 1
+    assign enable_mobile = true
+  endif
+
+
+
+  assign center_pos = section.settings.center_card_position | plus: 0
+  assign center_index = center_pos | minus: 1
+  if center_index < 0 or center_index >= count
+    assign center_index = 0
+  endif
+
+  assign left_count = count | minus: 1 | divided_by: 2
+  assign right_count = count | minus: 1 | minus: left_count
+
+  assign max_abs = left_count
+  if right_count > max_abs
+    assign max_abs = right_count
+  endif
+%}
+
+<section
+  id="{{ section_id }}"
+  class="umm-parallax-navan{% if section.settings.full_bleed %} is-fullbleed{% endif %}"
+  data-section-id="{{ section_id }}"
+>
+  <div class="umm-parallax-navan__bg" aria-hidden="true"></div>
+
+  <div class="umm-parallax-navan__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="umm-parallax-navan__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.text != blank %}
+      <div class="umm-parallax-navan__text rte">{{ section.settings.text }}</div>
+    {% endif %}
+  </div>
+
+  {% if count > 0 %}
+    <!-- DESKTOP (NO STICKY) -->
+    <div class="umm-parallax-navan__scene" data-desktop-scene>
+      <div class="umm-parallax-navan__stage" data-stage>
+        {% for block in section.blocks %}
+          {% liquid
+            assign i = forloop.index0
+
+            comment
+              Wrap logic:
+              r_raw = i - center_index
+              if r_raw > right_count => r = r_raw - count (goes to the LEFT)
+              if r_raw < -left_count => r = r_raw + count (goes to the RIGHT)
+              else r = r_raw
+            endcomment
+
+            assign r_raw = i | minus: center_index
+            assign r = r_raw
+
+            if r_raw > right_count
+              assign r = r_raw | minus: count
+            elsif r_raw < 0
+              assign neg_left = left_count | times: -1
+              if r_raw < neg_left
+                assign r = r_raw | plus: count
+              endif
+            endif
+
+            assign abs_r = r
+            if abs_r < 0
+              assign abs_r = abs_r | times: -1
+            endif
+
+            assign w = 0.0
+            if max_abs > 0
+              assign w = abs_r | times: 1.0 | divided_by: max_abs
+            endif
+
+            assign step_x = section.settings.desktop_step_x_px
+            assign curve_x = section.settings.desktop_curve_x_px
+            assign x = r | times: step_x
+            assign x_extra = r | times: abs_r | times: curve_x
+            assign x = x | plus: x_extra
+
+            assign base_top = section.settings.desktop_base_top_px
+            assign top_step = section.settings.desktop_top_step_px
+            assign y_delta = abs_r | times: top_step
+            assign y = base_top | minus: y_delta
+
+            assign scale = 1.0
+            case block.settings.size
+              when 'sm'
+                assign scale = 0.90
+              when 'md'
+                assign scale = 1.00
+              when 'lg'
+                assign scale = 1.10
+            endcase
+
+            assign z = 100 | minus: abs_r
+
+            assign shadow_x = section.settings.shadow_x_px
+            assign shadow_y = section.settings.shadow_y_px
+            assign shadow_blur = section.settings.shadow_blur_px
+            assign shadow_op = section.settings.shadow_opacity
+            if block.settings.shadow_custom
+              assign shadow_x = block.settings.shadow_x_px
+              assign shadow_y = block.settings.shadow_y_px
+              assign shadow_blur = block.settings.shadow_blur_px
+              assign shadow_op = block.settings.shadow_opacity
+            endif
+
+            assign img_d = block.settings.image_desktop
+            assign img_m = block.settings.image_mobile
+
+            assign video_mp4_d = ''
+            if block.settings.video_desktop != blank
+              for s in block.settings.video_desktop.sources
+                if s.format == 'mp4'
+                  assign video_mp4_d = s.url
+                  break
+                endif
+              endfor
+            endif
+
+            assign video_mp4_m = ''
+            if block.settings.video_mobile != blank
+              for s in block.settings.video_mobile.sources
+                if s.format == 'mp4'
+                  assign video_mp4_m = s.url
+                  break
+                endif
+              endfor
+            endif
+
+            assign has_video = false
+            if video_mp4_d != blank or video_mp4_m != blank
+              assign has_video = true
+            endif
+
+            assign card_alt = block.settings.alt | default: block.settings.title | default: 'Media'
+            assign pill_pos = block.settings.pill_position | default: 'top-left'
+          %}
+
+          <div
+            class="umm-card"
+            data-parallax-card
+            data-weight="{{ w }}"
+            data-is-center="{% if abs_r == 0 %}1{% else %}0{% endif %}"
+            style="
+              --x: {{ x }}px;
+              --y: {{ y }}px;
+              --scale: {{ scale }};
+              --z: {{ z }};
+              --shadow-x: {{ shadow_x }}px;
+              --shadow-y: {{ shadow_y }}px;
+              --shadow-blur: {{ shadow_blur }}px;
+              --shadow-op: {{ shadow_op | times: 0.01 }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            <div class="umm-card__media" data-fit="{{ block.settings.fit }}">
+              {% if img_d != blank or img_m != blank %}
+                <picture class="umm-picture">
+                  {% if img_m != blank %}
+                    <source media="(max-width: 749px)" srcset="{{ img_m | image_url: width: 1400 }}">
+                  {% endif %}
+                  {% assign img_main = img_d %}
+                  {% if img_main == blank %}
+                    {% assign img_main = img_m %}
+                  {% endif %}
+                  <img
+                    class="umm-media"
+                    src="{{ img_main | image_url: width: 2200 }}"
+                    alt="{{ card_alt | escape }}"
+                    width="{{ img_main.width }}"
+                    height="{{ img_main.height }}"
+                    loading="lazy"
+                  >
+                </picture>
+              {% else %}
+                <div class="umm-card__ph">Ajoute une image/GIF (et vidéo optionnelle).</div>
+              {% endif %}
+
+              {% if block.settings.pill_enable and block.settings.pill_url != blank %}
+                <a class="umm-pill" data-pos="{{ pill_pos }}" href="{{ block.settings.pill_url }}" aria-label="{{ block.settings.pill_title | escape }}">
+                  {% if block.settings.pill_subtitle != blank %}
+                    <span class="umm-pill__sub">{{ block.settings.pill_subtitle }}</span>
+                  {% endif %}
+                  <span class="umm-pill__title">{{ block.settings.pill_title }}</span>
+                </a>
+              {% endif %}
+
+              {% if has_video %}
+                <button
+                  class="umm-playbtn"
+                  type="button"
+                  aria-label="Lire la vidéo"
+                  data-video-desktop="{{ video_mp4_d | escape }}"
+                  data-video-mobile="{{ video_mp4_m | escape }}"
+                >
+                  <span class="umm-playbtn__bg" aria-hidden="true"></span>
+                  <span class="umm-playbtn__ico" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" fill="none">
+                      <path d="M28 22.5V41.5L44 32L28 22.5Z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+                </button>
+              {% endif %}
+            </div>
+
+            <div class="umm-card__meta">
+              {% if block.settings.title != blank %}
+                <div class="umm-card__title">{{ block.settings.title }}</div>
+              {% endif %}
+              {% if block.settings.subtitle != blank %}
+                <div class="umm-card__subtitle">{{ block.settings.subtitle }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- MOBILE CAROUSEL -->
+  {% if enable_mobile %}
+    <div class="umm-parallax-navan__mobile" data-mobile-wrap>
+      <div class="umm-mtrack" data-mtrack aria-label="Carousel">
+        {% for block in section.blocks %}
+          {% liquid
+            assign img2_d = block.settings.image_desktop
+            assign img2_m = block.settings.image_mobile
+
+            assign video2_d = ''
+            if block.settings.video_desktop != blank
+              for s in block.settings.video_desktop.sources
+                if s.format == 'mp4'
+                  assign video2_d = s.url
+                  break
+                endif
+              endfor
+            endif
+
+            assign video2_m = ''
+            if block.settings.video_mobile != blank
+              for s in block.settings.video_mobile.sources
+                if s.format == 'mp4'
+                  assign video2_m = s.url
+                  break
+                endif
+              endfor
+            endif
+
+            assign has_video2 = false
+            if video2_d != blank or video2_m != blank
+              assign has_video2 = true
+            endif
+
+            assign alt2 = block.settings.alt | default: block.settings.title | default: 'Media'
+            assign pill_pos2 = block.settings.pill_position | default: 'top-left'
+          %}
+
+          <div class="umm-mslide" data-mslide data-real-index="{{ forloop.index0 }}">
+            <div class="umm-mslide__card">
+              <div class="umm-card__media" data-fit="{{ block.settings.fit }}">
+                {% assign img_main2 = img2_m %}
+                {% if img_main2 == blank %}
+                  {% assign img_main2 = img2_d %}
+                {% endif %}
+
+                {% if img_main2 != blank %}
+                  <img
+                    class="umm-media"
+                    src="{{ img_main2 | image_url: width: 1600 }}"
+                    alt="{{ alt2 | escape }}"
+                    width="{{ img_main2.width }}"
+                    height="{{ img_main2.height }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="umm-card__ph">Ajoute une image/GIF.</div>
+                {% endif %}
+
+                {% if block.settings.pill_enable and block.settings.pill_url != blank %}
+                  <a class="umm-pill" data-pos="{{ pill_pos2 }}" href="{{ block.settings.pill_url }}" aria-label="{{ block.settings.pill_title | escape }}">
+                    {% if block.settings.pill_subtitle != blank %}
+                      <span class="umm-pill__sub">{{ block.settings.pill_subtitle }}</span>
+                    {% endif %}
+                    <span class="umm-pill__title">{{ block.settings.pill_title }}</span>
+                  </a>
+                {% endif %}
+
+                {% if has_video2 %}
+                  <button
+                    class="umm-playbtn"
+                    type="button"
+                    aria-label="Lire la vidéo"
+                    data-video-desktop="{{ video2_d | escape }}"
+                    data-video-mobile="{{ video2_m | escape }}"
+                  >
+                    <span class="umm-playbtn__bg" aria-hidden="true"></span>
+                    <span class="umm-playbtn__ico" aria-hidden="true">
+                      <svg viewBox="0 0 64 64" fill="none">
+                        <path d="M28 22.5V41.5L44 32L28 22.5Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                  </button>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="umm-mslide__meta">
+              {% if block.settings.title != blank %}
+                <div class="umm-card__title">{{ block.settings.title }}</div>
+              {% endif %}
+              {% if block.settings.subtitle != blank %}
+                <div class="umm-card__subtitle">{{ block.settings.subtitle }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_bullets %}
+        <div class="umm-bullets" data-bullets>
+          {% for block in section.blocks %}
+            <button class="umm-bullet" type="button" data-bullet="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!-- VIDEO MODAL -->
+  <div class="umm-modal" data-modal hidden>
+    <div class="umm-modal__backdrop" data-close></div>
+    <div class="umm-modal__dialog" role="dialog" aria-modal="true" aria-label="Lecture vidéo">
+      <button class="umm-modal__close" type="button" data-close aria-label="Fermer">✕</button>
+
+      <div class="umm-modal__media">
+        <video
+          data-modal-video
+          controls
+          playsinline
+          preload="metadata"
+          {% if section.settings.video_default_muted %}muted{% endif %}
+        ></video>
+      </div>
+
+      <div class="umm-modal__actions">
+        {% if section.settings.show_sound_toggle %}
+          <button class="umm-sound" type="button" data-sound>
+            {% if section.settings.video_default_muted %}Activer le son{% else %}Couper le son{% endif %}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #{{ section_id }}{
+      --pad-top: {{ section.settings.padding_top }}px;
+      --pad-bot: {{ section.settings.padding_bottom }}px;
+
+      --card-w: {{ section.settings.desktop_card_w_px }}px;
+      --card-h: {{ section.settings.desktop_card_h_px }}px;
+
+      --radius: {{ section.settings.card_radius_px }}px;
+      --border-w: {{ section.settings.card_border_w_px }}px;
+      --border-color: {{ section.settings.card_border_color }};
+      --card-bg: {{ section.settings.card_bg }};
+
+      --max-rise: {{ section.settings.desktop_spread_px }}px;
+      --speed-mult: {{ section.settings.desktop_speed_pct | times: 0.01 }};
+      --exp: {{ section.settings.desktop_distance_curve_pct | times: 0.01 }};
+
+      --desktop-safe-x: {{ section.settings.desktop_safe_x_px }}px;
+
+      --mobile-slide-w: {{ section.settings.mobile_slide_width_vw }}vw;
+      --mobile-gap: {{ section.settings.mobile_gap_px }}px;
+
+      --mobile-side-opacity: {{ section.settings.mobile_side_opacity | times: 0.01 }};
+      --mobile-side-blur: {{ section.settings.mobile_side_blur_pct | times: 0.12 }}px;
+      --mobile-active-scale: {{ section.settings.mobile_active_scale_pct | times: 0.01 }};
+      --mobile-side-scale: {{ section.settings.mobile_side_scale_pct | times: 0.01 }};
+
+      --bullets-size: {{ section.settings.bullets_size_px }}px;
+      --bullets-gap: {{ section.settings.bullets_gap_px }}px;
+      --bullets-color: {{ section.settings.bullets_color }};
+      --bullets-active: {{ section.settings.bullets_active_color }};
+
+      --bg-desktop: {{ section.settings.bg_desktop }};
+      --bg-mobile: {{ section.settings.bg_mobile }};
+
+      --play-size: {{ section.settings.play_size_px }}px;
+      --play-ico: {{ section.settings.play_icon_px }}px;
+      --shadow-x-g: {{ section.settings.shadow_x_px }}px;
+      --shadow-y-g: {{ section.settings.shadow_y_px }}px;
+      --shadow-blur-g: {{ section.settings.shadow_blur_px }}px;
+      --shadow-op-g: {{ section.settings.shadow_opacity | times: 0.01 }};
+--umm-subheading-family: {{ settings.type_subtitle_font.family | json }}, {{ settings.type_subtitle_font.fallback_families }};
+--umm-body-family: {{ settings.type_body_font.family | json }}, {{ settings.type_body_font.fallback_families }};
+
+
+    }
+
+    #{{ section_id }}{
+      position: relative;
+      overflow: visible;
+      padding: var(--pad-top) 0 var(--pad-bot) 0;
+    }
+
+    #{{ section_id }}.is-fullbleed{
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+
+    #{{ section_id }} .umm-parallax-navan__bg{
+      position:absolute; inset:0; z-index:0;
+      background: var(--bg-desktop);
+      pointer-events:none;
+    }
+    @media (max-width: 749px){
+      #{{ section_id }} .umm-parallax-navan__bg{ background: var(--bg-mobile); }
+    }
+
+    /* Texte */
+    #{{ section_id }} .umm-parallax-navan__inner{
+      position: relative;
+      z-index: 2;
+      max-width: {{ section.settings.max_text_w_px }}px;
+      margin: 0 auto;
+      padding: 0 18px;
+      text-align: center;
+    }
+
+    /* Scene au-dessus du texte => pill ne "disparaît" plus */
+    #{{ section_id }} .umm-parallax-navan__scene{
+      position: relative;
+      z-index: 3;
+      margin-top: {{ section.settings.desktop_scene_margin_top_px }}px;
+      min-height: calc({{ section.settings.desktop_base_top_px }}px + var(--card-h) + 200px);
+    }
+
+    #{{ section_id }} .umm-parallax-navan__stage{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    #{{ section_id }} .umm-card{
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: var(--card-w);
+      z-index: var(--z);
+      transform: translate3d(calc(-50% + var(--x2, var(--x))), calc(var(--y) + var(--scrollY, 0px)), 0) scale(var(--scale));
+      will-change: transform;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      text-align: left;
+    }
+
+    #{{ section_id }} .umm-card__media{
+      width: 100%;
+      height: var(--card-h);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      border: var(--border-w) solid var(--border-color);
+      box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) rgba(0,0,0,var(--shadow-op));
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* FIX COVER DESKTOP: picture doit remplir le container */
+    #{{ section_id }} .umm-picture{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    #{{ section_id }} .umm-picture > img.umm-media{
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      object-position: center;
+    }
+    /* FIX: img direct (mobile) doit aussi remplir */
+#{{ section_id }} .umm-card__media > img.umm-media{
+  width: 100% !important;
+  height: 100% !important;
+  display:block;
+  object-position:center;
+}
+
+    #{{ section_id }} .umm-card__media[data-fit="cover"] .umm-media{ object-fit: cover !important; }
+    #{{ section_id }} .umm-card__media[data-fit="contain"] .umm-media{ object-fit: contain !important; }
+
+    /* Pill (position configurable) */
+    #{{ section_id }} .umm-pill{
+      position:absolute;
+      z-index: 12;
+      display:inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      text-decoration:none;
+      padding: {{ section.settings.pill_pad_y_px }}px {{ section.settings.pill_pad_x_px }}px;
+      border-radius: {{ section.settings.pill_radius_px }}px;
+      background: {{ section.settings.pill_bg }};
+      color: {{ section.settings.pill_color }};
+      box-shadow: 0 10px 26px rgba(0,0,0,.10);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.45);
+      top: 14px; left: 14px; right: auto; bottom: auto;
+      transform: none;
+      pointer-events: auto;
+    }
+    #{{ section_id }} .umm-pill__sub{ font-size: 12px; opacity: .85; line-height: 1.1; }
+    #{{ section_id }} .umm-pill__title{ font-size: 13px; font-weight: 650; line-height: 1.1; }
+
+    /* Positions */
+    #{{ section_id }} .umm-pill[data-pos="top-left"]{ top:14px; left:14px; right:auto; bottom:auto; transform:none; }
+    #{{ section_id }} .umm-pill[data-pos="top-center"]{ top:14px; left:50%; right:auto; bottom:auto; transform:translateX(-50%); }
+    #{{ section_id }} .umm-pill[data-pos="top-right"]{ top:14px; right:14px; left:auto; bottom:auto; transform:none; }
+    #{{ section_id }} .umm-pill[data-pos="center"]{ top:50%; left:50%; right:auto; bottom:auto; transform:translate(-50%,-50%); }
+    #{{ section_id }} .umm-pill[data-pos="center-left"]{ top:50%; left:14px; right:auto; bottom:auto; transform:translateY(-50%); }
+    #{{ section_id }} .umm-pill[data-pos="center-right"]{ top:50%; right:14px; left:auto; bottom:auto; transform:translateY(-50%); }
+    #{{ section_id }} .umm-pill[data-pos="bottom-left"]{ bottom:14px; left:14px; top:auto; right:auto; transform:none; }
+    #{{ section_id }} .umm-pill[data-pos="bottom-center"]{ bottom:14px; left:50%; top:auto; right:auto; transform:translateX(-50%); }
+    #{{ section_id }} .umm-pill[data-pos="bottom-right"]{ bottom:14px; right:14px; top:auto; left:auto; transform:none; }
+
+    /* Play button bien proportionné */
+    #{{ section_id }} .umm-playbtn{
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: var(--play-size);
+      height: var(--play-size);
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      z-index: 10;
+      display:grid;
+      place-items:center;
+    }
+    #{{ section_id }} .umm-playbtn__bg{
+      position:absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.45);
+    }
+    #{{ section_id }} .umm-playbtn__ico{
+  position: relative;
+  width: var(--play-ico);
+  height: var(--play-ico);
+  color: #111;
+  display: grid;
+  place-items: center;
+  transform: none; /* plus de décalage */
+}
+
+#{{ section_id }} .umm-playbtn__ico svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ajuste le triangle pour être optiquement centré */
+#{{ section_id }} .umm-playbtn__ico svg path{
+  transform: translate(1.5px, 0px);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+    #{{ section_id }} .umm-playbtn__ico svg{ width:100%; height:100%; display:block; }
+
+    #{{ section_id }} .umm-card__ph{
+      padding: 14px;
+      text-align:center;
+      font-size: 13px;
+      opacity: .65;
+    }
+
+    #{{ section_id }} .umm-card__meta{
+      margin-top: 10px;
+      text-align: center;
+      padding: 0 6px;
+    }
+    #{{ section_id }} .umm-card__title{
+  font-family: var(--umm-subheading-family) !important;
+  line-height: 1.2;
+  font-weight: 600; /* ajuste si tu veux */
+}
+
+#{{ section_id }} .umm-card__subtitle{
+  font-family: var(--umm-body-family) !important;
+  margin-top: 4px;
+  opacity: .82;
+  line-height: 1.3;
+  font-size: .95em;
+  font-weight: 400;
+}
+
+    @media (min-width: 750px){
+      #{{ section_id }} .umm-card__title{ font-weight: 400; }
+    }
+
+    @media (max-width: 749px){
+      #{{ section_id }} .umm-parallax-navan__scene{ display:none; }
+    }
+
+    /* MOBILE */
+    #{{ section_id }} .umm-parallax-navan__mobile{
+      display:none;
+      position:relative;
+      z-index:3;
+      padding: 14px 0 0 0;
+    }
+    @media (max-width: 749px){
+      #{{ section_id }} .umm-parallax-navan__mobile{ display:block; }
+    }
+
+    #{{ section_id }} .umm-mtrack{
+  display:flex;
+  gap: var(--mobile-gap);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+
+  /* padding de centrage + safe-area, et jamais négatif */
+  padding-left: calc(max(18px, calc((100vw - var(--mobile-slide-w)) / 2)) + env(safe-area-inset-left));
+  padding-right: calc(max(18px, calc((100vw - var(--mobile-slide-w)) / 2)) + env(safe-area-inset-right));
+  scroll-padding-left: calc(max(18px, calc((100vw - var(--mobile-slide-w)) / 2)) + env(safe-area-inset-left));
+  scroll-padding-right: calc(max(18px, calc((100vw - var(--mobile-slide-w)) / 2)) + env(safe-area-inset-right));
+}
+
+    #{{ section_id }} .umm-mtrack::-webkit-scrollbar{ display:none; }
+
+    #{{ section_id }} .umm-mslide{
+      flex: 0 0 var(--mobile-slide-w);
+      scroll-snap-align:center;
+      scroll-snap-stop:always;
+      transform: scale(var(--mobile-side-scale));
+      opacity: var(--mobile-side-opacity);
+      filter: blur(var(--mobile-side-blur));
+      transition: transform .35s ease, opacity .35s ease, filter .35s ease;
+      will-change: transform, opacity, filter;
+    }
+    #{{ section_id }} .umm-mslide.is-active{
+      transform: scale(var(--mobile-active-scale));
+      opacity: 1;
+      filter: none;
+    }
+
+    #{{ section_id }} .umm-mslide__card .umm-card__media{
+     height: {{ section.settings.mobile_card_h_px }}px;
+     box-shadow: var(--shadow-x-g) var(--shadow-y-g) var(--shadow-blur-g) rgba(0,0,0,var(--shadow-op-g));
+    }
+
+
+    #{{ section_id }} .umm-mslide__meta{
+      margin-top: 10px;
+      text-align:center;
+      padding: 0 8px;
+    }
+
+    #{{ section_id }} .umm-bullets{
+      display:flex;
+      justify-content:center;
+      gap: var(--bullets-gap);
+      margin-top: 14px;
+      padding-bottom: 4px;
+    }
+    #{{ section_id }} .umm-bullet{
+      width: var(--bullets-size);
+      height: var(--bullets-size);
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--bullets-color);
+      opacity: .55;
+      transition: opacity .2s ease, transform .2s ease, background .2s ease;
+      padding: 0;
+    }
+    #{{ section_id }} .umm-bullet.is-active{
+      background: var(--bullets-active);
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    /* MODAL */
+    #{{ section_id }} .umm-modal[hidden]{ display:none; }
+    #{{ section_id }} .umm-modal{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+    }
+    #{{ section_id }} .umm-modal__backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+    }
+    #{{ section_id }} .umm-modal__dialog{
+      position: relative;
+      z-index: 2;
+      width: min(920px, calc(100vw - 28px));
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    #{{ section_id }} .umm-modal__close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(0,0,0,.06);
+      cursor: pointer;
+    }
+    #{{ section_id }} .umm-modal__media{
+      background: #000;
+      aspect-ratio: 16 / 9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #{{ section_id }} .umm-modal__media video{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+    }
+    #{{ section_id }} .umm-modal__actions{
+      padding: 12px 14px;
+      display:flex;
+      justify-content:flex-end;
+      gap: 10px;
+      background: #fff;
+    }
+    #{{ section_id }} .umm-sound{
+      border: 0;
+      background: rgba(0,0,0,.06);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor:pointer;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      #{{ section_id }} .umm-mslide{ transition: none; }
+    }
+  </style>
+
+  <script>
+    (function(){
+      var root = document.getElementById({{ section_id | json }});
+      if(!root) return;
+
+      function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+      /* -------- DESKTOP PARALLAX (NO STICKY) -------- */
+      function initDesktop(){
+        if(!window.matchMedia('(min-width: 750px)').matches) return;
+
+        var scene = root.querySelector('[data-desktop-scene]');
+        var stage = root.querySelector('[data-stage]');
+        var cards = Array.prototype.slice.call(root.querySelectorAll('[data-parallax-card]'));
+        if(!scene || !stage || !cards.length) return;
+
+        var safeX = parseFloat(getComputedStyle(root).getPropertyValue('--desktop-safe-x')) || 18;
+
+        function applyXFit(){
+          var stageW = stage.clientWidth || window.innerWidth;
+          var cardW = parseFloat(getComputedStyle(root).getPropertyValue('--card-w')) || 260;
+          var avail = (stageW / 2) - (cardW / 2) - safeX;
+
+          var maxX = 0;
+          for(var i=0;i<cards.length;i++){
+            var x = parseFloat(getComputedStyle(cards[i]).getPropertyValue('--x')) || 0;
+            maxX = Math.max(maxX, Math.abs(x));
+          }
+          var factor = 1;
+          if(maxX > 0 && avail > 0){
+            factor = Math.min(1, avail / maxX);
+          }
+          for(var j=0;j<cards.length;j++){
+            var x0 = parseFloat(getComputedStyle(cards[j]).getPropertyValue('--x')) || 0;
+            cards[j].style.setProperty('--x2', (x0 * factor).toFixed(2) + 'px');
+          }
+        }
+
+        function getProgress(){
+          var rect = root.getBoundingClientRect();
+          var vh = window.innerHeight || 800;
+          var total = rect.height + vh;
+          var p = (vh - rect.top) / total;  // 0..1
+          p = clamp(p, 0, 1);
+
+          var speed = parseFloat(getComputedStyle(root).getPropertyValue('--speed-mult')) || 1;
+          p = clamp(p * speed, 0, 1);
+          return p;
+        }
+
+        var ticking = false;
+
+        function onScroll(){
+          if(ticking) return;
+          ticking = true;
+
+          requestAnimationFrame(function(){
+            var p = getProgress();
+
+            var maxRise = parseFloat(getComputedStyle(root).getPropertyValue('--max-rise')) || 420;
+            var exp = parseFloat(getComputedStyle(root).getPropertyValue('--exp')) || 1.7;
+
+            for(var i=0;i<cards.length;i++){
+              var card = cards[i];
+              var isCenter = card.getAttribute('data-is-center') === '1';
+              if(isCenter){
+                card.style.setProperty('--scrollY', '0px');
+                continue;
+              }
+
+              var w = parseFloat(card.getAttribute('data-weight') || '0');
+              w = clamp(w, 0, 1);
+
+              // plus loin = plus rapide
+              var speedFactor = Math.pow(w, exp);
+
+              var rise = -(p * maxRise * speedFactor);
+              card.style.setProperty('--scrollY', rise.toFixed(2) + 'px');
+            }
+
+            ticking = false;
+          });
+        }
+
+        applyXFit();
+        onScroll();
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', function(){ applyXFit(); onScroll(); }, { passive: true });
+
+        if('ResizeObserver' in window){
+          var ro = new ResizeObserver(function(){ applyXFit(); onScroll(); });
+          ro.observe(stage);
+        }
+      }
+
+      /* -------- MOBILE INFINITE CENTER CAROUSEL (start on slide 1) -------- */
+      function initMobile(){
+  if(!window.matchMedia('(max-width: 749px)').matches) return;
+
+  var wrap = root.querySelector('[data-mobile-wrap]');
+  var track = wrap ? wrap.querySelector('[data-mtrack]') : null;
+  if(!track) return;
+
+  if(track.getAttribute('data-inited') === '1') return;
+  track.setAttribute('data-inited','1');
+
+  var originals = Array.prototype.slice.call(track.querySelectorAll('[data-mslide]'));
+  var n = originals.length;
+  if(n <= 1) return;
+
+  // Clone before + after for infinite feel
+  var before = document.createDocumentFragment();
+  var after  = document.createDocumentFragment();
+
+  originals.forEach(function(s){ before.appendChild(s.cloneNode(true)); });
+  originals.forEach(function(s){ after.appendChild(s.cloneNode(true)); });
+
+  track.insertBefore(before, track.firstChild);
+  track.appendChild(after);
+
+  var slides = Array.prototype.slice.call(track.querySelectorAll('[data-mslide]'));
+  var middleStart = n; // originals are now in the middle block (index n..2n-1)
+
+  function getGap(){
+    var st = getComputedStyle(track);
+    var g = parseFloat(st.gap || st.columnGap || '0');
+    return isNaN(g) ? 0 : g;
+  }
+
+  function slideFull(){
+    var s = slides[middleStart];
+    if(!s) return 1;
+    return s.offsetWidth + getGap();
+  }
+
+  function setWidth(){
+    return slideFull() * n;
+  }
+
+  function centerEl(el, behavior){
+    if(!el) return;
+    var left = el.offsetLeft + (el.offsetWidth/2) - (track.clientWidth/2);
+    track.scrollTo({ left: left, behavior: behavior || 'auto' });
+  }
+
+  function centerRealIndex(realIndex, behavior){
+    realIndex = Math.max(0, Math.min(n-1, realIndex));
+    var el = slides[middleStart + realIndex];
+    if(!el){
+      // fallback: find closest match
+      for(var i=0;i<slides.length;i++){
+        if(parseInt(slides[i].getAttribute('data-real-index')||'0',10) === realIndex){
+          el = slides[i]; break;
+        }
+      }
+    }
+    centerEl(el, behavior);
+  }
+
+  // Bullets
+  var bulletsWrap = root.querySelector('[data-bullets]');
+  var bullets = bulletsWrap ? Array.prototype.slice.call(bulletsWrap.querySelectorAll('[data-bullet]')) : [];
+
+  function updateActive(){
+    var center = track.scrollLeft + track.clientWidth/2;
+    var best = null;
+    var bestDist = Infinity;
+
+    for(var i=0;i<slides.length;i++){
+      var s = slides[i];
+      var mid = s.offsetLeft + s.offsetWidth/2;
+      var dist = Math.abs(mid - center);
+      if(dist < bestDist){
+        bestDist = dist;
+        best = s;
+      }
+    }
+    if(!best) return 0;
+
+    for(var j=0;j<slides.length;j++){
+      slides[j].classList.toggle('is-active', slides[j] === best);
+    }
+
+    var idx = parseInt(best.getAttribute('data-real-index') || '0', 10) || 0;
+    for(var b=0;b<bullets.length;b++){
+      bullets[b].classList.toggle('is-active', b === idx);
+    }
+    return idx;
+  }
+
+  // Normalize to keep scroll around the middle block
+  function normalizeInfinity(){
+    var w = setWidth();
+    var base = slides[middleStart] ? slides[middleStart].offsetLeft : 0;
+
+    if(track.scrollLeft < base - w * 0.5){
+      track.scrollLeft += w;
+    } else if(track.scrollLeft > base + w * 1.5){
+      track.scrollLeft -= w;
+    }
+  }
+
+  // Start: Card 1 centered on mobile
+  centerRealIndex(0, 'auto');
+  updateActive();
+
+  var ticking = false;
+  track.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+
+    requestAnimationFrame(function(){
+      normalizeInfinity();
+      updateActive();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  bullets.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var idx = parseInt(btn.getAttribute('data-bullet') || '0', 10) || 0;
+      centerRealIndex(idx, 'smooth');
+    });
+  });
+
+  window.addEventListener('resize', function(){
+    var idx = updateActive();
+    // recentre sur le middle set après resize
+    centerRealIndex(idx, 'auto');
+    updateActive();
+  }, { passive: true });
+}
+
+
+      /* -------- MODAL VIDEO (click play) -------- */
+      function initModal(){
+        var modal = root.querySelector('[data-modal]');
+        var video = root.querySelector('[data-modal-video]');
+        if(!modal || !video) return;
+
+        var soundBtn = root.querySelector('[data-sound]');
+        var defaultMuted = video.muted;
+
+        function pickSrc(el){
+          var isMobile = window.matchMedia('(max-width: 749px)').matches;
+          var m = (el.getAttribute('data-video-mobile') || '').trim();
+          var d = (el.getAttribute('data-video-desktop') || '').trim();
+          return (isMobile ? (m || d) : (d || m));
+        }
+
+        function openWith(el){
+          var src = pickSrc(el);
+          if(!src) return;
+
+          modal.hidden = false;
+          document.documentElement.style.overflow = 'hidden';
+
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+
+          video.muted = defaultMuted;
+
+          video.src = src;
+          video.load();
+          video.play().catch(function(){});
+
+          if(soundBtn){
+            soundBtn.textContent = video.muted ? 'Activer le son' : 'Couper le son';
+          }
+        }
+
+        function close(){
+          modal.hidden = true;
+          document.documentElement.style.overflow = '';
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+        }
+
+        root.addEventListener('click', function(e){
+          var t = e.target;
+
+          var closeEl = t.closest && t.closest('[data-close]');
+          if(closeEl){
+            e.preventDefault();
+            close();
+            return;
+          }
+
+          var play = t.closest && t.closest('[data-video-desktop], [data-video-mobile]');
+          if(play){
+            var s = pickSrc(play);
+            if(!s) return;
+            e.preventDefault();
+            openWith(play);
+          }
+        });
+
+        if(soundBtn){
+          soundBtn.addEventListener('click', function(){
+            video.muted = !video.muted;
+            soundBtn.textContent = video.muted ? 'Activer le son' : 'Couper le son';
+          });
+        }
+
+        document.addEventListener('keydown', function(e){
+          if(e.key === 'Escape' && !modal.hidden) close();
+        });
+      }
+
+      initDesktop();
+      initMobile();
+      initModal();
+    })();
+  </script>
+
+  {% schema %}
+  {
+    "name": "Parallax cards",
+    "max_blocks": 7,
+    "settings": [
+      { "type": "checkbox", "id": "full_bleed", "label": "Full width (sans marges)", "default": true },
+
+      { "type": "header", "content": "Centre (desktop)" },
+      {
+        "type": "select",
+        "id": "center_card_position",
+        "label": "Card centrale (immobile) — par défaut Card 1",
+        "default": "1",
+        "options": [
+          { "value": "1", "label": "Card 1" },
+          { "value": "2", "label": "Card 2" },
+          { "value": "3", "label": "Card 3" },
+          { "value": "4", "label": "Card 4" },
+          { "value": "5", "label": "Card 5" },
+          { "value": "6", "label": "Card 6" },
+          { "value": "7", "label": "Card 7" }
+        ]
+      },
+      { "type": "range", "id": "desktop_safe_x_px", "label": "Marge sécurité X (px) pour éviter le crop", "min": 0, "max": 200, "step": 2, "default": 18 },
+
+      { "type": "header", "content": "Texte" },
+      { "type": "text", "id": "heading", "label": "Titre", "default": "Une seule plateforme pour vos voyages et notes de frais" },
+      { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Rendez-vous client, séminaires, visites sur site : offrez à vos équipes la liberté dont elles ont besoin pour atteindre leurs objectifs tout en gardant le contrôle sur les dépenses.</p>" },
+      { "type": "range", "id": "max_text_w_px", "label": "Largeur max texte (px)", "min": 400, "max": 1400, "step": 10, "default": 860 },
+
+      { "type": "header", "content": "Fond (dégradé)" },
+      { "type": "color_background", "id": "bg_desktop", "label": "Fond desktop", "default": "linear-gradient(180deg, rgba(245,246,255,1) 0%, rgba(255,255,255,1) 70%)" },
+      { "type": "color_background", "id": "bg_mobile", "label": "Fond mobile", "default": "linear-gradient(180deg, rgba(245,246,255,1) 0%, rgba(255,255,255,1) 70%)" },
+
+      { "type": "header", "content": "Espacements" },
+      { "type": "range", "id": "padding_top", "label": "Padding haut (px)", "min": 0, "max": 200, "step": 2, "default": 70 },
+      { "type": "range", "id": "padding_bottom", "label": "Padding bas (px)", "min": 0, "max": 200, "step": 2, "default": 80 },
+      { "type": "range", "id": "desktop_scene_margin_top_px", "label": "Espace entre texte et cards (px)", "min": 0, "max": 200, "step": 2, "default": 30 },
+
+      { "type": "header", "content": "Cards — style" },
+      { "type": "color", "id": "card_bg", "label": "Fond carte", "default": "#ffffff" },
+      { "type": "color", "id": "card_border_color", "label": "Couleur bordure", "default": "#000000" },
+      { "type": "range", "id": "card_border_w_px", "label": "Épaisseur bordure (px)", "min": 0, "max": 10, "step": 0.1, "default": 0 },
+      { "type": "range", "id": "card_radius_px", "label": "Radius (px)", "min": 0, "max": 100, "step": 1, "default": 22 },
+
+      { "type": "header", "content": "Shadow (global)" },
+      { "type": "range", "id": "shadow_x_px", "label": "Shadow X (px)", "min": -100, "max": 100, "step": 2, "default": 0 },
+      { "type": "range", "id": "shadow_y_px", "label": "Shadow Y (px)", "min": 0, "max": 100, "step": 1, "default": 16 },
+      { "type": "range", "id": "shadow_blur_px", "label": "Shadow blur (px)", "min": 0, "max": 200, "step": 2, "default": 40 },
+      { "type": "range", "id": "shadow_opacity", "label": "Opacity (%)", "min": 0, "max": 100, "step": 1, "default": 14 },
+
+      { "type": "header", "content": "Desktop — dimensions" },
+      { "type": "range", "id": "desktop_card_w_px", "label": "Largeur card (px)", "min": 200, "max": 700, "step": 5, "default": 260 },
+      { "type": "range", "id": "desktop_card_h_px", "label": "Hauteur card (px)", "min": 300, "max": 800, "step": 5, "default": 470 },
+
+      { "type": "header", "content": "Desktop — placement (cercle autour du centre)" },
+      { "type": "range", "id": "desktop_base_top_px", "label": "Top de base (px)", "min": 0, "max": 500, "step": 5, "default": 230 },
+      { "type": "range", "id": "desktop_top_step_px", "label": "Décalage vertical par distance (px)", "min": 0, "max": 200, "step": 2, "default": 54 },
+      { "type": "range", "id": "desktop_step_x_px", "label": "Écart horizontal (px)", "min": 120, "max": 420, "step": 3, "default": 210 },
+      { "type": "range", "id": "desktop_curve_x_px", "label": "Courbure horizontale (px)", "min": 0, "max": 200, "step": 2, "default": 18 },
+
+      { "type": "header", "content": "Desktop — animation simplifiée" },
+      { "type": "range", "id": "desktop_spread_px", "label": "Spread (montée max, px)", "min": 0, "max": 800, "step": 8, "default": 416 },
+      { "type": "range", "id": "desktop_speed_pct", "label": "Vitesse (multiplicateur %)", "min": 50, "max": 250, "step": 2, "default": 120 },
+      { "type": "range", "id": "desktop_distance_curve_pct", "label": "Courbe distance", "min": 100, "max": 250, "step": 5, "default": 170 },
+
+      { "type": "header", "content": "Play button" },
+      { "type": "range", "id": "play_size_px", "label": "Taille bouton play (px)", "min": 20, "max": 120, "step": 1, "default": 74 },
+      { "type": "range", "id": "play_icon_px", "label": "Taille icône play (px)", "min": 10, "max": 70, "step": 0.6, "default": 28 },
+
+      { "type": "header", "content": "Pill (global)" },
+      { "type": "color", "id": "pill_bg", "label": "Couleur fond pill", "default": "#ffffff" },
+      { "type": "color", "id": "pill_color", "label": "Couleur texte pill", "default": "#111111" },
+      { "type": "range", "id": "pill_pad_x_px", "label": "Padding X pill (px)", "min": 0, "max": 100, "step": 1, "default": 14 },
+      { "type": "range", "id": "pill_pad_y_px", "label": "Padding Y pill (px)", "min": 0, "max": 100, "step": 1, "default": 10 },
+      { "type": "range", "id": "pill_radius_px", "label": "Radius pill (px)", "min": 0, "max": 100, "step": 1, "default": 100 },
+
+      { "type": "header", "content": "Mobile — carousel infini centré" },
+      { "type": "checkbox", "id": "enable_mobile_carousel", "label": "Activer carousel mobile", "default": true },
+      { "type": "range", "id": "mobile_card_h_px", "label": "Hauteur card mobile (px)", "min": 320, "max": 820, "step": 5, "default": 520 },
+      { "type": "range", "id": "mobile_slide_width_vw", "label": "Largeur slide (vw)", "min": 40, "max": 140, "step": 1, "default": 78 },
+      { "type": "range", "id": "mobile_gap_px", "label": "Gap (px)", "min": 0, "max": 100, "step": 1, "default": 14 },
+
+      { "type": "header", "content": "Mobile — effet côté (blur/opacité)" },
+      { "type": "range", "id": "mobile_side_opacity", "label": "Opacité cards côté (%)", "min": 0, "max": 100, "step": 1, "default": 55 },
+      { "type": "range", "id": "mobile_side_blur_pct", "label": "Blur côté (0 → 12px)", "min": 0, "max": 100, "step": 1, "default": 55 },
+      { "type": "range", "id": "mobile_active_scale_pct", "label": "Scale card active (%)", "min": 50, "max": 150, "step": 1, "default": 100 },
+      { "type": "range", "id": "mobile_side_scale_pct", "label": "Scale cards côté (%)", "min": 50, "max": 150, "step": 1, "default": 96 },
+
+      { "type": "header", "content": "Bullets (mobile)" },
+      { "type": "checkbox", "id": "show_bullets", "label": "Afficher bullets", "default": true },
+      { "type": "range", "id": "bullets_size_px", "label": "Taille bullet (px)", "min": 0, "max": 20, "step": 0.2, "default": 8 },
+      { "type": "range", "id": "bullets_gap_px", "label": "Espace bullets (px)", "min": 0, "max": 20, "step": 0.2, "default": 8 },
+      { "type": "color", "id": "bullets_color", "label": "Couleur bullet", "default": "#000000" },
+      { "type": "color", "id": "bullets_active_color", "label": "Couleur bullet active", "default": "#000000" },
+
+      { "type": "header", "content": "Lecture vidéo (modal)" },
+      { "type": "checkbox", "id": "video_default_muted", "label": "Vidéo en muet par défaut", "default": true },
+      { "type": "checkbox", "id": "show_sound_toggle", "label": "Afficher le bouton son (mute/unmute)", "default": true }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name": "Card",
+        "settings": [
+          { "type": "text", "id": "title", "label": "Titre sous la card", "default": "Titre produit" },
+          { "type": "text", "id": "subtitle", "label": "Sous-titre", "default": "Un aperçu du produit" },
+
+          { "type": "header", "content": "Pill (en haut/côté/centre)" },
+          { "type": "checkbox", "id": "pill_enable", "label": "Activer la pill", "default": false },
+          { "type": "url", "id": "pill_url", "label": "Lien de la pill" },
+          { "type": "text", "id": "pill_subtitle", "label": "Sous-titre pill", "default": "Service" },
+          { "type": "text", "id": "pill_title", "label": "Titre pill", "default": "Découvrir" },
+          {
+            "type": "select",
+            "id": "pill_position",
+            "label": "Position pill",
+            "default": "top-left",
+            "options": [
+              { "value": "top-left", "label": "Haut gauche" },
+              { "value": "top-center", "label": "Haut centre" },
+              { "value": "top-right", "label": "Haut droite" },
+              { "value": "center-left", "label": "Centre gauche" },
+              { "value": "center", "label": "Centre" },
+              { "value": "center-right", "label": "Centre droite" },
+              { "value": "bottom-left", "label": "Bas gauche" },
+              { "value": "bottom-center", "label": "Bas centre" },
+              { "value": "bottom-right", "label": "Bas droite" }
+            ]
+          },
+
+          { "type": "header", "content": "Média visible (image/GIF)" },
+          { "type": "image_picker", "id": "image_desktop", "label": "Image/GIF desktop (recommandé)" },
+          { "type": "image_picker", "id": "image_mobile", "label": "Image/GIF mobile (optionnel)" },
+
+          { "type": "header", "content": "Vidéo (optionnelle) — lecture via bouton Play" },
+          { "type": "video", "id": "video_desktop", "label": "Vidéo Shopify desktop (MP4 recommandé)" },
+          { "type": "video", "id": "video_mobile", "label": "Vidéo Shopify mobile (optionnel)" },
+
+          {
+            "type": "select",
+            "id": "fit",
+            "label": "Fit média",
+            "default": "cover",
+            "options": [
+              { "value": "cover", "label": "Cover" },
+              { "value": "contain", "label": "Contain" }
+            ]
+          },
+          { "type": "text", "id": "alt", "label": "Alt", "default": "alt" },
+
+          { "type": "header", "content": "Taille / Scale (desktop)" },
+          {
+            "type": "select",
+            "id": "size",
+            "label": "Taille",
+            "default": "md",
+            "options": [
+              { "value": "sm", "label": "Small" },
+              { "value": "md", "label": "Medium" },
+              { "value": "lg", "label": "Large" }
+            ]
+          },
+
+          { "type": "header", "content": "Shadow (optionnel par card)" },
+          { "type": "checkbox", "id": "shadow_custom", "label": "Activer shadow custom", "default": false },
+          { "type": "range", "id": "shadow_x_px", "label": "Shadow X (px)", "min": -100, "max": 100, "step": 2, "default": 0 },
+          { "type": "range", "id": "shadow_y_px", "label": "Shadow Y (px)", "min": 0, "max": 100, "step": 1, "default": 16 },
+          { "type": "range", "id": "shadow_blur_px", "label": "Shadow blur (px)", "min": 0, "max": 200, "step": 2, "default": 40 },
+          { "type": "range", "id": "shadow_opacity", "label": "Opacity (%)", "min": 0, "max": 100, "step": 1, "default": 14 }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Parallax cards",
+        "blocks": [
+          { "type": "card" },
+          { "type": "card" },
+          { "type": "card" },
+          { "type": "card" },
+          { "type": "card" },
+          { "type": "card" },
+          { "type": "card" }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+</section>

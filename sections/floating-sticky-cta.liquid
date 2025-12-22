@@ -1,0 +1,608 @@
+{% comment %} Floating Sticky CTA {% endcomment %}
+
+{%- if section.settings.button_subtitle != blank -%}
+  {%- assign has_subtitle = 'true' -%}
+{%- else -%}
+  {%- assign has_subtitle = 'false' -%}
+{%- endif -%}
+{%- assign z_final = 9899 | plus: section.settings.z_index -%}
+
+<section
+  id="StickyCTA-{{ section.id }}"
+  class="scta"
+  data-scta-section
+  data-has-subtitle="{{ has_subtitle }}"
+>
+  <style>
+    #StickyCTA-{{ section.id }}{
+      --scta-z: {{ z_final }};
+      --scta-bottom: {{ section.settings.bottom_offset }}px;
+      --scta-side: {{ section.settings.side_offset }}px;
+
+      --scta-maxw: {{ section.settings.max_width }}px;
+
+      --scta-container-bg: {{ section.settings.container_bg }};
+      --scta-container-radius: {{ section.settings.container_radius }}px;
+      --scta-container-pad-y: {{ section.settings.container_pad_y }}px;
+      --scta-container-pad-x: {{ section.settings.container_pad_x }}px;
+      --scta-container-shadow: {{ section.settings.container_shadow | escape }};
+
+      --scta-border-top-w: {{ section.settings.container_border_top_width }}px;
+      --scta-border-top-c: {{ section.settings.container_border_top_color }};
+
+      --scta-btn-radius: {% if section.settings.button_radius >= 100 %}999px{% else %}{{ section.settings.button_radius }}px{% endif %};
+      --scta-btn-pad-y: {{ section.settings.button_pad_y }}px;
+      --scta-btn-pad-x: {{ section.settings.button_pad_x }}px;
+      --scta-btn-shadow: {{ section.settings.button_shadow | escape }};
+      --scta-btn-text: {{ section.settings.button_text_color }};
+
+      --scta-icon-size: {{ section.settings.icon_size }}px;
+
+      --scta-title-size: {{ section.settings.title_size }}px;
+      --scta-subtitle-size: {{ section.settings.subtitle_size }}px;
+      --scta-title-size-m: {{ section.settings.title_size_mobile }}px;
+      --scta-subtitle-size-m: {{ section.settings.subtitle_size_mobile }}px;
+
+      --scta-grad-dur: {{ section.settings.gradient_speed | times: 1.0 | divided_by: 10 | plus: 1.5 }}s;
+      --scta-shine-dur: {{ section.settings.shine_speed | times: 1.0 | divided_by: 10 | plus: 1.6 }}s;
+      --scta-shine-opacity: {{ section.settings.shine_intensity | times: 1.0 | divided_by: 100 }};
+
+      --scta-font: var(--font-body-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif);
+      --scta-font-style: var(--font-body-style, normal);
+      --scta-font-weight: var(--font-body-weight, 600);
+
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: var(--scta-z);
+      pointer-events: none;
+      bottom: calc(var(--scta-bottom) + env(safe-area-inset-bottom, 0px));
+    }
+
+    @media (max-width: 749px){
+      #StickyCTA-{{ section.id }}{
+        --scta-title-size: var(--scta-title-size-m);
+        --scta-subtitle-size: var(--scta-subtitle-size-m);
+      }
+    }
+
+    {% unless section.settings.show_on_mobile %}
+      @media (max-width: 749px){ #StickyCTA-{{ section.id }}{ display:none !important; } }
+    {% endunless %}
+    {% unless section.settings.show_on_desktop %}
+      @media (min-width: 750px){ #StickyCTA-{{ section.id }}{ display:none !important; } }
+    {% endunless %}
+
+    /* wrap (position horizontale container) */
+    #StickyCTA-{{ section.id }} .scta__wrap{
+      width: 100%;
+      display: flex;
+      pointer-events: none;
+      padding-left: var(--scta-side);
+      padding-right: var(--scta-side);
+    }
+    #StickyCTA-{{ section.id }} .scta__wrap.is-left{ justify-content:flex-start; }
+    #StickyCTA-{{ section.id }} .scta__wrap.is-center{ justify-content:center; }
+    #StickyCTA-{{ section.id }} .scta__wrap.is-right{ justify-content:flex-end; }
+
+    /* container */
+    #StickyCTA-{{ section.id }} .scta__container{
+      background: var(--scta-container-bg);
+      border-radius: var(--scta-container-radius);
+      box-shadow: var(--scta-container-shadow);
+      padding: var(--scta-container-pad-y) var(--scta-container-pad-x);
+      pointer-events: auto;
+
+      border-top: var(--scta-border-top-w) solid var(--scta-border-top-c);
+      border-left: 0; border-right: 0; border-bottom: 0;
+
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform {{ section.settings.anim_duration }}ms ease, opacity {{ section.settings.anim_duration }}ms ease;
+      will-change: transform, opacity;
+    }
+
+    /* container width mode */
+    {% if section.settings.container_width_mode == 'full' %}
+      #StickyCTA-{{ section.id }} .scta__container{ width: 100%; max-width: none; }
+    {% else %}
+      #StickyCTA-{{ section.id }} .scta__container{ width: min(100%, var(--scta-maxw)); }
+    {% endif %}
+
+    /* si bouton auto => centre le bouton dans le container */
+    {% if section.settings.button_width_mode == 'auto' %}
+      #StickyCTA-{{ section.id }} .scta__container{
+        display: flex;
+        justify-content: center;
+      }
+    {% endif %}
+    #StickyCTA-{{ section.id }} .scta__btn{
+  isolation: isolate; /* important pour blend/shine */
+}
+
+#StickyCTA-{{ section.id }} .scta__btn > *{
+  position: relative;
+  z-index: 2;
+}
+
+
+    /* visible */
+    #StickyCTA-{{ section.id }}.is-visible .scta__container{
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      #StickyCTA-{{ section.id }} .scta__container{ transition:none; }
+      #StickyCTA-{{ section.id }} .scta__btn{ animation:none !important; }
+      #StickyCTA-{{ section.id }} .scta__btn::after{ animation:none !important; }
+    }
+
+    /* button */
+    #StickyCTA-{{ section.id }} .scta__btn{
+      {% if section.settings.button_width_mode == 'auto' %}
+        width: fit-content;
+        max-width: 100%;
+      {% else %}
+        width: 100%;
+      {% endif %}
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+
+      border-radius: var(--scta-btn-radius);
+      padding: var(--scta-btn-pad-y) var(--scta-btn-pad-x);
+      box-shadow: var(--scta-btn-shadow);
+      color: var(--scta-btn-text);
+
+      font-family: var(--scta-font);
+      font-style: var(--scta-font-style);
+      font-weight: var(--scta-font-weight);
+      line-height: 1.1;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+   /* background button (conic rotating gradient) */
+{% if section.settings.button_use_gradient %}
+
+  /* fallback solid */
+  #StickyCTA-{{ section.id }} .scta__btn{
+    background: {{ section.settings.button_color_1 }};
+  }
+
+  #StickyCTA-{{ section.id }} .scta__btn::before{
+    content:"";
+    position:absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(
+      from 0deg,
+      {{ section.settings.button_color_1 }},
+      {{ section.settings.button_color_2 }},
+      {{ section.settings.button_color_1 }}
+    );
+    z-index: 0;
+    will-change: transform;
+  }
+
+  {% if section.settings.gradient_animated %}
+    #StickyCTA-{{ section.id }} .scta__btn::before{
+      animation: scta-rotate-{{ section.id }} var(--scta-grad-dur) linear infinite;
+    }
+    @keyframes scta-rotate-{{ section.id }}{
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  {% endif %}
+
+{% else %}
+  #StickyCTA-{{ section.id }} .scta__btn{
+    background: {{ section.settings.button_color_1 }};
+  }
+{% endif %}
+
+
+    /* glass shine (continuous loop) */
+{% if section.settings.shine_enabled %}
+  #StickyCTA-{{ section.id }} .scta__btn::after{
+    content:"";
+    position:absolute;
+    inset:-60% -80%;
+    width: 55%;
+    transform: translateX(-260%) rotate(18deg);
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,var(--scta-shine-opacity)) 48%,
+      rgba(255,255,255,0) 100%
+    );
+    pointer-events:none;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+    opacity: 1;
+    animation: scta-shine-{{ section.id }} var(--scta-shine-dur) linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes scta-shine-{{ section.id }}{
+    0%   { transform: translateX(-500%) rotate(18deg); }
+    50%   { transform: translateX(0%) rotate(18deg); }
+    100% { transform: translateX(500%) rotate(18deg); }
+  }
+{% endif %}
+
+
+    #StickyCTA-{{ section.id }} .scta__btn:hover{ filter: brightness(1.02); }
+
+    /* icon */
+    #StickyCTA-{{ section.id }} .scta__icon{
+      width: var(--scta-icon-size);
+      height: var(--scta-icon-size);
+      flex: 0 0 auto;
+      display: flex;
+      align-items:center;
+      justify-content:center;
+    }
+    #StickyCTA-{{ section.id }} .scta__icon img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+    }
+
+    /* text (alignment) */
+    #StickyCTA-{{ section.id }} .scta__text{
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+      flex: 1 1 auto;
+
+      text-align: {{ section.settings.text_align }};
+      align-items: {% if section.settings.text_align == 'left' %}flex-start{% elsif section.settings.text_align == 'right' %}flex-end{% else %}center{% endif %};
+      justify-content: center;
+    }
+
+    /* If no subtitle: title takes space + perfect centering */
+    #StickyCTA-{{ section.id }}[data-has-subtitle="false"] .scta__text{
+      gap: 0;
+      justify-content: center;
+    }
+
+    #StickyCTA-{{ section.id }} .scta__title{
+      font-weight: 800;
+      font-size: var(--scta-title-size);
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #StickyCTA-{{ section.id }} .scta__subtitle{
+      font-weight: 600;
+      font-size: var(--scta-subtitle-size);
+      opacity: .92;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+
+  <div class="scta__wrap is-{{ section.settings.horizontal_position }}">
+    <div class="scta__container" role="region" aria-label="Bouton flottant">
+      {% assign href = section.settings.button_link %}
+      {% if href == blank %}{% assign href = "#" %}{% endif %}
+
+      <a class="scta__btn" href="{{ href }}">
+        {% if section.settings.icon_image != blank %}
+          <div class="scta__icon" aria-hidden="true">
+            {{
+              section.settings.icon_image
+              | image_url: width: 256
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.icon_image.alt | escape
+            }}
+          </div>
+        {% endif %}
+
+        <div class="scta__text">
+          {% if section.settings.button_title != blank %}
+            <div class="scta__title">{{ section.settings.button_title }}</div>
+          {% endif %}
+          {% if section.settings.button_subtitle != blank %}
+            <div class="scta__subtitle">{{ section.settings.button_subtitle }}</div>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.getElementById('StickyCTA-{{ section.id }}');
+      if (!root) return;
+
+      // Remove duplicates (editor)
+      document.querySelectorAll('#StickyCTA-{{ section.id }}').forEach((el) => {
+        if (el !== root) el.remove();
+      });
+
+      // Remove on unload (editor)
+      document.addEventListener('shopify:section:unload', function(e){
+        if (e && e.detail && e.detail.sectionId === '{{ section.id }}') {
+          try { root.remove(); } catch(err) {}
+        }
+      });
+
+      // Anti-clipping
+      try {
+        if (root.parentElement !== document.body) document.body.appendChild(root);
+      } catch (e) {}
+
+      const mode = "{{ section.settings.show_when }}";
+      const selector = "{{ section.settings.target_selector | strip | escape }}";
+      const rootMargin = "{{ section.settings.observer_root_margin | escape }}";
+      const threshold = Number("{{ section.settings.observer_threshold }}");
+
+      const hideEnabled = {{ section.settings.hide_enabled | json }};
+      const hideSelector = "{{ section.settings.hide_selector | strip | escape }}";
+      const hideRootMargin = "{{ section.settings.hide_root_margin | escape }}";
+      const hideThreshold = Number("{{ section.settings.hide_threshold }}");
+
+      const forceShow = /(?:\?|&)scta=1(?:&|$)/.test(window.location.search);
+      if (forceShow) { root.classList.add('is-visible'); return; }
+
+      let target = null;
+      let hideTargets = [];
+
+      let inViewMain = false;
+      let inViewHide = false;
+
+      let mainObserver = null;
+      let hideObserver = null;
+
+      let __sctaDesired = null;
+let __sctaTimer = null;
+
+function setVisible(visible){
+  // ne re-toggle pas si c’est déjà le bon état
+  const want = !!visible;
+  __sctaDesired = want;
+
+  if (__sctaTimer) return;
+
+  // petit debounce pour éviter le flicker quand on est pile au seuil
+  __sctaTimer = setTimeout(() => {
+    __sctaTimer = null;
+    const cur = root.classList.contains('is-visible');
+    if (cur !== __sctaDesired) {
+      root.classList.toggle('is-visible', __sctaDesired);
+    }
+  }, 90);
+}
+
+
+      function findMainTarget(){
+        if (!selector) return null;
+        try { return document.querySelector(selector); } catch(e){ return null; }
+      }
+
+      function findHideTargets(){
+        if (!hideEnabled || !hideSelector) return [];
+        try { return Array.from(document.querySelectorAll(hideSelector)); } catch(e){ return []; }
+      }
+
+      function intersectsViewport(el){
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const vw = window.innerWidth || document.documentElement.clientWidth;
+        return !(r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= vw);
+      }
+
+      function applyVisibility(){
+        const shouldShow = (mode === "out_of_view") ? !inViewMain : inViewMain;
+        const finalVisible = shouldShow && !(hideEnabled && inViewHide);
+        setVisible(finalVisible);
+      }
+
+      function setupObservers(){
+        if (mainObserver) { try { mainObserver.disconnect(); } catch(e){} }
+        if (hideObserver) { try { hideObserver.disconnect(); } catch(e){} }
+
+        inViewMain = false; inViewHide = false;
+
+        target = findMainTarget();
+        hideTargets = findHideTargets();
+
+        if (!target) {
+          const inEditor = !!(window.Shopify && Shopify.designMode);
+          setVisible(inEditor);
+          return false;
+        }
+
+        if ('IntersectionObserver' in window) {
+          mainObserver = new IntersectionObserver((entries) => {
+            const entry = entries && entries[0];
+            if (!entry) return;
+            inViewMain = !!entry.isIntersecting;
+            applyVisibility();
+          }, { root: null, rootMargin: rootMargin, threshold: isNaN(threshold) ? 0 : threshold });
+          mainObserver.observe(target);
+
+          if (hideEnabled && hideTargets.length) {
+            hideObserver = new IntersectionObserver((entries) => {
+              inViewHide = entries.some(e => e.isIntersecting);
+              applyVisibility();
+            }, { root: null, rootMargin: hideRootMargin, threshold: isNaN(hideThreshold) ? 0 : hideThreshold });
+
+            hideTargets.forEach(el => hideObserver.observe(el));
+          } else {
+            inViewHide = false;
+          }
+
+          inViewMain = intersectsViewport(target);
+          inViewHide = (hideEnabled && hideTargets.length) ? hideTargets.some(intersectsViewport) : false;
+          applyVisibility();
+          return true;
+        }
+
+        function tick(){
+          inViewMain = intersectsViewport(target);
+          inViewHide = (hideEnabled && hideTargets.length) ? hideTargets.some(intersectsViewport) : false;
+          applyVisibility();
+        }
+        tick();
+        window.addEventListener('scroll', tick, { passive: true });
+        window.addEventListener('resize', tick);
+        return true;
+      }
+
+      let tries = 0;
+      const maxTries = 80;
+
+      function boot(){
+        const ok = setupObservers();
+        if (!ok && tries < maxTries) {
+          tries += 1;
+          setTimeout(boot, 200);
+        }
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+      else boot();
+
+      window.addEventListener('load', boot);
+      document.addEventListener('shopify:section:load', boot);
+      document.addEventListener('shopify:section:select', boot);
+    })();
+  </script>
+
+  {% schema %}
+  {
+    "name": "Floating Sticky CTA",
+    "settings": [
+      { "type": "checkbox", "id": "show_on_mobile", "label": "Afficher sur mobile", "default": true },
+      { "type": "checkbox", "id": "show_on_desktop", "label": "Afficher sur desktop", "default": true },
+
+      { "type": "text", "id": "target_selector", "label": "Selector CSS de l’élément à observer", "default": ".shopify-section:first-child" },
+      {
+        "type": "select",
+        "id": "show_when",
+        "label": "Afficher le sticky quand…",
+        "default": "out_of_view",
+        "options": [
+          { "value": "out_of_view", "label": "L’élément n’est plus visible" },
+          { "value": "in_view", "label": "L’élément est visible" }
+        ]
+      },
+      { "type": "text", "id": "observer_root_margin", "label": "Observer rootMargin", "default": "0px 0px -10% 0px" },
+      { "type": "text", "id": "observer_threshold", "label": "Observer threshold (0 à 1)", "default": "0" },
+
+      { "type": "checkbox", "id": "hide_enabled", "label": "Masquer le sticky quand un élément est visible", "default": false },
+      { "type": "text", "id": "hide_selector", "label": "Selector CSS à surveiller (cache si visible)", "default": "footer" },
+      { "type": "text", "id": "hide_root_margin", "label": "Hide rootMargin", "default": "0px 0px 0px 0px" },
+      { "type": "text", "id": "hide_threshold", "label": "Hide threshold (0 à 1)", "default": "0" },
+
+      { "type": "text", "id": "button_title", "label": "Titre", "default": "Commencer" },
+      { "type": "text", "id": "button_subtitle", "label": "Sous-titre", "default": "Type text" },
+      { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+
+      { "type": "image_picker", "id": "icon_image", "label": "Icône (upload image)" },
+      { "type": "range", "id": "icon_size", "label": "Taille icône (px)", "min": 0, "max": 100, "step": 1, "default": 28 },
+
+      {
+        "type": "select",
+        "id": "container_width_mode",
+        "label": "Container : largeur",
+        "default": "floaty",
+        "options": [
+          { "value": "floaty", "label": "Floaty (max width)" },
+          { "value": "full", "label": "Full width" }
+        ]
+      },
+
+      {
+        "type": "select",
+        "id": "button_width_mode",
+        "label": "Bouton : largeur",
+        "default": "full",
+        "options": [
+          { "value": "full", "label": "Full width (100%)" },
+          { "value": "auto", "label": "Auto (selon contenu)" }
+        ]
+      },
+
+      { "type": "color", "id": "container_bg", "label": "Couleur container", "default": "#ffffff" },
+      { "type": "range", "id": "container_radius", "label": "Radius container (px)", "min": 0, "max": 100, "step": 1, "default": 18 },
+      { "type": "range", "id": "container_pad_y", "label": "Padding container Y (px)", "min": 0, "max": 100, "step": 1, "default": 10 },
+      { "type": "range", "id": "container_pad_x", "label": "Padding container X (px)", "min": 0, "max": 100, "step": 1, "default": 12 },
+      { "type": "text", "id": "container_shadow", "label": "Box-shadow container", "default": "0 10px 30px rgba(0,0,0,.12)" },
+
+      { "type": "range", "id": "container_border_top_width", "label": "Border-top épaisseur (px)", "min": 0, "max": 100, "step": 1, "default": 0 },
+      { "type": "color", "id": "container_border_top_color", "label": "Border-top couleur", "default": "#e9e9ef" },
+
+      { "type": "checkbox", "id": "button_use_gradient", "label": "Bouton en dégradé", "default": true },
+      { "type": "color", "id": "button_color_1", "label": "Couleur bouton 1", "default": "#5b2dfb" },
+      { "type": "color", "id": "button_color_2", "label": "Couleur bouton 2", "default": "#a64cff" },
+      { "type": "color", "id": "button_text_color", "label": "Couleur texte", "default": "#ffffff" },
+
+      { "type": "checkbox", "id": "gradient_animated", "label": "Animer le dégradé", "default": true },
+      { "type": "range", "id": "gradient_speed", "label": "Vitesse dégradé (slider)", "min": 0, "max": 100, "step": 1, "default": 40 },
+
+      { "type": "checkbox", "id": "shine_enabled", "label": "Effet lumière (shimmer)", "default": true },
+      { "type": "range", "id": "shine_speed", "label": "Vitesse lumière (slider)", "min": 0, "max": 100, "step": 1, "default": 35 },
+      { "type": "range", "id": "shine_intensity", "label": "Intensité lumière (%)", "min": 0, "max": 100, "step": 1, "default": 35 },
+
+      { "type": "range", "id": "button_radius", "label": "Radius bouton (px)", "min": 0, "max": 100, "step": 1, "default": 100 },
+      { "type": "range", "id": "button_pad_y", "label": "Padding bouton Y (px)", "min": 0, "max": 100, "step": 1, "default": 14 },
+      { "type": "range", "id": "button_pad_x", "label": "Padding bouton X (px)", "min": 0, "max": 100, "step": 1, "default": 18 },
+      { "type": "text", "id": "button_shadow", "label": "Box-shadow bouton", "default": "0 14px 34px rgba(91,45,251,.28)" },
+
+      { "type": "range", "id": "max_width", "label": "Container max width (px)", "min": 260, "max": 1260, "step": 10, "default": 560 },
+
+      {
+        "type": "select",
+        "id": "horizontal_position",
+        "label": "Position horizontale (container)",
+        "default": "center",
+        "options": [
+          { "value": "left", "label": "Gauche" },
+          { "value": "center", "label": "Centre" },
+          { "value": "right", "label": "Droite" }
+        ]
+      },
+
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Alignement du texte",
+        "default": "center",
+        "options": [
+          { "value": "left", "label": "Gauche" },
+          { "value": "center", "label": "Centre" },
+          { "value": "right", "label": "Droite" }
+        ]
+      },
+
+      { "type": "range", "id": "bottom_offset", "label": "Offset bas (px)", "min": 0, "max": 100, "step": 1, "default": 10 },
+      { "type": "range", "id": "side_offset", "label": "Offset côtés (px)", "min": 0, "max": 100, "step": 1, "default": 16 },
+
+      { "type": "range", "id": "z_index", "label": "Z-index (9899→9999)", "min": 0, "max": 100, "step": 1, "default": 60 },
+
+      { "type": "range", "id": "title_size", "label": "Taille titre (desktop px)", "min": 10, "max": 110, "step": 1, "default": 16 },
+      { "type": "range", "id": "subtitle_size", "label": "Taille sous-titre (desktop px)", "min": 8, "max": 108, "step": 1, "default": 12 },
+      { "type": "range", "id": "title_size_mobile", "label": "Taille titre (mobile px)", "min": 10, "max": 110, "step": 1, "default": 15 },
+      { "type": "range", "id": "subtitle_size_mobile", "label": "Taille sous-titre (mobile px)", "min": 8, "max": 108, "step": 1, "default": 11 },
+
+      { "type": "range", "id": "anim_duration", "label": "Durée apparition (ms)", "min": 0, "max": 1000, "step": 10, "default": 220 }
+    ],
+    "presets": [
+      { "name": "Floating Sticky CTA" }
+    ]
+  }
+  {% endschema %}
+</section>

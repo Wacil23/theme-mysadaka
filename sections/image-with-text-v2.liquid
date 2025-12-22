@@ -1,0 +1,499 @@
+{% comment %}
+  UMM — Feature cards (Navan-like)
+  Desktop: stacked cards, each card = 2 columns (text/media), alternating layout
+  Mobile: cards stack vertical (text top, media bottom)
+  Supports per-card desktop+mobile image + cover/contain
+  Supports optional logos row per card via "logo" blocks targeting card index
+{% endcomment %}
+
+{% liquid
+  assign sid = 'umm-fc-' | append: section.id
+%}
+
+{% style %}
+  .{{ sid }}{
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .{{ sid }} .umm-fc__head{
+    text-align: center;
+    margin: 0 0 44px;
+  }
+
+  .{{ sid }} .umm-fc__title{
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    line-height: 1.1;
+  }
+
+  .{{ sid }} .umm-fc__desc{
+    margin: 14px auto 0;
+    max-width: 740px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+    line-height: 1.55;
+    opacity: .92;
+  }
+
+  .{{ sid }} .umm-fc__list{
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.cards_gap }}px;
+  }
+
+  /* Card shell */
+  .{{ sid }} .umm-fc__card{
+    background: {{ section.settings.card_bg }};
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    box-shadow: {{ section.settings.card_shadow }};
+  }
+
+  /* Inner layout */
+  .{{ sid }} .umm-fc__inner{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: {{ section.settings.card_min_height }}px;
+  }
+
+  .{{ sid }} .umm-fc__col{
+    padding: {{ section.settings.card_padding }}px;
+  }
+
+  .{{ sid }} .umm-fc__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .{{ sid }} .umm-fc__eyebrow{
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    font-size: 12px;
+    opacity: .9;
+    text-transform: none;
+  }
+
+  .{{ sid }} .umm-fc__h{
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    line-height: 1.12;
+  }
+
+  .{{ sid }} .umm-fc__p{
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+    line-height: 1.6;
+    opacity: .92;
+    max-width: 44ch;
+  }
+
+  /* CTA button (pill outline like screenshot) */
+  .{{ sid }} .umm-fc__btn{
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid {{ section.settings.accent_color }};
+    color: {{ section.settings.accent_color }};
+    text-decoration: none;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: 500;
+    background: transparent;
+    transition: transform .15s ease, background-color .15s ease, opacity .15s ease;
+    width: {{ section.settings.button_width_desktop }};
+  }
+  .{{ sid }} .umm-fc__btn:hover{ transform: translateY(-1px); opacity: .9; }
+  .{{ sid }} .umm-fc__btn:active{ transform: translateY(0px); opacity: .85; }
+
+  /* Logos line */
+  .{{ sid }} .umm-fc__logos-label{
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: .9;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: 500;
+  }
+
+  .{{ sid }} .umm-fc__logos{
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .{{ sid }} .umm-fc__logos img{
+    display: block;
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+  }
+
+  /* Media column */
+  .{{ sid }} .umm-fc__media-wrap{
+    background: {{ section.settings.media_bg }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ section.settings.media_padding }}px;
+    position: relative;
+  }
+
+  /* Fixed media ratio => stable height independent of image */
+  .{{ sid }} .umm-fc__media{
+    width: 100%;
+    max-width: {{ section.settings.media_max_width }}px;
+    aspect-ratio: {{ section.settings.media_ratio }};
+    border-radius: {{ section.settings.media_radius }}px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .{{ sid }} .umm-fc__media img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-position: center;
+  }
+
+  /* Alternating layout */
+  .{{ sid }} .is-reverse .umm-fc__inner{
+    direction: rtl;
+  }
+  .{{ sid }} .is-reverse .umm-fc__col{
+    direction: ltr;
+  }
+
+  /* Tablet */
+  @media (max-width: 989px){
+    .{{ sid }} .umm-fc__inner{
+      min-height: {{ section.settings.card_min_height_tablet }}px;
+    }
+  }
+
+  /* Mobile layout: text top, media bottom */
+  @media (max-width: 749px){
+    .{{ sid }} .umm-fc__head{ margin-bottom: 26px; }
+
+    .{{ sid }} .umm-fc__inner{
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .{{ sid }} .umm-fc__col{
+      padding: {{ section.settings.card_padding_mobile }}px;
+    }
+
+    .{{ sid }} .umm-fc__p{ max-width: none; }
+
+    .{{ sid }} .umm-fc__btn{
+      width: 100%;
+    }
+
+    /* Keep the screenshot feel: text block sits above media */
+    .{{ sid }} .umm-fc__media-wrap{
+      padding: {{ section.settings.media_padding_mobile }}px;
+    }
+
+    .{{ sid }} .umm-fc__media{
+      max-width: 100%;
+      aspect-ratio: {{ section.settings.media_ratio_mobile }};
+    }
+
+    /* Reverse should not RTL on mobile (always text then media) */
+    .{{ sid }} .is-reverse .umm-fc__inner{ direction: ltr; }
+  }
+{% endstyle %}
+
+<section class="{{ sid }} color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+
+    <div class="umm-fc__head">
+      {% if section.settings.title != blank %}
+        <h2 class="umm-fc__title h1">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="umm-fc__desc rte">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="umm-fc__list">
+      {% assign card_index = 0 %}
+
+      {% for block in section.blocks %}
+        {% if block.type == 'card' %}
+          {% assign card_index = card_index | plus: 1 %}
+
+          {% liquid
+            assign img_d = block.settings.image_desktop
+            assign img_m = block.settings.image_mobile
+            assign fit = block.settings.image_fit
+            assign layout = block.settings.desktop_layout
+            assign reverse = false
+
+            if layout == 'reverse'
+              assign reverse = true
+            elsif layout == 'auto'
+              if card_index == 2 or card_index == 4 or card_index == 6
+                assign reverse = true
+              endif
+            endif
+          %}
+
+          <div class="umm-fc__card{% if reverse %} is-reverse{% endif %}" {{ block.shopify_attributes }}>
+            <div class="umm-fc__inner">
+
+              <div class="umm-fc__col umm-fc__text">
+                {% if block.settings.eyebrow != blank %}
+                  <div class="umm-fc__eyebrow">{{ block.settings.eyebrow }}</div>
+                {% endif %}
+
+                {% if block.settings.heading != blank %}
+                  <h3 class="umm-fc__h h2">{{ block.settings.heading }}</h3>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <div class="umm-fc__p">{{ block.settings.text }}</div>
+                {% endif %}
+
+                {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                  <a class="umm-fc__btn" href="{{ block.settings.button_link }}">
+                    {{ block.settings.button_label }}
+                  </a>
+                {% endif %}
+
+                {% if block.settings.show_logos %}
+                  {% if block.settings.logos_label != blank %}
+                    <div class="umm-fc__logos-label">{{ block.settings.logos_label }}</div>
+                  {% endif %}
+                  <div class="umm-fc__logos">
+                    {% comment %}
+                      Render logo blocks that target this card_index
+                    {% endcomment %}
+                    {% for b in section.blocks %}
+                      {% if b.type == 'logo' and b.settings.target_card == card_index %}
+                        {% if b.settings.logo_image != blank %}
+                          <img
+                            src="{{ b.settings.logo_image | image_url: width: 200 }}"
+                            alt="{{ b.settings.logo_alt | escape }}"
+                            loading="lazy"
+                            width="{{ b.settings.logo_image.width }}"
+                            height="{{ b.settings.logo_image.height }}"
+                          >
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="umm-fc__media-wrap">
+                <div class="umm-fc__media">
+                  {% if img_d != blank %}
+                    <picture>
+                      {% if img_m != blank %}
+                        <source
+                          media="(max-width: 749px)"
+                          srcset="{{ img_m | image_url: width: 900 }} 900w, {{ img_m | image_url: width: 600 }} 600w"
+                          sizes="90vw">
+                      {% endif %}
+                      <img
+                        src="{{ img_d | image_url: width: 1400 }}"
+                        alt="{{ block.settings.image_alt | escape }}"
+                        loading="lazy"
+                        width="{{ img_d.width }}"
+                        height="{{ img_d.height }}"
+                        style="object-fit: {{ fit }};"
+                      >
+                    </picture>
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text with image v2",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "background-1" },
+
+    { "type": "header", "content": "Titre de section" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Visibilité, contrôle et économies à portée de main" },
+    { "type": "richtext", "id": "description", "label": "Description (optionnel)" },
+
+    { "type": "header", "content": "Style global" },
+    { "type": "color", "id": "card_bg", "label": "Fond card", "default": "#F3F1FA" },
+    { "type": "color", "id": "media_bg", "label": "Fond zone image", "default": "#ECECEF" },
+    { "type": "color", "id": "accent_color", "label": "Couleur bouton (bord + texte)", "default": "#2D0B5A" },
+    { "type": "text", "id": "card_shadow", "label": "Box-shadow card (CSS)", "default": "0 10px 30px rgba(0,0,0,.06)" },
+
+    { "type": "range", "id": "card_radius", "label": "Radius card", "min": 0, "max": 40, "step": 1, "default": 18 },
+    { "type": "range", "id": "media_radius", "label": "Radius media", "min": 0, "max": 26, "step": 1, "default": 14 },
+
+    { "type": "range", "id": "card_padding", "label": "Padding card (desktop)", "min": 18, "max": 64, "step": 1, "default": 44 },
+    { "type": "range", "id": "card_padding_mobile", "label": "Padding card (mobile)", "min": 16, "max": 40, "step": 1, "default": 22 },
+
+    { "type": "range", "id": "cards_gap", "label": "Espace entre cards", "min": 18, "max": 56, "step": 1, "default": 24 },
+
+    { "type": "header", "content": "Media (hauteur stable)" },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Ratio media (desktop/tablet)",
+      "default": "16 / 9",
+      "options": [
+        { "value": "1 / 1", "label": "1:1" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "3 / 2", "label": "3:2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_ratio_mobile",
+      "label": "Ratio media (mobile)",
+      "default": "4 / 3",
+      "options": [
+        { "value": "1 / 1", "label": "1:1" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "3 / 2", "label": "3:2" }
+      ]
+    },
+
+    { "type": "range", "id": "media_padding", "label": "Padding zone image (desktop)", "min": 0, "max": 48, "step": 1, "default": 26 },
+    { "type": "range", "id": "media_padding_mobile", "label": "Padding zone image (mobile)", "min": 0, "max": 32, "step": 1, "default": 18 },
+    { "type": "range", "id": "media_max_width", "label": "Max-width contenu image (desktop)", "min": 320, "max": 820, "step": 10, "default": 560 },
+
+    { "type": "header", "content": "Hauteur card" },
+    { "type": "range", "id": "card_min_height", "label": "Min-height desktop", "min": 260, "max": 520, "step": 10, "default": 320 },
+    { "type": "range", "id": "card_min_height_tablet", "label": "Min-height tablet", "min": 240, "max": 520, "step": 10, "default": 300 },
+
+    { "type": "header", "content": "Bouton" },
+    {
+      "type": "select",
+      "id": "button_width_desktop",
+      "label": "Largeur bouton sur desktop",
+      "default": "280px",
+      "options": [
+        { "value": "220px", "label": "220px" },
+        { "value": "260px", "label": "260px" },
+        { "value": "280px", "label": "280px" },
+        { "value": "320px", "label": "320px" },
+        { "value": "auto", "label": "Auto (selon contenu)" }
+      ]
+    },
+
+    { "type": "header", "content": "Espacements section" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 140, "step": 4, "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 140, "step": 4, "default": 72 },
+
+    { "type": "header", "content": "Logos (si utilisés)" },
+    { "type": "range", "id": "logo_height", "label": "Hauteur logos", "min": 10, "max": 28, "step": 1, "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Mini titre (eyebrow)", "default": "Navan Travel" },
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Les voyages d'affaires simplifiés" },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Avec Navan, créer, optimiser et faire évoluer votre gestion des voyages n'a jamais été aussi simple." },
+
+        { "type": "text", "id": "button_label", "label": "Texte bouton", "default": "En savoir plus" },
+        { "type": "url", "id": "button_link", "label": "Lien bouton" },
+
+        { "type": "header", "content": "Images" },
+        { "type": "image_picker", "id": "image_desktop", "label": "Image desktop" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image mobile (optionnel)" },
+        { "type": "text", "id": "image_alt", "label": "Alt image", "default": "Visuel" },
+        {
+          "type": "select",
+          "id": "image_fit",
+          "label": "Image fit",
+          "default": "contain",
+          "options": [
+            { "value": "contain", "label": "Contain (comme Navan)" },
+            { "value": "cover", "label": "Cover" }
+          ]
+        },
+
+        { "type": "header", "content": "Disposition desktop" },
+        {
+          "type": "select",
+          "id": "desktop_layout",
+          "label": "Disposition",
+          "default": "auto",
+          "options": [
+            { "value": "auto", "label": "Auto (1 normal, 2 inversée, 3 normal...)" },
+            { "value": "normal", "label": "Texte gauche / image droite" },
+            { "value": "reverse", "label": "Image gauche / texte droite" }
+          ]
+        },
+
+        { "type": "header", "content": "Ligne logos (optionnel)" },
+        { "type": "checkbox", "id": "show_logos", "label": "Afficher ligne logos", "default": false },
+        { "type": "text", "id": "logos_label", "label": "Texte au-dessus des logos", "default": "Compatible avec :" }
+      ]
+    },
+    {
+      "type": "logo",
+      "name": "Logo ",
+      "settings": [
+        {
+          "type": "range",
+          "id": "target_card",
+          "label": "Afficher dans la card n°",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+        { "type": "text", "id": "logo_alt", "label": "Alt logo", "default": "Logo" }
+      ]
+    }
+  ],
+  "max_blocks": 18,
+  "presets": [
+    {
+      "name": "Text with image v2",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
