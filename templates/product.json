@@ -14,6 +14,7 @@
       "blocks": {
         "loox_reviews_loox_rating_tRe4Wq": {
           "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "disabled": true,
           "settings": {
             "contentSize": 14,
             "pattern": "[rating] based on [count] reviews",
@@ -25,6 +26,12 @@
             "showAllReviews": false,
             "looxOpenFloatingWidget": false,
             "emptyRatingWidget": false
+          }
+        },
+        "yotpo_product_reviews_star_rating_PTriGV": {
+          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
           }
         },
         "title": {
@@ -69,6 +76,7 @@
       },
       "block_order": [
         "loox_reviews_loox_rating_tRe4Wq",
+        "yotpo_product_reviews_star_rating_PTriGV",
         "title",
         "price",
         "description",
@@ -76,10 +84,16 @@
         "stepper_stepper_Bbegtx"
       ],
       "settings": {
+        "media_border_radius": "5px",
+        "mobile_thumbnail_size": 72,
+        "hide_slider_arrows": true,
+        "thumb_active_bar_color": "#111111",
+        "thumb_active_bar_height": 2,
         "gallery_media_source": "product",
         "desktop_alignment": "right",
         "mobile_alignment": "before",
-        "gallery_type": "slider_previews",
+        "gallery_type": "grid_gallery",
+        "gallery_type_mobile": "slider_previews",
         "variant_media_display": "show_all",
         "aspect_ratio": "5/4",
         "image_fit": "cover",
