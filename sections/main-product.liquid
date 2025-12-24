@@ -55,7 +55,13 @@
   }
 {%- endstyle -%}
 
-<section id="MainProduct-{{ section.id }}" data-section="{{ section.id }}" class="section-{{ section.id }}-padding">
+<section
+  id="MainProduct-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-gallery-desktop="{{ section.settings.gallery_type }}"
+  data-gallery-mobile="{{ section.settings.gallery_type_mobile | default: section.settings.gallery_type }}"
+  class="section-{{ section.id }}-padding"
+>
   {% liquid
     assign custom_gallery_count = 0
     for i in (1..12)
@@ -88,11 +94,10 @@
     endif
   %}
 
-  <div class="product {% if has_gallery_media %}row{% else %}product--no-media{% endif %} product--slider-previews container">
+  <div class="product {% if has_gallery_media %}row{% else %}product--no-media{% endif %} product--{% if section.settings.gallery_type == 'slider_previews' %}slider-previews{% elsif section.settings.gallery_type == 'slider_bullets' %}slider-bullets{% elsif section.settings.gallery_type == 'stacked_gallery' %}stacked-gallery{% elsif section.settings.gallery_type == 'grid_gallery' %}grid-gallery{% endif %} container">
     <div
       class="
-        product__outer product__outer--slider-previews
-        product__outer--desktop-grid
+        product__outer product__outer--{% if section.settings.gallery_type == 'slider_previews' %}slider-previews{% elsif section.settings.gallery_type == 'slider_bullets' %}slider-bullets{% elsif section.settings.gallery_type == 'stacked_gallery' %}stacked-gallery{% elsif section.settings.gallery_type == 'grid_gallery' %}grid-gallery{% endif %}
         {% if section.settings.desktop_alignment == 'right' %}product__outer--desktop-order{% endif %}
         {% if section.settings.mobile_alignment == 'after' %}product__outer--mobile-order{% endif %}
       "
@@ -2100,6 +2105,30 @@
       ],
       "default": "slider_bullets",
       "label": "t:sections.main-product.settings.gallery_type.label"
+    },
+    {
+      "type": "select",
+      "id": "gallery_type_mobile",
+      "options": [
+        {
+          "value": "slider_previews",
+          "label": "Slider + vignettes (mobile)"
+        },
+        {
+          "value": "slider_bullets",
+          "label": "Slider + bullets (mobile)"
+        },
+        {
+          "value": "stacked_gallery",
+          "label": "Galerie empilée (mobile)"
+        },
+        {
+          "value": "grid_gallery",
+          "label": "Galerie en grille (mobile)"
+        }
+      ],
+      "default": "slider_previews",
+      "label": "Type de galerie (mobile)"
     },
     {
       "type": "select",

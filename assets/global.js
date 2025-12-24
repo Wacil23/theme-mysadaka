@@ -1,17 +1,31 @@
+const getActiveGalleryType = (el) => {
+	const section = el.closest('section[id^="MainProduct-"]')
+	// Mobile uniquement < 750px, tablette+desktop = comportement natif (desktop)
+	const isDesktop = window.matchMedia('(min-width: 750px)').matches
+	const desktopType = section?.dataset?.galleryDesktop
+	const mobileType = section?.dataset?.galleryMobile
+	return isDesktop ? desktopType : mobileType || desktopType
+}
+
+const isSliderGalleryType = (galleryType) =>
+	galleryType === 'slider_previews' || galleryType === 'slider_bullets'
+
 const sliderInit = (isUpdate) => {
-	const isMobileGallery = window.matchMedia('(max-width: 1199px)').matches
 	if (
 		document.querySelectorAll('.js-media-list') &&
 		document.querySelectorAll('.js-media-list').length > 0
 	) {
 		document.querySelectorAll('.js-media-list').forEach((elem, index) => {
-			// Desktop: on détruit le slider pour permettre un affichage en grille via CSS
-			if (!isMobileGallery) {
+			const galleryType = getActiveGalleryType(elem)
+			const shouldInitSlider = isSliderGalleryType(galleryType)
+
+			// Grille/stacked: pas de Swiper -> on détruit si besoin
+			if (!shouldInitSlider) {
 				if (elem.swiper) elem.swiper.destroy(true, true)
 				return
 			}
 
-			// Mobile: éviter les doubles initialisations
+			// Éviter les doubles initialisations
 			if (elem.swiper) return
 
 			let prevButton = elem
@@ -20,6 +34,15 @@ const sliderInit = (isUpdate) => {
 			let nextButton = elem
 				.closest('.product')
 				.querySelector('.product__slider-nav .swiper-button-next')
+
+			const thumbsElem =
+				elem
+					.closest('.product__media-wrapper')
+					?.querySelector('.js-media-sublist') || null
+			const paginationEl =
+				elem
+					.closest('.product__media-wrapper')
+					?.querySelector('.product__pagination') || '.product .product__pagination'
 
 			let slider = new Swiper(elem, {
 				slidesPerView: 1,
@@ -34,25 +57,18 @@ const sliderInit = (isUpdate) => {
 					prevEl: prevButton,
 				},
 				pagination: {
-					el: '.product .product__pagination',
+					el: paginationEl,
 					type: 'bullets',
 					clickable: true,
 				},
 				thumbs: {
-					swiper:
-						document.querySelectorAll('.js-media-sublist').length > 0
-							? document.querySelectorAll('.js-media-sublist')[index]?.swiper
-							: '',
+					swiper: thumbsElem?.swiper || '',
 				},
 				on: {
 					afterInit: function (swiper) {},
 					slideChangeTransitionStart: function () {
-						if (document.querySelector('.js-media-sublist')) {
-							document
-								.querySelector('.js-media-sublist')
-								.swiper.slideTo(
-									document.querySelector('.js-media-list').swiper.activeIndex
-								)
+						if (thumbsElem?.swiper && elem?.swiper) {
+							thumbsElem.swiper.slideTo(elem.swiper.activeIndex)
 						}
 					},
 					slideChange: function () {
@@ -102,19 +118,21 @@ const sliderInit = (isUpdate) => {
 }
 
 const subSliderInit = (isUpdate, margin) => {
-	const isMobileGallery = window.matchMedia('(max-width: 1199px)').matches
 	if (
 		document.querySelectorAll('.js-media-sublist') &&
 		document.querySelectorAll('.js-media-sublist').length > 0
 	) {
 		document.querySelectorAll('.js-media-sublist').forEach((elem, index) => {
-			// Desktop: on détruit le slider de vignettes
-			if (!isMobileGallery) {
+			const galleryType = getActiveGalleryType(elem)
+			const shouldInitThumbs = galleryType === 'slider_previews'
+
+			// Si pas en mode vignettes -> on détruit si besoin
+			if (!shouldInitThumbs) {
 				if (elem.swiper) elem.swiper.destroy(true, true)
 				return
 			}
 
-			// Mobile: éviter les doubles initialisations
+			// Éviter les doubles initialisations
 			if (elem.swiper) return
 
 			const slides = elem.querySelectorAll('.product__media-subitem')
