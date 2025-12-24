@@ -21,11 +21,17 @@
     }
   }
 
-  .announcement-bar--sticky {
-    position: sticky;
-    top: 0;
-    z-index: 13;
-  }
+  {% if section.settings.sticky_enabled %}
+    /* IMPORTANT:
+      Le sticky doit être appliqué au wrapper de section (#shopify-section-...),
+      sinon le sticky sur l'élément interne se "décolle" (parent = même hauteur).
+    */
+    #shopify-section-{{ section.id }}.section-announcement {
+      position: sticky;
+      top: 0;
+      z-index: 13;
+    }
+  {% endif %}
 </style>
 
 {% style %}
