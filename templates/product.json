@@ -42,7 +42,20 @@
         },
         "price": {
           "type": "price",
+          "disabled": true,
           "settings": {}
+        },
+        "info_separator_MF7mzL": {
+          "type": "info_separator",
+          "settings": {
+            "line_thickness": 1,
+            "line_color": "#dedede",
+            "width_mode": "full",
+            "custom_width": 600,
+            "align": "center",
+            "padding_top": "no-indent",
+            "padding_bottom": "no-indent"
+          }
         },
         "description": {
           "type": "description",
@@ -79,6 +92,7 @@
         "yotpo_product_reviews_star_rating_PTriGV",
         "title",
         "price",
+        "info_separator_MF7mzL",
         "description",
         "cross_image_text_nPYnGA",
         "stepper_stepper_Bbegtx"
@@ -89,6 +103,8 @@
         "hide_slider_arrows": true,
         "thumb_active_bar_color": "#111111",
         "thumb_active_bar_height": 2,
+        "info_blocks_gap_mobile": 16,
+        "info_blocks_gap_desktop": 20,
         "gallery_media_source": "product",
         "desktop_alignment": "right",
         "mobile_alignment": "before",

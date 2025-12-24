@@ -14,6 +14,7 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
+        "sticky_enabled": true,
         "height": 55,
         "height_mobile": 50,
         "color_scheme": "scheme-eb0c4f1c-81e8-49bb-8034-b05ab22fc694",
@@ -22,7 +23,7 @@
         "icon_color_scheme": "",
         "icon_style": "subtle",
         "icon_fill_type": "gradient",
-        "enable_slider": false,
+        "enable_slider": true,
         "rows_count": "1",
         "rows_count_mobile": "1",
         "slide_duration": 2,
@@ -109,6 +110,8 @@
         ".mega-menu__tab-heading {font-weight: 500 !important;}"
       ],
       "settings": {
+        "header_height_mobile": 82,
+        "header_height_desktop": 88,
         "header_glass_enable": true,
         "header_glass_bg": "#ffffff",
         "header_glass_opacity": 85,
