@@ -961,6 +961,7 @@
 .product__tax {
   width: 100%;
   font-size: 1.4rem;
+  display: none;
 }
 .product .pickup-availability:first-child + * {
   border-top: 0;
@@ -2069,4 +2070,81 @@
 .product-form__controls-group input.disabled.always-clickable + label {
   opacity: 0.5;
   pointer-events: all;
+}
+
+/* =========================================================
+   Main product - personnalisations (radius, grid desktop, thumbs)
+   ========================================================= */
+
+/* Border radius configurable (via variables CSS injectées sur la section) */
+.product-section .product__media-list,
+.product-section .product__media-item,
+.product-section .product__media-list .product__media,
+.product-section .product__media-list .deferred-media,
+.product-section .product__media-sublist.no-js-flex .product__media-subitem,
+.product-section .product__media-sublist:not(.swiper-initialized) .product__media-subitem,
+.product-section .product__media-subitem .product__media img,
+.product-section .product--no-media .placeholder-svg {
+  border-radius: var(--product-media-radius, 1.2rem);
+}
+
+.product-section .product__media-list .product__media,
+.product-section .product__media-list .deferred-media,
+.product-section .product__media-item {
+  overflow: hidden;
+}
+
+/* Taille des vignettes (mobile, utilisée quand Swiper thumbs est en slidesPerView:'auto') */
+.product-section .product__media-sublist[data-thumb-size] .product__media-subitem {
+  width: var(--product-thumb-size, 7.2rem);
+}
+
+/* Barre sous la vignette active (animation fluide) */
+.product-section .product__media-subitem {
+  position: relative;
+}
+.product-section .product__media-subitem::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--product-thumb-active-bar-height, 2px);
+  background: var(--product-thumb-active-bar-color, rgba(var(--color-foreground), 0.9));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+.product-section .product__media-subitem.swiper-slide-thumb-active::after {
+  transform: scaleX(1);
+}
+
+/* Desktop: affichage grille (images), mobile: slider (swiper) */
+@media (min-width: 1200px) {
+  .product-section .product__outer--desktop-grid .product__media-list {
+    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .product-section .product__outer--desktop-grid .product__media-item {
+    width: 100% !important;
+  }
+
+  .product-section .product__outer--desktop-grid .product__media-item:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Pas de flèches/pagination/vignettes en desktop (layout grille) */
+  .product-section .product__outer--desktop-grid .product__slider-nav:not(.product-media-modal__slider-nav),
+  .product-section .product__outer--desktop-grid .product__pagination,
+  .product-section .product__outer--desktop-grid .product__media-sublist-outer {
+    display: none !important;
+  }
+}
+
+/* Option: cacher les flèches du slider (mobile) */
+.product-section .product__slider-nav--hidden {
+  display: none !important;
 }

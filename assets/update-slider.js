@@ -10,4 +10,13 @@
 	});
 
 	swiperInit();
+
+	// Ré-initialise/détruit Swiper lors des changements de breakpoint (mobile <-> desktop)
+	let resizeTimer = null;
+	window.addEventListener('resize', function () {
+		window.clearTimeout(resizeTimer);
+		resizeTimer = window.setTimeout(function () {
+			swiperInit();
+		}, 200);
+	});
 })();

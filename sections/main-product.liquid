@@ -46,6 +46,13 @@
 
 {%- style -%}
   {% render 'section-padding' %}
+
+  #MainProduct-{{ section.id }} {
+    --product-media-radius: {{ section.settings.media_border_radius | default: '0px' }};
+    --product-thumb-size: {{ section.settings.mobile_thumbnail_size | default: 72 }}px;
+    --product-thumb-active-bar-height: {{ section.settings.thumb_active_bar_height | default: 2 }}px;
+    --product-thumb-active-bar-color: {{ section.settings.thumb_active_bar_color | default: '#111111' }};
+  }
 {%- endstyle -%}
 
 <section id="MainProduct-{{ section.id }}" data-section="{{ section.id }}" class="section-{{ section.id }}-padding">
@@ -81,10 +88,11 @@
     endif
   %}
 
-  <div class="product {% if has_gallery_media %}row{% else %}product--no-media{% endif %} product--{% if section.settings.gallery_type == 'slider_previews' %}slider-previews{% elsif section.settings.gallery_type == 'slider_bullets' %}slider-bullets{% elsif section.settings.gallery_type == 'stacked_gallery' %}stacked-gallery{% elsif section.settings.gallery_type == 'grid_gallery' %}grid-gallery{% endif %} container">
+  <div class="product {% if has_gallery_media %}row{% else %}product--no-media{% endif %} product--slider-previews container">
     <div
       class="
-        product__outer product__outer--{% if section.settings.gallery_type == 'slider_previews' %}slider-previews{% elsif section.settings.gallery_type == 'slider_bullets' %}slider-bullets{% elsif section.settings.gallery_type == 'stacked_gallery' %}stacked-gallery{% elsif section.settings.gallery_type == 'grid_gallery' %}grid-gallery{% endif %}
+        product__outer product__outer--slider-previews
+        product__outer--desktop-grid
         {% if section.settings.desktop_alignment == 'right' %}product__outer--desktop-order{% endif %}
         {% if section.settings.mobile_alignment == 'after' %}product__outer--mobile-order{% endif %}
       "
@@ -94,12 +102,8 @@
           <div class="product__media-wrapper">
             {% assign counter_for_sub_items = 0 %}
             <div class="product__media-list-wrapper">
-              <div class="product__media-list {% if section.settings.gallery_type != 'grid_gallery' and section.settings.gallery_type != 'stacked_gallery' %}js-media-list swiper {% endif %} {% if section.settings.gallery_type == 'grid_gallery' and custom_gallery_count == 1 %} product__media-list--full{% endif %} no-js-hidden" data-section="product-media-{{ section.id }}">
-                {% if section.settings.gallery_type != 'grid_gallery'
-                  and section.settings.gallery_type != 'stacked_gallery'
-                %}
-                  <div class="swiper-wrapper">
-                {% endif %}
+              <div class="product__media-list js-media-list swiper no-js-hidden" data-section="product-media-{{ section.id }}">
+                <div class="swiper-wrapper">
 
                 {% assign custom_slide_index = 0 %}
                 {%- for i in (1..12) -%}
@@ -170,26 +174,18 @@
                   {% assign custom_slide_index = custom_slide_index | plus: 1 %}
                 {%- endfor -%}
 
-                {% if section.settings.gallery_type != 'grid_gallery'
-                  and section.settings.gallery_type != 'stacked_gallery'
-                %}
-                  </div>
-                {% endif %}
+                </div>
               </div>
 
-              {% if section.settings.gallery_type != 'grid_gallery'
-                and section.settings.gallery_type != 'stacked_gallery'
-              %}
-                {% if custom_gallery_count > 1 %}
-                  <div class="product__slider-nav no-js-hidden">
-                    <div class="swiper-button-prev focus-inset">
-                      {% render 'icon-caret-left' %}
-                    </div>
-                    <div class="swiper-button-next focus-inset">
-                      {% render 'icon-caret-right' %}
-                    </div>
+              {% if custom_gallery_count > 1 %}
+                <div class="product__slider-nav no-js-hidden{% if section.settings.hide_slider_arrows %} product__slider-nav--hidden{% endif %}">
+                  <div class="swiper-button-prev focus-inset">
+                    {% render 'icon-caret-left' %}
                   </div>
-                {% endif %}
+                  <div class="swiper-button-next focus-inset">
+                    {% render 'icon-caret-right' %}
+                  </div>
+                </div>
               {% endif %}
 
               <div class="product__media-grid-noscript js-hidden">
@@ -223,9 +219,9 @@
               </div>
             </div>
 
-            {% if section.settings.gallery_type == 'slider_previews' and custom_gallery_count > 1 %}
+            {% if custom_gallery_count > 1 %}
               <div class="product__media-sublist-outer no-js-hidden">
-                <div class="product__media-sublist {% if custom_gallery_count < 3 %}product__media-sublist--{{ custom_gallery_count }}{% endif %} js-media-sublist swiper" data-sub-section="product-media-{{ section.id }}">
+                <div class="product__media-sublist {% if custom_gallery_count < 3 %}product__media-sublist--{{ custom_gallery_count }}{% endif %} js-media-sublist swiper" data-sub-section="product-media-{{ section.id }}" data-thumb-size="{{ section.settings.mobile_thumbnail_size }}">
                   <div class="swiper-wrapper">
                     {%- for i in (1..12) -%}
                       {%- liquid
@@ -257,24 +253,16 @@
               </div>
             {% endif %}
 
-            {% if section.settings.gallery_type != 'grid_gallery'
-              and section.settings.gallery_type != 'stacked_gallery'
-            %}
-              {% if custom_gallery_count > 1 %}
-                <div class="product__pagination swiper-pagination"></div>
-              {% endif %}
+            {% if custom_gallery_count > 1 %}
+              <div class="product__pagination swiper-pagination"></div>
             {% endif %}
           </div>
         {% elsif product.media.size > 0 %}
           <div class="product__media-wrapper">
             {% assign counter_for_sub_items = 0 %}
             <div class="product__media-list-wrapper">
-              <div class="product__media-list {% if section.settings.gallery_type != 'grid_gallery' and section.settings.gallery_type != 'stacked_gallery' %}js-media-list swiper {% endif %} {% if section.settings.gallery_type == 'grid_gallery' and product.media.size == 1 %} product__media-list--full{% endif %} no-js-hidden" data-section="product-media-{{ section.id }}">
-                {% if section.settings.gallery_type != 'grid_gallery'
-                  and section.settings.gallery_type != 'stacked_gallery'
-                %}
-                  <div class="swiper-wrapper">
-                {% endif %}
+              <div class="product__media-list js-media-list swiper no-js-hidden" data-section="product-media-{{ section.id }}">
+                <div class="swiper-wrapper">
                 {%- liquid
                   assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
                 -%}
@@ -352,25 +340,17 @@
                     </div>
                   {%- endunless -%}
                 {%- endfor -%}
-                {% if section.settings.gallery_type != 'grid_gallery'
-                  and section.settings.gallery_type != 'stacked_gallery'
-                %}
-                  </div>
-                {% endif %}
+                </div>
               </div>
-              {% if section.settings.gallery_type != 'grid_gallery'
-                and section.settings.gallery_type != 'stacked_gallery'
-              %}
-                {% if product.media.size > 1 %}
-                  <div class="product__slider-nav no-js-hidden">
-                    <div class="swiper-button-prev focus-inset">
-                      {% render 'icon-caret-left' %}
-                    </div>
-                    <div class="swiper-button-next focus-inset">
-                      {% render 'icon-caret-right' %}
-                    </div>
+              {% if product.media.size > 1 %}
+                <div class="product__slider-nav no-js-hidden{% if section.settings.hide_slider_arrows %} product__slider-nav--hidden{% endif %}">
+                  <div class="swiper-button-prev focus-inset">
+                    {% render 'icon-caret-left' %}
                   </div>
-                {% endif %}
+                  <div class="swiper-button-next focus-inset">
+                    {% render 'icon-caret-right' %}
+                  </div>
+                </div>
               {% endif %}
 
               <div class="product__media-grid-noscript js-hidden">
@@ -451,9 +431,9 @@
               </div>
             </div>
             {% assign counter_for_sub_items = product.media.size |  minus: counter_for_sub_items | plus: 1 %}
-            {% if section.settings.gallery_type == 'slider_previews' and product.media.size > 1 and section.settings.variant_media_display != 'show_only_variant_media' and counter_for_sub_items != 1 %}
+            {% if product.media.size > 1 and section.settings.variant_media_display != 'show_only_variant_media' and counter_for_sub_items != 1 %}
               <div class="product__media-sublist-outer no-js-hidden">
-                <div class="product__media-sublist {% if counter_for_sub_items < 3 %}product__media-sublist--{{ counter_for_sub_items }}{% endif %} {% if product.media.size < 4 %}product__media-sublist--{{ product.media.size }}{% endif %} js-media-sublist swiper" data-sub-section="product-media-{{ section.id }}">
+                <div class="product__media-sublist {% if counter_for_sub_items < 3 %}product__media-sublist--{{ counter_for_sub_items }}{% endif %} {% if product.media.size < 4 %}product__media-sublist--{{ product.media.size }}{% endif %} js-media-sublist swiper" data-sub-section="product-media-{{ section.id }}" data-thumb-size="{{ section.settings.mobile_thumbnail_size }}">
                   <div class="swiper-wrapper">
                     {%- if product.selected_or_first_available_variant.featured_media != null -%}
                       {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
@@ -544,12 +524,8 @@
                 </div>
               </div>
             {% endif %}
-            {% if section.settings.gallery_type != 'grid_gallery'
-              and section.settings.gallery_type != 'stacked_gallery'
-            %}
-              {% if product.media.size > 1 and section.settings.variant_media_display != 'show_only_variant_media'%}
-                <div class="product__pagination swiper-pagination"></div>
-              {% endif %}
+            {% if product.media.size > 1 and section.settings.variant_media_display != 'show_only_variant_media' %}
+              <div class="product__pagination swiper-pagination"></div>
             {% endif %}
           </div>
         {% else %}
@@ -1945,6 +1921,49 @@
       "type": "header",
       "content": "t:sections.main-product.settings.header.content",
       "info": "t:sections.main-product.settings.header.info"
+    },
+    {
+      "type": "header",
+      "content": "Galerie produit — Personnalisation"
+    },
+    {
+      "type": "text",
+      "id": "media_border_radius",
+      "label": "Border radius (images produit)",
+      "default": "0px",
+      "info": "Ex: 0px, 12px, 1rem"
+    },
+    {
+      "type": "range",
+      "id": "mobile_thumbnail_size",
+      "min": 44,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille des vignettes (mobile)",
+      "default": 72
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_slider_arrows",
+      "label": "Cacher les flèches du slider",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "thumb_active_bar_color",
+      "label": "Couleur de la barre (vignette active)",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "thumb_active_bar_height",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Épaisseur de la barre (vignette active)",
+      "default": 2
     },
     {
       "type": "select",

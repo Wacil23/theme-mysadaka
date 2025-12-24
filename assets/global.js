@@ -1,9 +1,19 @@
 const sliderInit = (isUpdate) => {
+	const isMobileGallery = window.matchMedia('(max-width: 1199px)').matches
 	if (
 		document.querySelectorAll('.js-media-list') &&
 		document.querySelectorAll('.js-media-list').length > 0
 	) {
 		document.querySelectorAll('.js-media-list').forEach((elem, index) => {
+			// Desktop: on détruit le slider pour permettre un affichage en grille via CSS
+			if (!isMobileGallery) {
+				if (elem.swiper) elem.swiper.destroy(true, true)
+				return
+			}
+
+			// Mobile: éviter les doubles initialisations
+			if (elem.swiper) return
+
 			let prevButton = elem
 				.closest('.product')
 				.querySelector('.product__slider-nav .swiper-button-prev')
@@ -92,16 +102,28 @@ const sliderInit = (isUpdate) => {
 }
 
 const subSliderInit = (isUpdate, margin) => {
+	const isMobileGallery = window.matchMedia('(max-width: 1199px)').matches
 	if (
 		document.querySelectorAll('.js-media-sublist') &&
 		document.querySelectorAll('.js-media-sublist').length > 0
 	) {
 		document.querySelectorAll('.js-media-sublist').forEach((elem, index) => {
+			// Desktop: on détruit le slider de vignettes
+			if (!isMobileGallery) {
+				if (elem.swiper) elem.swiper.destroy(true, true)
+				return
+			}
+
+			// Mobile: éviter les doubles initialisations
+			if (elem.swiper) return
+
 			const slides = elem.querySelectorAll('.product__media-subitem')
 			const slidesAmount = slides.length
-			const slidesPerView = slidesAmount < 3 ? slidesAmount : 3
+			const slidesPerViewFallback = slidesAmount < 3 ? slidesAmount : 3
+			const thumbSize = parseInt(elem.dataset.thumbSize || '', 10)
+			const useAutoSlides = Number.isFinite(thumbSize) && thumbSize > 0
 			let subSlider = new Swiper(elem, {
-				slidesPerView: slidesPerView,
+				slidesPerView: useAutoSlides ? 'auto' : slidesPerViewFallback,
 				spaceBetween: 8,
 				direction: 'horizontal',
 				mousewheel: {
@@ -122,7 +144,7 @@ const subSliderInit = (isUpdate, margin) => {
 				breakpoints: {
 					1100: {
 						spaceBetween: margin,
-						slidesPerView: slidesPerView,
+						slidesPerView: useAutoSlides ? 'auto' : slidesPerViewFallback,
 					},
 				},
 			})
@@ -159,7 +181,8 @@ const popupSliderInit = (isUpdate) => {
 				afterInit: function () {
 					if (
 						document.querySelector('.product__outer--grid-gallery') ||
-						document.querySelector('.product__outer--stacked-gallery')
+							document.querySelector('.product__outer--stacked-gallery') ||
+							document.querySelector('.product__outer--desktop-grid')
 					) {
 						document
 							.querySelectorAll('.product__media-list .product__media-toggle')
@@ -1348,26 +1371,30 @@ class VariantSelects extends HTMLElement {
 					const mediaSource = html.querySelector(
 						`[data-section="product-media-${sourceSectionId}"]`
 					)
-					const mediaDestination = document.querySelector(
+					const mediaDestinations = document.querySelectorAll(
 						`[data-section="product-media-${currentSectionId}"]`
 					)
 
 					const mediaSubSource = html.querySelector(
 						`[data-sub-section="product-media-${sourceSectionId}"]`
 					)
-					const mediaSubDestination = document.querySelector(
+					const mediaSubDestinations = document.querySelectorAll(
 						`[data-sub-section="product-media-${currentSectionId}"]`
 					)
 
-					if (mediaSource && mediaDestination) {
-						mediaDestination.innerHTML = mediaSource.innerHTML
-						if (mediaSubSource && mediaSubDestination) {
-							mediaSubDestination.innerHTML = mediaSubSource.innerHTML
+					if (mediaSource && mediaDestinations.length > 0) {
+						mediaDestinations.forEach((destination) => {
+							destination.innerHTML = mediaSource.innerHTML
+						})
+						if (mediaSubSource && mediaSubDestinations.length > 0) {
+							mediaSubDestinations.forEach((destination) => {
+								destination.innerHTML = mediaSubSource.innerHTML
+							})
 						}
 						const parentQuickView = this.closest('quick-add-modal')
 						if (parentQuickView) {
 							if (typeof parentQuickView.removeDOMElements === 'function') {
-								parentQuickView.removeDOMElements(mediaDestination)
+								parentQuickView.removeDOMElements(mediaDestinations[0])
 							}
 							if (typeof parentQuickView.initSlider === 'function') {
 								parentQuickView.initSlider()
