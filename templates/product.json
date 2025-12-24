@@ -84,7 +84,7 @@
         "stepper_stepper_Bbegtx"
       ],
       "settings": {
-        "media_border_radius": "5px",
+        "media_border_radius": "0px",
         "mobile_thumbnail_size": 72,
         "hide_slider_arrows": true,
         "thumb_active_bar_color": "#111111",
@@ -95,10 +95,10 @@
         "gallery_type": "grid_gallery",
         "gallery_type_mobile": "slider_previews",
         "variant_media_display": "show_all",
-        "aspect_ratio": "5/4",
+        "aspect_ratio": "1/1",
         "image_fit": "cover",
         "image_fit_modal": "contain",
-        "padding_bottom": "l"
+        "padding_bottom": "no-indent"
       }
     },
     "576dad4a-7ffe-4bdd-9a60-a4572834977d": {

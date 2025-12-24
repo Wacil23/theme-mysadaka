@@ -61,7 +61,7 @@
     "umm_body_rem_d": "50",
     "umm_card_title_font_mode": "theme",
     "umm_card_rem_enable": false,
-    "umm_subheading_font_mode": "theme_body",
+    "umm_subheading_font_mode": "custom_3",
     "umm_button_font_mode": "theme",
     "umm_button_weight": "400",
     "umm_button_px_enable": false,
