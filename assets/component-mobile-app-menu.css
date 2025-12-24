@@ -1,0 +1,196 @@
+.app-menu__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--app-menu-overlay-alpha, 0.38));
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.app-menu__panel {
+  position: fixed;
+  inset: 0;
+  z-index: 2001;
+  background: rgba(var(--color-background), var(--app-menu-bg-alpha, 1));
+  transform: translate3d(0, 14px, 0) scale(0.985);
+  opacity: 0;
+  filter: blur(var(--app-menu-anim-blur, 10px));
+  transition:
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 220ms ease,
+    filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.app-menu-open .app-menu__overlay {
+  opacity: 1;
+}
+
+body.app-menu-open .app-menu__panel {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0px);
+}
+
+.app-menu__header,
+.app-menu__view-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: calc(env(safe-area-inset-top) + 1.2rem) 2rem 1.2rem;
+  border-bottom: 1px solid rgb(var(--color-border) / 0.25);
+  background: rgba(var(--color-background), var(--app-menu-bg-alpha, 1));
+}
+
+.app-menu__close,
+.app-menu__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 4.2rem;
+  padding: 0 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-border) / 0.35);
+  background: rgb(var(--color-background-secondary) / 0.55);
+}
+
+.app-menu__brand {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-menu__body,
+.app-menu__view-content {
+  padding: 1.6rem 2rem 2.4rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: calc(var(--vh, 1vh) * 100 - 7.2rem);
+}
+
+.app-menu__ctas {
+  display: grid;
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
+}
+
+.app-menu__cta {
+  width: 100%;
+  border-radius: 999px;
+  justify-content: center;
+}
+
+.app-menu__section-title {
+  font-weight: 700;
+  margin: 1rem 0 1rem;
+}
+
+.app-menu__list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.app-menu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 1.4rem;
+  border-radius: var(--app-menu-radius, 16px);
+  border: 1px solid rgb(var(--color-border) / 0.35);
+  background: rgb(var(--color-background-secondary) / 0.55);
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  text-align: left;
+}
+
+.app-menu__row--button {
+  cursor: pointer;
+}
+
+.app-menu__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.app-menu__card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 1.4rem;
+  border-radius: var(--app-menu-radius, 16px);
+  border: 1px solid rgb(var(--color-border) / 0.35);
+  background: rgb(var(--color-background-secondary) / 0.55);
+  text-align: left;
+}
+
+.app-menu__card-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-menu__card-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.app-menu__card-subtitle {
+  grid-column: 1 / -1;
+  color: rgba(var(--color-foreground), 0.72);
+  font-size: 1.3rem;
+  line-height: 1.35;
+  margin-top: 0.4rem;
+}
+
+.app-menu__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.app-menu__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-border) / 0.35);
+  background: rgba(var(--color-background), 0.9);
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.app-menu__see-all {
+  margin-top: 1.2rem;
+  display: inline-flex;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Views: navigation interne (slide) */
+.app-menu__view {
+  position: fixed;
+  inset: 0;
+  z-index: 2002;
+  background: rgba(var(--color-background), var(--app-menu-bg-alpha, 1));
+  transform: translate3d(100%, 0, 0);
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.app-menu-open .app-menu__view.is-active {
+  transform: translate3d(0, 0, 0);
+}
+
+@media screen and (min-width: 750px) {
+  /* App menu = mobile only */
+  .app-menu__overlay,
+  .app-menu__panel,
+  .app-menu__view {
+    display: none !important;
+  }
+}
+
+

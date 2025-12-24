@@ -11,6 +11,7 @@
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'component-mobile-app-menu.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-card-horizontal.css' | asset_url | stylesheet_tag }}
@@ -19,11 +20,18 @@
 
 <link rel="stylesheet" href="{{ 'template-list-collections.css' | asset_url }}" media="print" onload="this.media='all'">
 <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'mobile-app-menu.js' | asset_url }}" defer="defer"></script>
 
 <style>
   :root {
     --header-custom-height-mobile: {{ section.settings.header_height_mobile }}px;
     --header-custom-height-desktop: {{ section.settings.header_height_desktop }}px;
+
+    /* Menu mobile — App menu (vars utilisées par assets/component-mobile-app-menu.css) */
+    --app-menu-bg-alpha: {{ section.settings.app_menu_bg_opacity | divided_by: 100.0 }};
+    --app-menu-overlay-alpha: {{ section.settings.app_menu_overlay_opacity | divided_by: 100.0 }};
+    --app-menu-radius: {{ section.settings.app_menu_radius }}px;
+    --app-menu-anim-blur: {{ section.settings.app_menu_anim_blur }}px;
   }
 
   #shopify-section-{{ section.id }} .header {
@@ -487,6 +495,86 @@
 		  "unit": "px",
 		  "default": 88,
 		  "label": "Hauteur du header (desktop)"
+		},
+		{
+		  "type": "header",
+		  "content": "Menu mobile"
+		},
+		{
+		  "type": "select",
+		  "id": "mobile_menu_layout",
+		  "label": "Style du menu mobile",
+		  "default": "native",
+		  "options": [
+		    { "value": "native", "label": "Natif (thème)" },
+		    { "value": "app", "label": "App (ultra premium)" }
+		  ]
+		},
+		{
+		  "type": "range",
+		  "id": "app_menu_bg_opacity",
+		  "min": 60,
+		  "max": 100,
+		  "step": 1,
+		  "unit": "%",
+		  "default": 100,
+		  "label": "Opacité du fond (App menu)"
+		},
+		{
+		  "type": "range",
+		  "id": "app_menu_overlay_opacity",
+		  "min": 0,
+		  "max": 80,
+		  "step": 1,
+		  "unit": "%",
+		  "default": 38,
+		  "label": "Opacité de l’overlay (App menu)"
+		},
+		{
+		  "type": "range",
+		  "id": "app_menu_radius",
+		  "min": 0,
+		  "max": 26,
+		  "step": 1,
+		  "unit": "px",
+		  "default": 16,
+		  "label": "Arrondi (App menu)"
+		},
+		{
+		  "type": "range",
+		  "id": "app_menu_anim_blur",
+		  "min": 0,
+		  "max": 24,
+		  "step": 1,
+		  "unit": "px",
+		  "default": 10,
+		  "label": "Blur pendant l’animation (App menu)"
+		},
+		{
+		  "type": "header",
+		  "content": "Menu mobile — CTA (App menu)"
+		},
+		{
+		  "type": "text",
+		  "id": "app_menu_cta_primary_label",
+		  "default": "Choisir une sadaqa",
+		  "label": "Texte bouton principal"
+		},
+		{
+		  "type": "url",
+		  "id": "app_menu_cta_primary_link",
+		  "label": "Lien bouton principal"
+		},
+		{
+		  "type": "text",
+		  "id": "app_menu_cta_secondary_label",
+		  "default": "Comment ça marche",
+		  "label": "Texte bouton secondaire"
+		},
+		{
+		  "type": "url",
+		  "id": "app_menu_cta_secondary_link",
+		  "label": "Lien bouton secondaire"
 		},
 		{
   "type": "header",

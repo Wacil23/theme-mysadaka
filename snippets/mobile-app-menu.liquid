@@ -1,0 +1,152 @@
+{%- comment -%}
+  Mobile App Menu (ultra premium) — mobile uniquement
+  - Ne touche pas au desktop
+  - Réutilise la config Mega Menu existante (blocks du Header)
+{%- endcomment -%}
+
+<mobile-app-menu class="app-menu" data-section-id="{{ section.id }}">
+  <button
+    class="header__icon header__icon--menu header__icon--summary link link--text focus-inset"
+    type="button"
+    aria-label="{{ 'sections.header.menu' | t }}"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    data-app-menu-open
+  >
+    <span class="header__icon-wrapper">
+      {% render 'icon-hamburger' %}
+    </span>
+  </button>
+
+  <div class="app-menu__overlay" hidden data-app-menu-overlay></div>
+  <div class="app-menu__panel" hidden role="dialog" aria-modal="true" data-app-menu-panel>
+    <div class="app-menu__header">
+      <button class="app-menu__close" type="button" aria-label="Fermer" data-app-menu-close>
+        <span class="header__icon-wrapper">
+          {% render 'icon-close' %}
+        </span>
+      </button>
+
+      <div class="app-menu__brand">
+        {% render 'header-logo', tag: 'span' %}
+      </div>
+    </div>
+
+    <div class="app-menu__body">
+      {%- if section.settings.app_menu_cta_primary_label != blank or section.settings.app_menu_cta_secondary_label != blank -%}
+        <div class="app-menu__ctas">
+          {%- if section.settings.app_menu_cta_primary_label != blank and section.settings.app_menu_cta_primary_link != blank -%}
+            <a class="button button--primary app-menu__cta" href="{{ section.settings.app_menu_cta_primary_link }}">
+              {{ section.settings.app_menu_cta_primary_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.app_menu_cta_secondary_label != blank and section.settings.app_menu_cta_secondary_link != blank -%}
+            <a class="button button--simple button--arrow app-menu__cta app-menu__cta--secondary" href="{{ section.settings.app_menu_cta_secondary_link }}">
+              <span>{{ section.settings.app_menu_cta_secondary_label | escape }}</span>
+              {% render 'icon-button-arrow' %}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="app-menu__nav">
+        <div class="app-menu__section-title">Navigation</div>
+        <div class="app-menu__list">
+          {%- for link in section.settings.menu.links -%}
+            {%- liquid
+              assign is_mega = false
+              assign mega_block = nil
+              for block in section.blocks
+                assign trig = block.settings.mega_menu_trigger | handle | strip
+                if block.type == 'mega_menu' and trig == link.handle
+                  assign is_mega = true
+                  assign mega_block = block
+                endif
+              endfor
+            -%}
+
+            {%- if is_mega and mega_block != nil -%}
+              <button class="app-menu__row app-menu__row--button" type="button" data-app-menu-open-view="mega-{{ mega_block.id }}">
+                <span class="app-menu__row-label">{{ link.title | escape }}</span>
+                {% render 'icon-caret' %}
+              </button>
+            {%- else -%}
+              <a class="app-menu__row" href="{{ link.url }}">
+                <span class="app-menu__row-label">{{ link.title | escape }}</span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Sous-écrans Mega Menu (style app) {%- endcomment -%}
+    {%- for link in section.settings.menu.links -%}
+      {%- for block in section.blocks -%}
+        {%- assign trig = block.settings.mega_menu_trigger | handle | strip -%}
+        {%- if block.type == 'mega_menu' and trig == link.handle -%}
+          <div class="app-menu__view" hidden data-app-menu-view="mega-{{ block.id }}">
+            <div class="app-menu__view-header">
+              <button class="app-menu__back" type="button" data-app-menu-back>
+                {% render 'icon-arrow' %}
+                <span>{{ link.title | escape }}</span>
+              </button>
+            </div>
+
+            <div class="app-menu__view-content">
+              <div class="app-menu__grid">
+                {%- for i in (1..8) -%}
+                  {%- assign enable_key = 'enable_column_' | append: i -%}
+                  {%- assign icon_key = 'icon_' | append: i -%}
+                  {%- assign heading_key = 'heading_' | append: i -%}
+                  {%- assign desc_key = 'description_' | append: i -%}
+                  {%- assign link_key = 'link_' | append: i -%}
+                  {%- assign menu_key = 'menu_' | append: i -%}
+                  {%- if block.settings[enable_key] -%}
+                    <button class="app-menu__card" type="button" data-app-menu-open-view="mega-{{ block.id }}-cat-{{ i }}">
+                      <div class="app-menu__card-top">
+                        {%- if block.settings[icon_key] != 'none' -%}
+                          <div class="app-menu__icon mega-menu__icon mega-menu__icon--{{- block.settings.icon_size }} {% if block.settings.box_shadow %}mega-menu__icon--shadow{% endif %} mega-menu__icon--{{- block.settings.icon_style }} mega-menu__icon--{{- block.settings.icon_fill_type }} color-{{ block.settings.icon_color_scheme }}">
+                            <i class="icon icon-pack icon-{{ block.settings[icon_key] }} {% if block.settings.icon_style == 'colored' and block.settings.icon_fill_type == 'gradient' %} text-gradient {% endif %}"></i>
+                          </div>
+                        {%- endif -%}
+                        <div class="app-menu__card-title">{{ block.settings[heading_key] }}</div>
+                      </div>
+                      {%- if block.settings[desc_key] != blank -%}
+                        <div class="app-menu__card-subtitle">{{ block.settings[desc_key] }}</div>
+                      {%- endif -%}
+                      <div class="app-menu__card-chevron">{% render 'icon-caret' %}</div>
+                    </button>
+
+                    <div class="app-menu__view" hidden data-app-menu-view="mega-{{ block.id }}-cat-{{ i }}">
+                      <div class="app-menu__view-header">
+                        <button class="app-menu__back" type="button" data-app-menu-back>
+                          {% render 'icon-arrow' %}
+                          <span>{{ block.settings[heading_key] }}</span>
+                        </button>
+                      </div>
+                      <div class="app-menu__view-content">
+                        {%- if block.settings[menu_key] != blank -%}
+                          <div class="app-menu__chips">
+                            {%- for l in block.settings[menu_key].links -%}
+                              <a class="app-menu__chip" href="{{ l.url }}">{{ l.title | escape }}</a>
+                            {%- endfor -%}
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings[link_key].url != blank -%}
+                          <a class="app-menu__see-all" href="{{ block.settings[link_key] }}">Voir tout</a>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</mobile-app-menu>
+
+

@@ -1,5 +1,9 @@
 {%- if section.settings.menu != blank -%}
-  {% render 'header-drawer' %}
+  {% if section.settings.mobile_menu_layout == 'app' %}
+    {% render 'mobile-app-menu', section: section %}
+  {% else %}
+    {% render 'header-drawer', section: section %}
+  {% endif %}
 {%- endif -%}
 
 {% render 'header-inline-menu', section: section %}

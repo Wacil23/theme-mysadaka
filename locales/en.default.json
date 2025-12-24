@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "cart_count": "Cart ({{ count }})",
+      "announcement": "Announcement"
+    }
+  },
+  "general": {
+    "social": {
+      "links": {
+        "twitter": "Twitter",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "tumblr": "Tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "Vimeo"
+      }
+    }
+  },
+  "customer": {
+    "log_out": "Log out",
+    "log_in": "Log in",
+    "account_fallback": "Account",
+    "account": {
+      "shopping_cart": "Cart",
+      "title": "Account"
+    },
+    "addresses": {
+      "book": "Addresses"
+    },
+    "activate_account": {
+      "no_account_yet": "No account yet?"
+    },
+    "login_page": {
+      "create_account": "Create account"
+    }
+  }
+}
+

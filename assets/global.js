@@ -602,6 +602,8 @@ Shopify.CountryProvinceSelector.prototype = {
 const body = document.body
 let bodyScrollTop = null
 let locked = false
+let lockToken = 0
+let vhListenersBound = false
 
 function getScrollbarWidth() {
 	return window.innerWidth - document.documentElement.clientWidth
@@ -611,28 +613,63 @@ function preventScroll(e) {
 	e.preventDefault()
 }
 
+function setVhVar() {
+	const vv = window.visualViewport
+	const h = vv?.height || window.innerHeight
+	// 1vh = hauteurViewport / 100
+	document.documentElement.style.setProperty('--vh', `${h * 0.01}px`)
+}
+
 function lockScroll() {
+	if (locked) return
+	locked = true
+
 	bodyScrollTop =
 		typeof window.pageYOffset !== 'undefined'
 			? window.pageYOffset
 			: (document.documentElement || document.body.parentNode || document.body)
 					.scrollTop
 
-	var scrollBarWidth = getScrollbarWidth()
+	const scrollBarWidth = getScrollbarWidth()
 	body.style.paddingRight = scrollBarWidth + 'px'
 
+	// Scroll lock robuste (iOS-friendly)
 	body.classList.add('scroll-locked')
-	locked = true
+	body.dataset.scrollLockTop = String(bodyScrollTop || 0)
+	body.style.position = 'fixed'
+	body.style.top = `-${bodyScrollTop || 0}px`
+	body.style.left = '0'
+	body.style.right = '0'
+	body.style.width = '100%'
+	body.style.overflow = 'hidden'
 
+	// iOS: éviter le bounce/overscroll
+	document.documentElement.style.overscrollBehaviorY = 'none'
+	body.style.overscrollBehaviorY = 'none'
+
+	// Fallback (desktop) : empêche le scroll wheel / trackpad
 	document.addEventListener('scroll', preventScroll, {passive: false})
 }
 
 function unlockScroll() {
+	if (!locked) return
 	body.classList.remove('scroll-locked')
 	body.style.paddingRight = ''
-	window.scrollTo(0, bodyScrollTop)
+	body.style.position = ''
+	body.style.top = ''
+	body.style.left = ''
+	body.style.right = ''
+	body.style.width = ''
+	body.style.overflow = ''
+	body.style.overscrollBehaviorY = ''
+	document.documentElement.style.overscrollBehaviorY = ''
+
+	const y = Number(body.dataset.scrollLockTop || bodyScrollTop || 0)
+	body.dataset.scrollLockTop = ''
+	window.scrollTo(0, y)
 
 	document.removeEventListener('scroll', preventScroll)
+	locked = false
 }
 
 class MenuDrawer extends HTMLElement {
@@ -643,11 +680,13 @@ class MenuDrawer extends HTMLElement {
 		const summaryElements = this.querySelectorAll('summary')
 		this.addAccessibilityAttributes(summaryElements)
 
-		if (navigator.platform === 'iPhone')
-			document.documentElement.style.setProperty(
-				'--viewport-height',
-				`${window.innerHeight}px`
-			)
+		// Correctif viewport iOS (100vh) + cohérence pour les drawers (bind 1 seule fois)
+		setVhVar()
+		if (!vhListenersBound) {
+			vhListenersBound = true
+			window.addEventListener('resize', setVhVar)
+			window.visualViewport?.addEventListener('resize', setVhVar)
+		}
 
 		this.addEventListener('keyup', this.onKeyUp.bind(this))
 		this.addEventListener('focusout', this.onFocusOut.bind(this))
@@ -720,23 +759,18 @@ class MenuDrawer extends HTMLElement {
 	}
 
 	closeMenuDrawer(event, elementToFocus = false) {
-		if (event !== undefined) {
-			this.mainDetailsToggle.classList.remove('menu-opening')
-			this.mainDetailsToggle.querySelectorAll('details').forEach((details) => {
-				details.removeAttribute('open')
-				details.classList.remove('menu-opening')
-			})
-			this.mainDetailsToggle
-				.querySelector('summary')
-				.setAttribute('aria-expanded', false)
-			document.body.classList.remove(
-				`overflow-hidden-${this.dataset.breakpoint}`
-			)
-			removeTrapFocus(elementToFocus)
-			this.closeAnimation(this.mainDetailsToggle)
-			this.header =
-				this.header || document.querySelector('.shopify-section-header')
-		}
+		this.mainDetailsToggle.classList.remove('menu-opening')
+		this.mainDetailsToggle.querySelectorAll('details').forEach((details) => {
+			details.removeAttribute('open')
+			details.classList.remove('menu-opening')
+		})
+		this.mainDetailsToggle
+			.querySelector('summary')
+			.setAttribute('aria-expanded', false)
+		document.body.classList.remove(`overflow-hidden-${this.dataset.breakpoint}`)
+		removeTrapFocus(elementToFocus)
+		this.closeAnimation(this.mainDetailsToggle)
+		this.header = this.header || document.querySelector('.shopify-section-header')
 	}
 
 	onFocusOut(event) {
@@ -815,6 +849,28 @@ class HeaderDrawer extends MenuDrawer {
 		summaryElement.setAttribute('aria-expanded', true)
 		trapFocus(this.mainDetailsToggle, summaryElement)
 		document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`)
+
+		// Scroll lock robuste (surtout iOS)
+		lockToken += 1
+		lockScroll()
+		document.body.classList.add('menu-drawer-open')
+
+		// Animation: attribue un index aux items pour un stagger fluide
+		const items = this.querySelectorAll('.menu-drawer__menu > li')
+		items.forEach((li, i) => {
+			li.style.setProperty('--i', String(i))
+		})
+	}
+
+	closeMenuDrawer(event, elementToFocus = false) {
+		const myToken = ++lockToken
+		super.closeMenuDrawer(event, elementToFocus)
+		// On garde le lock pendant l'anim de fermeture (~400ms)
+		window.setTimeout(() => {
+			if (myToken !== lockToken) return
+			unlockScroll()
+			document.body.classList.remove('menu-drawer-open')
+		}, 460)
 	}
 }
 
@@ -1773,6 +1829,11 @@ class ProductRecommendations extends HTMLElement {
 customElements.define('product-recommendations', ProductRecommendations)
 ;(function () {
 	const initHeaderOverlay = () => {
+		// Évite les glitches visuels pendant l'ouverture/fermeture du menu mobile.
+		// Le drawer (details[open]) change temporairement la mise en page/scroll,
+		// ce qui peut faire toggler `color-background-overlay` et donner un flash noir/translucide.
+		if (document.querySelector('header-drawer details[open], menu-drawer details[open]')) return
+
 		const main = document.getElementById('MainContent')
 		const sections = main.querySelectorAll('.shopify-section')
 		if (sections.length > 0) {
