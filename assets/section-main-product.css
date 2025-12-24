@@ -396,12 +396,12 @@
 }
 .product__info-container > *:not(.pickup-availability) {
   margin: 0;
-  margin-top: 2.4rem;
+  margin-top: var(--product-info-block-gap-mobile, 2.4rem);
   width: 100%;
 }
 @media (min-width: 1100px) {
   .product__info-container > *:not(.pickup-availability) {
-    margin-top: 3.2rem;
+    margin-top: var(--product-info-block-gap-desktop, 3.2rem);
   }
 }
 .product__info-container > *:not(.pickup-availability):first-child {
@@ -2067,10 +2067,10 @@
 /* Sticky content */
 @media (min-width: 1100px) {
   .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--slider-bullets .product__main, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--slider-previews .product__main, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--grid-gallery .product__main, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--stacked-gallery .product__main {
-    top: calc(var(--header-height) + 1.6rem);
+    top: calc(var(--announcement-sticky-offset, 0px) + var(--header-height) + 1.6rem);
   }
   .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--slider-bullets .product__info-container, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--slider-previews .product__info-container, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--grid-gallery .product__info-container, .shopify-section-header-sticky:not(.shopify-section-header-hidden) ~ main .product__outer--stacked-gallery .product__info-container {
-    top: calc(var(--header-height) + 1.6rem);
+    top: calc(var(--announcement-sticky-offset, 0px) + var(--header-height) + 1.6rem);
   }
 }
 
@@ -2091,6 +2091,17 @@
 /* =========================================================
    Main product - personnalisations (radius, grid desktop, thumbs)
    ========================================================= */
+
+.product-info-separator {
+  width: 100%;
+}
+.product-info-separator__line {
+  height: var(--pis-thickness, 1px);
+  background: var(--pis-color, rgba(var(--color-foreground), 0.15));
+  width: var(--pis-width, 100%);
+  margin-inline: var(--pis-margin-inline, auto);
+  border-radius: 999px;
+}
 
 /* Border radius configurable (via variables CSS injectées sur la section) */
 .product-section .product__media-list,
@@ -2228,4 +2239,12 @@
 /* Option: cacher les flèches du slider (mobile) */
 .product-section .product__slider-nav--hidden {
   display: none !important;
+}
+
+/* Séparateur (block main-product) */
+.product-info-separator__line {
+  width: var(--pis-width, 100%);
+  height: var(--pis-thickness, 1px);
+  background: var(--pis-color, rgba(var(--color-foreground), 0.15));
+  margin-inline: var(--pis-margin-inline, auto);
 }

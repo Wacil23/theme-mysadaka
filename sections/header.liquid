@@ -21,6 +21,21 @@
 <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
 
 <style>
+  :root {
+    --header-custom-height-mobile: {{ section.settings.header_height_mobile }}px;
+    --header-custom-height-desktop: {{ section.settings.header_height_desktop }}px;
+  }
+
+  #shopify-section-{{ section.id }} .header {
+    min-height: var(--header-custom-height-mobile);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .header {
+      min-height: var(--header-custom-height-desktop);
+    }
+  }
+
 	@media screen and (min-width: 1100px) {
 		header-drawer {
 			display: none;
@@ -66,7 +81,7 @@
 
 	{% if section.settings.full_width != true %}
 		.shopify-section-header-sticky {
-			top: -1.6rem;
+			top: calc(var(--announcement-sticky-offset, 0px) - 1.6rem);
 		}
 
 		.header--center-logo .list-menu--inline {
@@ -75,7 +90,7 @@
 
 		@media screen and (min-width: 1200px) {
 			.shopify-section-header-sticky {
-				top: -3.2rem;
+				top: calc(var(--announcement-sticky-offset, 0px) - 3.2rem);
 			}
 		}
 	{% endif %}
@@ -83,24 +98,24 @@
 		.shopify-section-header {
 			position: sticky;
 		{% if section.settings.full_width != true %}
-				top: -1.6rem;
+				top: calc(var(--announcement-sticky-offset, 0px) - 1.6rem);
 			{% else %}
-				top: 0;
+				top: var(--announcement-sticky-offset, 0px);
 		{%- endif -%}
 		}
 		.section-logo-bar:has(.logo-bar:not(.logo-disable-on-mobile)) ~ .shopify-section-header {
-			top: 0;
+			top: var(--announcement-sticky-offset, 0px);
 		}
 		@media screen and (min-width: 1200px) {
 			.shopify-section-header {
 			{% if section.settings.full_width != true %}
-					top: -3.2rem;
+					top: calc(var(--announcement-sticky-offset, 0px) - 3.2rem);
 				{% else %}
-					top: 0;
+					top: var(--announcement-sticky-offset, 0px);
 			{%- endif -%}
 			}
 			.section-logo-bar:has(.logo-bar:not(.logo-disable-on-desktop)) ~ .shopify-section-header {
-				top: 0;
+				top: var(--announcement-sticky-offset, 0px);
 			}
 		}
 	{% endif %}
@@ -237,15 +252,30 @@
 	<script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
-<{%- if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper {% if section.settings.full_width %}header--border{% else %}container{% endif %}">
-	<header class="header header--{{ section.settings.header_type }} {% if section.settings.menu != blank %}header--has-menu{% endif %} container {% if section.settings.header_type == 'center-logo' %}{% if section.settings.enable_logo_mobile != true %} header--without-logo-mobile{% endif %}{% if section.settings.enable_logo_desktop != true %} header--without-logo-desktop{% endif %}{% endif %}">	
-		{% if section.settings.header_type == 'left-logo' %}
-			{% render 'header-left-logo' %}
-		{% elsif section.settings.header_type == 'center-logo' %}
-			{% render 'header-center-logo' %}
-		{% endif %}
-	</header>
-</{% if section.settings.enable_sticky_header %}sticky-header{% else %}div{% endif %}>
+{% if section.settings.sticky_header_type != 'none' %}
+  <sticky-header
+    data-sticky-type="{{ section.settings.sticky_header_type }}"
+    class="header-wrapper {% if section.settings.full_width %}header--border{% else %}container{% endif %}"
+  >
+    <header class="header header--{{ section.settings.header_type }} {% if section.settings.menu != blank %}header--has-menu{% endif %} container {% if section.settings.header_type == 'center-logo' %}{% if section.settings.enable_logo_mobile != true %} header--without-logo-mobile{% endif %}{% if section.settings.enable_logo_desktop != true %} header--without-logo-desktop{% endif %}{% endif %}">
+      {% if section.settings.header_type == 'left-logo' %}
+        {% render 'header-left-logo' %}
+      {% elsif section.settings.header_type == 'center-logo' %}
+        {% render 'header-center-logo' %}
+      {% endif %}
+    </header>
+  </sticky-header>
+{% else %}
+  <div class="header-wrapper {% if section.settings.full_width %}header--border{% else %}container{% endif %}">
+    <header class="header header--{{ section.settings.header_type }} {% if section.settings.menu != blank %}header--has-menu{% endif %} container {% if section.settings.header_type == 'center-logo' %}{% if section.settings.enable_logo_mobile != true %} header--without-logo-mobile{% endif %}{% if section.settings.enable_logo_desktop != true %} header--without-logo-desktop{% endif %}{% endif %}">
+      {% if section.settings.header_type == 'left-logo' %}
+        {% render 'header-left-logo' %}
+      {% elsif section.settings.header_type == 'center-logo' %}
+        {% render 'header-center-logo' %}
+      {% endif %}
+    </header>
+  </div>
+{% endif %}
 
 {% javascript %}
 	class StickyHeader extends HTMLElement {
@@ -434,6 +464,30 @@
 	"name": "t:sections.header.name",
 	"class": "shopify-section-header",
 	"settings": [
+		{
+		  "type": "header",
+		  "content": "Header — Hauteur"
+		},
+		{
+		  "type": "range",
+		  "id": "header_height_mobile",
+		  "min": 56,
+		  "max": 140,
+		  "step": 2,
+		  "unit": "px",
+		  "default": 72,
+		  "label": "Hauteur du header (mobile)"
+		},
+		{
+		  "type": "range",
+		  "id": "header_height_desktop",
+		  "min": 64,
+		  "max": 180,
+		  "step": 2,
+		  "unit": "px",
+		  "default": 88,
+		  "label": "Hauteur du header (desktop)"
+		},
 		{
   "type": "header",
   "content": "Header — Glass (blur / transparence)"

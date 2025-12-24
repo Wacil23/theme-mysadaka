@@ -11,12 +11,20 @@
 <style>
   :root {
     --announcement-height: {{ section.settings.height_mobile }}px;
+    --announcement-sticky-offset: {% if section.settings.sticky_enabled %}{{ section.settings.height_mobile }}px{% else %}0px{% endif %};
   }
 
   @media screen and (min-width: 765px) {
     :root {
       --announcement-height: {{ section.settings.height }}px;
+      --announcement-sticky-offset: {% if section.settings.sticky_enabled %}{{ section.settings.height }}px{% else %}0px{% endif %};
     }
+  }
+
+  .announcement-bar--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 13;
   }
 </style>
 
@@ -25,7 +33,7 @@
 {% endstyle %}
 
 <div
-  class="announcement-bar{% if has_slider %} announcement-bar--swiper swiper{% endif %}"
+  class="announcement-bar{% if section.settings.sticky_enabled %} announcement-bar--sticky{% endif %}{% if has_slider %} announcement-bar--swiper swiper{% endif %}"
   role="region"
   aria-label="{{ 'sections.header.announcement' | t }}"
   data-rows="{{ section.settings.rows_count }}"
@@ -82,6 +90,12 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "sticky_enabled",
+      "default": false,
+      "label": "Sticky (au-dessus du header)"
+    },
     {
       "type": "range",
       "id": "height",

@@ -3998,7 +3998,7 @@ body.body--hidden {
 
 .shopify-section-header-sticky {
   position: sticky;
-  top: 0;
+  top: var(--announcement-sticky-offset, 0px);
   z-index: 12;
 }
 .shopify-section-header-sticky .header-wrapper {
