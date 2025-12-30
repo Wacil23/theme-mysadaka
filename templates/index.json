@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "custom_liquid_HBLFiB": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script>\n        var t=\"57f5bb51-187f-4fa2-9dae-219a20fbb1d3\";\n        var e=document.createElement(\"script\");\n        e.setAttribute(\"src\",\"https://skallup-storage.fra1.digitaloceanspaces.com/integration/latest/popup.js?APP_KEY=\"+t+\"&PROJECT_ID=69525d85001d9e1331c9\");\n        e.setAttribute(\"type\",\"module\");\n        e.setAttribute(\"async\",\"1\");\n        document.head.appendChild(e);\n        </script>"
+      }
+    },
     "floating_sticky_cta_xcAxKG": {
       "type": "floating-sticky-cta",
       "name": "Floating Sticky CTA",
@@ -87,8 +94,8 @@
         "block_2": {
           "type": "title",
           "settings": {
-            "heading": "Votre projet de sadaqa TEST, réalisé avec excellence pour ceux qui comptent pour vous.",
-            "heading_size": "h1",
+            "heading": "Votre projet de sadaqa, réalisé avec excellence pour ceux qui comptent pour vous.",
+            "heading_size": "h2",
             "heading_level": "h1",
             "heading_line": "background",
             "line_color": "#000000",
@@ -141,7 +148,7 @@
         "block_4"
       ],
       "custom_css": [
-        "h1.hero__title.title.h1.hero__title--background.title--background.js-anim-appearing.hero__title--word_break.hero__title--word_break_an {margin-top: 2rem;}"
+        "h1.hero__title.title.h2.hero__title--background.title--background.js-anim-appearing.hero__title--word_break.hero__title--word_break_an {margin-top: 2rem;}"
       ],
       "settings": {
         "layout": "horizontal",
@@ -173,6 +180,12 @@
         "padding_bottom": "no-indent"
       }
     },
+    "1766889141381778ed": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
     "separateur_avec_texte_gJw7Xw": {
       "type": "separateur-avec-texte",
       "name": "Séparateur avec texte",
@@ -181,8 +194,8 @@
         "text_tag": "p",
         "width_mode": "full",
         "custom_width": 80,
-        "text_color": "#6B7280",
-        "line_color": "#D1D5DB",
+        "text_color": "#6b7280",
+        "line_color": "#d1d5db",
         "line_thickness": 1,
         "font_size": 14,
         "gap": 16,
@@ -606,8 +619,8 @@
         "card_padding": 64,
         "card_padding_mobile": 44,
         "media_bg": "#fffbf5",
-        "media_card_bg": "#FFFFFF",
-        "media_card_border_color": "rgba(0,0,0,0.06)",
+        "media_card_bg": "#ffffff",
+        "media_card_border_color": "#0000000f",
         "media_card_border_thickness": 0,
         "media_radius": 14,
         "media_ratio": "4 / 3",
@@ -633,13 +646,13 @@
         "show_bullets": true,
         "show_arrows": false,
         "borderless_second_slide": false,
-        "bullets_color": "rgba(0,0,0,0.25)",
-        "bullets_active_color": "rgba(0,0,0,0.6)",
-        "nav_bg": "#FFFFFF",
+        "bullets_color": "#00000040",
+        "bullets_active_color": "#00000099",
+        "nav_bg": "#ffffff",
         "nav_color": "#111827",
         "nav_radius": 22,
         "nav_border_thickness": 1,
-        "nav_border_color": "rgba(0,0,0,0.08)",
+        "nav_border_color": "#00000014",
         "padding_top": "xl",
         "padding_bottom": "xl"
       }
@@ -1651,8 +1664,10 @@
     }
   },
   "order": [
+    "custom_liquid_HBLFiB",
     "floating_sticky_cta_xcAxKG",
     "hero",
+    "1766889141381778ed",
     "separateur_avec_texte_gJw7Xw",
     "logo_list_EEy6nx",
     "hero_animate_jDMYFi",

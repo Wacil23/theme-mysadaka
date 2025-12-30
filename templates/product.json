@@ -12,26 +12,16 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "loox_reviews_loox_rating_tRe4Wq": {
-          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
-          "disabled": true,
-          "settings": {
-            "contentSize": 14,
-            "pattern": "[rating] based on [count] reviews",
-            "hideText": false,
-            "alignment": "",
-            "layout": "",
-            "textColor": "",
-            "starColor": "",
-            "showAllReviews": false,
-            "looxOpenFloatingWidget": false,
-            "emptyRatingWidget": false
-          }
-        },
-        "yotpo_product_reviews_star_rating_PTriGV": {
+        "yotpo_product_reviews_star_rating_AJqWxd": {
           "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
           "settings": {
-            "product": "{{product}}"
+            "product": "mon-fauteuil-roulant-a-makkah"
+          }
+        },
+        "custom_liquid_pcUmyQ": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
           }
         },
         "title": {
@@ -60,51 +50,79 @@
         "description": {
           "type": "description",
           "settings": {
-            "description": "Chaque fois qu’un pèlerin l’utilise gratuitement, des hassanates sont inscrites pour le bénéficiaire. Vous recevez aussi la vidéo authentique du dépôt, supervisé par nos étudiants en sciences islamiques."
+            "description": ""
           }
         },
-        "cross_image_text_nPYnGA": {
-          "type": "cross_image_text",
+        "custom_liquid_7qVfc4": {
+          "type": "custom_liquid",
           "settings": {
-            "text_tag": "p",
-            "item_1_image": "shopify://shop_images/Graduation_Cap.png",
-            "item_1_text": "Deposit by islamic student",
-            "item_2_image": "shopify://shop_images/Sparkles.png",
-            "item_2_text": "Ongoing hassanats",
-            "item_3_image": "shopify://shop_images/Person_In_Manual_Wheelchair_Dark_Skin_Tone.png",
-            "item_3_text": "Pilgrim support",
-            "item_4_image": "shopify://shop_images/Mobile_Phone.png",
-            "item_4_text": "Video & certificate include",
-            "line_thickness": 1,
-            "image_size": 28,
-            "gap": 12,
-            "padding_top": "no-indent",
-            "padding_bottom": "no-indent"
+            "custom_liquid": "<div id='ss-emoji'></div>"
           }
         },
-        "stepper_stepper_Bbegtx": {
+        "playshorts_shoppable_video_ugc_playshorts_product_4NEfcp": {
+          "type": "shopify://apps/playshorts-shoppable-video-ugc/blocks/playshorts_product/cbf94344-07be-4efa-b0fc-d47b838ba416",
+          "settings": {
+            "app_key": "57f5bb51-187f-4fa2-9dae-219a20fbb1d3",
+            "margin_top": 0,
+            "margin_bottom": 0
+          }
+        },
+        "stepper_stepper_C9HVKP": {
           "type": "shopify://apps/stepper/blocks/stepper/eb4ad5d3-817f-46d3-8369-160512b421b8",
           "settings": {}
+        },
+        "custom_liquid_jhhn9r": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div id='ss-tabs-icon-insert-block'></div> <style>\n  .ms-tab{font-family:inherit; line-height:1.55}\n  .ms-tab *{box-sizing:border-box}\n  .ms-kicker{display:inline-flex; gap:.5rem; align-items:center; font-size:.85rem; padding:.35rem .6rem; border-radius:999px; background:rgba(20,30,29,.06)}\n  .ms-title{margin:.75rem 0 .25rem; font-size:1.15rem}\n  .ms-sub{margin:0 0 1rem; opacity:.85}\n  .ms-grid{display:grid; gap:12px}\n  @media(min-width:768px){.ms-grid{grid-template-columns:1fr 1fr}}\n  .ms-card{border:1px solid rgba(20,30,29,.12); border-radius:14px; padding:14px; background:#fff}\n  .ms-card h4{margin:0 0 .5rem; font-size:1rem}\n  .ms-list{margin:.25rem 0 0; padding:0; list-style:none; display:grid; gap:8px}\n  .ms-li{display:flex; gap:10px; align-items:flex-start}\n  .ms-ico{width:22px; height:22px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; background:rgba(20,30,29,.06); flex:0 0 22px}\n  .ms-note{margin-top:10px; padding:12px 12px; border-radius:12px; background:rgba(20,30,29,.05); border:1px dashed rgba(20,30,29,.18)}\n  .ms-note b{font-weight:600}\n  .ms-divider{height:1px; background:rgba(20,30,29,.10); margin:14px 0}\n  .ms-pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}\n  .ms-pill{font-size:.82rem; padding:.35rem .6rem; border-radius:999px; border:1px solid rgba(20,30,29,.14); background:rgba(255,255,255,.7)}\n  .ms-step{display:grid; gap:10px; margin-top:10px}\n  .ms-step .ms-card{padding:12px}\n  .ms-stepnum{font-size:.82rem; opacity:.75}\n  .ms-cta{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; align-items:center}\n  .ms-ctaline{font-size:.92rem; opacity:.9}\n  .ms-strong{font-weight:600}\n</style>"
+          }
+        },
+        "section_store_block_social_proof_XDkFXt": {
+          "type": "shopify://apps/section-store/blocks/block-social-proof/d7a2e423-ea88-4344-b866-6d0fb487c3dd",
+          "settings": {
+            "use_carousel": true,
+            "slide_icon_size": 28,
+            "text": "<p><strong>Muhammad</strong> ✓, <strong>Zaineb</strong> ✓ and 1500+ others Muslims make this sadaqa!</p>",
+            "text_size": 14,
+            "text_color": "#000000",
+            "checkmark_size": 14,
+            "symbols_color": "#02c175",
+            "border": "solid",
+            "border_thickness": 2,
+            "border_color": "#02c175",
+            "radius": 10,
+            "bg_color": "#f1fff9",
+            "padding_vertical": 12,
+            "padding_horizontal": 16,
+            "clip_as_header_of_wrapper": false
+          }
         }
       },
       "block_order": [
-        "loox_reviews_loox_rating_tRe4Wq",
-        "yotpo_product_reviews_star_rating_PTriGV",
+        "yotpo_product_reviews_star_rating_AJqWxd",
+        "custom_liquid_pcUmyQ",
         "title",
         "price",
         "info_separator_MF7mzL",
         "description",
-        "cross_image_text_nPYnGA",
-        "stepper_stepper_Bbegtx"
+        "custom_liquid_7qVfc4",
+        "playshorts_shoppable_video_ugc_playshorts_product_4NEfcp",
+        "stepper_stepper_C9HVKP",
+        "custom_liquid_jhhn9r",
+        "section_store_block_social_proof_XDkFXt"
+      ],
+      "custom_css": [
+        ".product__outer.product__outer--grid-gallery.product__outer--desktop-order {justify-content: space-between;}",
+        ".skallup-stories-video-product {min-width: 90px !important; max-width: 90px !important;}"
       ],
       "settings": {
-        "media_border_radius": "0px",
+        "media_border_radius": "5px",
         "mobile_thumbnail_size": 72,
         "hide_slider_arrows": true,
         "thumb_active_bar_color": "#111111",
         "thumb_active_bar_height": 2,
         "info_blocks_gap_mobile": 16,
-        "info_blocks_gap_desktop": 20,
+        "info_blocks_gap_desktop": 18,
         "gallery_media_source": "product",
         "desktop_alignment": "right",
         "mobile_alignment": "before",
@@ -117,466 +135,686 @@
         "padding_bottom": "no-indent"
       }
     },
-    "576dad4a-7ffe-4bdd-9a60-a4572834977d": {
-      "type": "multicolumn",
+    "ss_trust_badges_emojis_mVQhN6": {
+      "type": "ss-trust-badges-emojis",
       "blocks": {
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-1": {
-          "type": "column",
+        "item_QwQcAQ": {
+          "type": "item",
           "settings": {
-            "icon": "none",
-            "icon_color_scheme": "",
-            "icon_fill_type": "gradient",
-            "enable_link": false,
-            "link": "",
-            "heading": "Feature Title Here",
-            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": "",
-            "button_style": "simple"
+            "icon": "🕋",
+            "title": "<p>Vidéo de dépôt + Certificat</p>",
+            "subtitle": ""
           }
         },
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-2": {
-          "type": "column",
+        "item_4ceL8e": {
+          "type": "item",
           "settings": {
-            "icon": "none",
-            "icon_color_scheme": "",
-            "icon_fill_type": "gradient",
-            "enable_link": false,
-            "link": "",
-            "heading": "Feature Title Here",
-            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": "",
-            "button_style": "simple"
+            "icon": "✨",
+            "title": "<p>Récompense continue</p>",
+            "subtitle": ""
           }
         },
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-3": {
-          "type": "column",
+        "item_XDDajR": {
+          "type": "item",
           "settings": {
-            "icon": "none",
-            "icon_color_scheme": "",
-            "icon_fill_type": "gradient",
-            "enable_link": false,
-            "link": "",
-            "heading": "Feature Title Here",
-            "text": "<p>Showcase craftsmanship, product benefits, or an exclusive offer.</p>",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": "",
-            "button_style": "simple"
+            "icon": "🎓",
+            "title": "<p>By islamic student</p>",
+            "subtitle": ""
+          }
+        },
+        "item_YYkQDG": {
+          "type": "item",
+          "settings": {
+            "icon": "👳",
+            "title": "<p>Gratuit pour les pélerins</p>",
+            "subtitle": ""
           }
         }
       },
       "block_order": [
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-1",
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-2",
-        "template--15231063359549__576dad4a-7ffe-4bdd-9a60-a4572834977d-column-3"
+        "item_QwQcAQ",
+        "item_4ceL8e",
+        "item_XDDajR",
+        "item_YYkQDG"
       ],
+      "name": "SS - Trust badges emojis",
       "settings": {
-        "section_type": "transparent",
-        "color_scheme": "background-2",
-        "enable_border": false,
-        "border_full": false,
-        "multicolumn_to_show": 3,
-        "content_horizontal_alignment": "left",
-        "content_vertical_alignment": "top",
-        "gap": "small",
-        "enable_mobile_overflow_slider": false,
-        "subheading": "Featured content intro",
-        "subheading_style": "subtitle",
-        "subheading_icon": "none",
-        "heading": "Showcase Multiple Categories Here",
-        "heading_size": "h2",
-        "heading_level": "h2",
-        "heading_line": "simple",
-        "line_color": "#1566e0",
-        "word_break": false,
-        "heading_animation": "none",
-        "word_break_an": false,
-        "text": "",
-        "text_align": "left",
-        "icon_size": "recommended",
-        "box_shadow": true,
-        "icon_style": "colored",
-        "image_width": "full-width",
-        "image_ratio": "square",
-        "object_fit": "cover",
-        "card_heading_size": "h5",
-        "padding_top": "l",
-        "padding_bottom": "l",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent"
-      }
-    },
-    "6284d95d-0127-47a7-b977-2a630c6f9383": {
-      "type": "numbers",
-      "blocks": {
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-1": {
-          "type": "column",
-          "settings": {
-            "number": "24 800",
-            "heading": "Meaningful Results and Outcomes",
-            "description": "Describes key highlights and provides context to milestones or metrics in a clear, concise, and easy-to-understand format.",
-            "icon": "battery-3",
-            "icon_color": "subtle",
-            "icon_fill_type": "gradient",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": ""
-          }
-        },
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-2": {
-          "type": "column",
-          "settings": {
-            "number": "50.6%",
-            "heading": "Meaningful Results and Outcomes",
-            "description": "Describes key highlights and provides context to milestones or metrics in a clear, concise, and easy-to-understand format.",
-            "icon": "computer",
-            "icon_color": "subtle",
-            "icon_fill_type": "solid",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": ""
-          }
-        },
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-3": {
-          "type": "column",
-          "settings": {
-            "number": "10 000+",
-            "heading": "Meaningful Results and Outcomes",
-            "description": "Describes key highlights and provides context to milestones or metrics in a clear, concise, and easy-to-understand format.",
-            "icon": "clock-2",
-            "icon_color": "subtle",
-            "icon_fill_type": "solid",
-            "show_button": false,
-            "button_label": "Label",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-1",
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-2",
-        "template--15231063359549__6284d95d-0127-47a7-b977-2a630c6f9383-column-3"
-      ],
-      "settings": {
-        "layout": "columns",
-        "block_type": "subtle",
-        "columns_to_row": 3,
-        "color_scheme": "",
-        "enable_border": false,
-        "border_full": false,
-        "subheading": "Achievement highlights",
-        "subheading_style": "subtitle",
-        "subheading_icon": "none",
-        "heading": "By the Numbers",
-        "heading_size": "h2",
-        "heading_level": "h2",
-        "heading_line": "simple",
-        "line_color": "#1566e0",
-        "word_break": true,
-        "text": "These numbers reflect our vision and passion. Take a look at how far we’ve come together.",
-        "text_align": "left",
-        "number_size": "recommended",
-        "icon_size": "recommended",
-        "card_heading_size": "recommended",
-        "number_size_first": "large",
-        "icon_size_first": "extra-large",
-        "card_heading_size_first": "h4",
-        "padding_top": "l",
-        "padding_bottom": "l"
-      }
-    },
-    "slideshow": {
-      "type": "slideshow",
-      "blocks": {
-        "template--15231063785533__59c2a073-1c05-4ba6-8228-ac87d36b0076-slide-1": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "",
-            "icon": "presentation-1",
-            "overlay_opacity": 0.4,
-            "show_video": false,
-            "loop_video": true,
-            "heading": "Spotlight on Bestsellers",
-            "heading_size": "recommended",
-            "heading_level": "h2",
-            "description": "This section is perfect for adding context—describe what makes this offer or collection special and why customers should check it out.",
-            "tab_heading": "Heading",
-            "show_button": true,
-            "button_style": "simple_link",
-            "button_label": "Know More",
-            "button_link": "",
-            "overlay_link": false
-          }
-        },
-        "template--15231063785533__59c2a073-1c05-4ba6-8228-ac87d36b0076-slide-2": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "",
-            "icon": "battery-2",
-            "overlay_opacity": 0.4,
-            "show_video": false,
-            "loop_video": true,
-            "heading": "Spotlight on Bestsellers",
-            "heading_size": "recommended",
-            "heading_level": "h2",
-            "description": "This section is perfect for adding context—describe what makes this offer or collection special and why customers should check it out.",
-            "tab_heading": "Heading",
-            "show_button": true,
-            "button_style": "simple_link",
-            "button_label": "Know More",
-            "button_link": "",
-            "overlay_link": false
-          }
-        },
-        "99602783-31ed-464e-b990-f524041efea0": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "background-3",
-            "icon": "wifi-1",
-            "overlay_opacity": 0.4,
-            "show_video": false,
-            "loop_video": true,
-            "heading": "Spotlight on Bestsellers",
-            "heading_size": "recommended",
-            "heading_level": "h2",
-            "description": "This section is perfect for adding context—describe what makes this offer or collection special and why customers should check it out.",
-            "tab_heading": "Heading",
-            "show_button": true,
-            "button_style": "simple_link",
-            "button_label": "Know More",
-            "button_link": "",
-            "overlay_link": false
-          }
-        },
-        "0ea01af6-b55f-434d-bb8e-feadead05b6b": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "background-3",
-            "icon": "server-2",
-            "overlay_opacity": 0.4,
-            "show_video": false,
-            "loop_video": true,
-            "heading": "Spotlight on Bestsellers",
-            "heading_size": "recommended",
-            "heading_level": "h2",
-            "description": "This section is perfect for adding context—describe what makes this offer or collection special and why customers should check it out.",
-            "tab_heading": "Heading",
-            "show_button": true,
-            "button_style": "simple_link",
-            "button_label": "Know More",
-            "button_link": "",
-            "overlay_link": false
-          }
-        }
-      },
-      "block_order": [
-        "template--15231063785533__59c2a073-1c05-4ba6-8228-ac87d36b0076-slide-1",
-        "template--15231063785533__59c2a073-1c05-4ba6-8228-ac87d36b0076-slide-2",
-        "99602783-31ed-464e-b990-f524041efea0",
-        "0ea01af6-b55f-434d-bb8e-feadead05b6b"
-      ],
-      "settings": {
-        "layout": "overlay",
-        "header_overlay": false,
+        "trust_position": "below_buy",
+        "emoji_font_size": 24,
+        "title_custom": false,
+        "title_font": "josefin_sans_n4",
+        "title_size": 14,
+        "title_size_mobile": 12,
+        "title_height": 100,
+        "sub_title_custom": false,
+        "sub_title_font": "josefin_sans_n4",
+        "sub_title_size": 12,
+        "sub_title_size_mobile": 10,
+        "sub_title_height": 100,
+        "title_color": "#000000",
+        "sub_title_color": "#716969",
+        "line_border_color": "#dedede",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
         "full_width": true,
-        "color_scheme": "",
-        "enable_border": false,
-        "border_full": false,
-        "subheading": "",
-        "subheading_style": "subtitle",
-        "subheading_icon": "none",
-        "heading": "",
-        "heading_size": "h2",
-        "heading_level": "h2",
-        "heading_line": "simple",
-        "line_color": "#1566e0",
-        "word_break": false,
-        "text": "",
-        "heading_animation": "none",
-        "word_break_an": false,
-        "text_align": "left",
-        "height": "21/9",
-        "text_align_content": "top-left",
-        "enable_autoplay": true,
-        "enable_parallax": false,
-        "enable_pagination": true,
-        "pagination_type": "numbers",
-        "pagination_color_scheme": "",
-        "pagination_width": "medium",
-        "enable_navigation": false,
-        "navigation_color_scheme": "",
-        "slide_duration": 5,
-        "icon_size": "recommended",
-        "icon_style": "contrast",
-        "icon_fill_type": "solid",
-        "show_tab_icon": true,
-        "padding_top": "no-indent",
-        "padding_bottom": "no-indent",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent"
+        "content_width": 120,
+        "border_thickness": 0
       }
     },
-    "testimonials": {
-      "type": "testimonials",
+    "ss_tabs_block_JDcrAp": {
+      "type": "ss-tabs-block",
       "blocks": {
-        "block_1": {
-          "type": "testimonials_slide",
+        "tab_DKCJEY": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "Description",
+            "answer": "",
+            "answer_html": "<section>\n  <h3>Une Sadaqa Jariyah au cœur du Haram</h3>\n  <p>Ce projet <strong>MySadaka</strong> vous permet d'offrir un soulagement immédiat aux pèlerins de la Maison Sacrée d'Allah, aux étudiants en science islamique à Makkah et à votre proche. Nous agissons comme votre mandataire (Wakil) pour déposer un fauteuil roulant au <strong>Point de Ramassage Gratuit</strong> de Makkah.</p>\n  \n  <h4>Un besoin vital pour la Ummah</h4>\n  <p>En 2025, avec plus de <strong>1 673 230 pèlerins</strong> que lors du Hajj et des millions d'autres durant l'année, les infrastructures de mobilité gratuite sont souvent saturées. De nombreux pèlerins âgés ou malades n'ont pas les moyens de louer des fauteuils à des prix élevés. Votre sadaqa remplit ce stock gratuit, permettant à des milliers de croyants d'accomplir leurs rites (Tawaf et Sa'y) sans frais de location supplémentaire.</p>\n\n  <h4>Impact Continu</h4>\n  <p>Chaque tour de Kaaba, chaque invocation faite par un pèlerin assis dans votre fauteuil génère des <strong>Hassanates continues</strong> pour le bénéficiaire choisi. C'est une aumône qui ne s'arrête jamais, tant que le fauteuil est en service.</p>\n</section>"
           }
         },
-        "block_2": {
-          "type": "testimonials_slide",
+        "tab_TzEp3e": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "À qui dédier cette sadaqa",
+            "answer": "",
+            "answer_html": "<section>\n  <h3>Mettez votre intention (Niyyah)</h3>\n  <p>L'Islam nous enseigne que les actions ne valent que par leurs intentions. Vous pouvez dédier cette Sadaqa Jariyah à plusieurs types de bénéficiaires :</p>\n  \n  <ul>\n    <li><strong>Un proche défunt (Rahma) :</strong> Pour que la récompense de chaque pèlerin soulagé lui parvienne dans sa tombe selon la sunnah.</li>\n    <li><strong>Une personne malade (Shifa) :</strong> Pour solliciter la guérison auprès d'Allah, conformément au hadith : <em>\"Soignez vos malades par l'aumône\"</em>.</li>\n    <li><strong>Vos parents ou grands-parents :</strong> Pour les honorer de leur vivant par une baraka immense issue du lieu le plus sacré.</li>\n    <li><strong>Un nouveau-né ou un proche :</strong> Pour espèrer une baraka dans leur vie par la permission d'Allah.</li>\n    <li><strong>Vous-même :</strong> Pour votre propre balance de bonnes actions.</li>\n  </ul>\n</section>"
           }
         },
-        "block_3": {
-          "type": "testimonials_slide",
+        "tab_K77aC7": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "Ceux que je reçois",
+            "answer": "",
+            "answer_html": "<section>\n  <h3>La transparence au service de votre sérénité</h3>\n  <p>Parce que la confiance (Amanah) est la base de notre agence, nous documentons chaque étape pour vous fournir une preuve irréfutable sous 7 jours.</p>\n  \n  <ul>\n    <li><strong>Vidéo Personnalisée :</strong> L'étudiant filme le dépôt au Haram et prononce des Dou'as spécifiques en mentionnant le nom du bénéficiaire selon l'intention.</li>\n    <li><strong>Certificat PDF Nominatif :</strong> Un document de haute qualité, conçu pour être imprimé et encadré. C'est un cadeau idéal à offrir ou un souvenir précieux à garder pour soi.</li>\n    <li><strong>Technologie QR Code :</strong> Le certificat contient un QR code unique. En le scannant avec n'importe quel smartphone, la vidéo du dépôt apparaît instantanément.</li>\n    <li><strong>Mode de réception :</strong> Vous recevez l'ensemble par <strong>e-mail ou via WhatsApp</strong>, selon votre préférence lors de la commande.</li>\n  </ul>\n</section>"
           }
         },
-        "ec4d0210-9771-4cf8-8d64-44b9e56bcf71": {
-          "type": "testimonials_slide",
+        "tab_QMFwJc": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "Mérites en islam",
+            "answer": "",
+            "answer_html": "<section>\n  <h3>L'impact spirituel de votre sadaqa</h3>\n  <p>Votre acte via MySadaka réunit plusieurs mérites immenses cités dans la tradition prophétique :</p>\n  \n  <ol>\n    <li><strong>La Sadaqa Jariyah :</strong> Le Prophète ﷺ a dit : <em>\"Quand le fils d'Adam meurt, son œuvre s'arrête sauf dans trois choses : une aumône continue (Sadaqa Jariyah)...\"</em> (Rapporté par Muslim).</li>\n    <li><strong>Soulager un croyant :</strong> Le Prophète ﷺ a dit : <em>\"Quiconque soulage un croyant d'une peine de ce monde, Allah le soulagera d'une peine au Jour de la Résurrection.\"</em> (Rapporté par Muslim).</li>\n    <li><strong>Aider les Invités d'Allah :</strong> Les pèlerins sont les \"Dhuyuf Ar-Rahman\". Les servir est un honneur que les pieux prédécesseurs recherchaient avec ferveur.</li>\n    <li><strong>Soutenir les Étudiants en Sciences :</strong> En confiant le dépôt à un étudiant de l'Université Umm Al Qura, vous soutenez un \"Talib Al-Ilm\" sur le chemin du savoir. Le Prophète ﷺ a dit : <em>\"Celui qui emprunte un chemin par lequel il recherche une science, Allah lui facilite un chemin vers le paradis.\"</em> (Rapporté par Muslim).</li>\n  </ol>\n</section>"
           }
         },
-        "53e60b71-8b96-4160-84a1-be5d5f4b59a1": {
-          "type": "testimonials_slide",
+        "tab_qbwnWT": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "Comment ça marche",
+            "answer": "<p> f</p>",
+            "answer_html": "<section>\n  <h3>Le parcours de votre Amanah</h3>\n  <p>Voici comment nous transformons votre intention en une action concrète à Makkah :</p>\n  \n  <ol>\n    <li><strong>Attribution :</strong> Dès que vous remplissez le formulaire, un étudiant en sciences islamiques à Makkah vous est personnellement attribué.</li>\n    <li><strong>Acquisition :</strong> L'étudiant se déplace auprès de notre réseau partenaire pour acheter un fauteuil roulant.</li>\n    <li><strong>Dépôt au Haram :</strong> L'étudiant transporte le fauteuil jusqu'au <strong>Point de Ramassage Gratuit</strong> à Makkah.</li>\n    <li><strong>Personnalisation :</strong> Sur place, il filme le dépôt et prononce les Dou'as en faveur de votre bénéficiaire.</li>\n    <li><strong>Traitement & Livraison :</strong> Notre équipe génère votre certificat avec QR code et vous envoie la preuve vidéo par e-mail ou WhatsApp sous 7 jours.</li>\n  </ol>\n</section>"
           }
         },
-        "7e20238a-4d79-4587-93de-f5cd87502470": {
-          "type": "testimonials_slide",
+        "tab_KGbYK4": {
+          "type": "tab",
           "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
-          }
-        },
-        "e3264945-d04f-4d3e-bf9b-ee40986efa51": {
-          "type": "testimonials_slide",
-          "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
-          }
-        },
-        "60b58f96-2361-48db-b63a-bbc01db78f1f": {
-          "type": "testimonials_slide",
-          "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
-          }
-        },
-        "50871a12-c9bc-412f-9d5b-1bef770b924f": {
-          "type": "testimonials_slide",
-          "settings": {
-            "rating": 5,
-            "slide_text": "“A satisfied customer’s words will be displayed here, sharing their thoughts on the product.”",
-            "slide_name": "Customer's name",
-            "slide_position": "Customer's position"
+            "svg_color": "#121212",
+            "icon": "none",
+            "question": "Répartition des Fonds",
+            "answer": "",
+            "answer_html": "<section>\n  <h3>Transparence financière totale</h3>\n  <p>Nous croyons en une clarté absolue sur l'utilisation de votre participation. Chaque dépense versé est réparti de la manière suivante :</p>\n  \n  <table>\n    <thead>\n      <tr>\n        <th>Poste de dépense</th>\n        <th>Description</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td><strong>Matériel</strong></td>\n        <td>Achat du fauteuil roulant auprès de notre réseau de partenaires locaux à Makkah.</td>\n      </tr>\n      <tr>\n        <td><strong>Rémunération Étudiante</strong></td>\n        <td>Bourse versée à l'étudiant en sciences islamiques qui effectue l'achat, le transport et le dépôt.</td>\n      </tr>\n      <tr>\n        <td><strong>Frais média et logistique</strong></td>\n        <td>Frais de montage vidéo, génération des certificats sécurisés et hébergement des fichiers QR code.</td>\n      </tr>\n      <tr>\n        <td><strong>Frais d'Agence</strong></td>\n        <td>Ces frais nous permettent de faire grandir MySadaka, de payer nos équipes et de faire profiter cette initiative à d'autres frères et sœurs à travers le monde.</td>\n<p>\n    <a href=\"/pages/transparence-detaillee\" title=\"En savoir plus sur notre budget\"><strong>➜ En savoir plus sur le détail de notre budget et notre impact</strong></a>\n  </p>\n      </tr>\n    </tbody>\n  </table>\n</section>"
           }
         }
       },
       "block_order": [
-        "block_1",
-        "block_2",
-        "block_3",
-        "ec4d0210-9771-4cf8-8d64-44b9e56bcf71",
-        "53e60b71-8b96-4160-84a1-be5d5f4b59a1",
-        "7e20238a-4d79-4587-93de-f5cd87502470",
-        "e3264945-d04f-4d3e-bf9b-ee40986efa51",
-        "60b58f96-2361-48db-b63a-bbc01db78f1f",
-        "50871a12-c9bc-412f-9d5b-1bef770b924f"
+        "tab_DKCJEY",
+        "tab_TzEp3e",
+        "tab_K77aC7",
+        "tab_QMFwJc",
+        "tab_qbwnWT",
+        "tab_KGbYK4"
       ],
+      "name": "SS - Product tabs",
       "settings": {
-        "layout": "marquee",
-        "color_scheme": "",
-        "subheading": "Satisfied customer count",
-        "subheading_style": "subtitle",
-        "subheading_icon": "none",
-        "heading": "Testimonials Title",
-        "heading_size": "h2",
-        "heading_level": "h2",
-        "heading_line": "simple",
-        "line_color": "#1566e0",
-        "word_break": false,
-        "heading_animation": "none",
-        "word_break_an": false,
-        "text": "Showcase positive reviews, ratings, or a statement about customer trust and product quality.",
-        "text_align": "left",
-        "slide_color_scheme": "",
-        "slide_text_size": "recommended",
-        "enable_navigation": true,
-        "enable_navigation_mobile": false,
-        "navigation_color_scheme": "",
-        "enable_pagination": false,
-        "enable_pagination_mobile": true,
-        "pagination_color_scheme": "",
-        "padding_top": "l",
-        "padding_bottom": "l",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent"
+        "tabs_position": "below_buy",
+        "close_other": true,
+        "open_default": false,
+        "subtitle": "",
+        "subtitle_size": 14,
+        "subtitle_size_mobile": 12,
+        "subtitle_height": 150,
+        "title": "",
+        "title_size": 10,
+        "title_size_mobile": 10,
+        "title_height": 150,
+        "question_font_size": 14,
+        "question_font_size_mobile": 14,
+        "question_height": 150,
+        "answer_font_size": 12,
+        "answer_font_size_mobile": 12,
+        "answer_height": 150,
+        "icon_width": 22,
+        "arrow_size": 14,
+        "subtitle_color": "#121212",
+        "title_color": "#121212",
+        "text_color": "#121212",
+        "answer_color": "#121212",
+        "arrow_color": "#121212",
+        "border_color": "#f2f2f2",
+        "background_color": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_x_desktop": 0,
+        "padding_x": 0,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "button_padding_y": 10
       }
     },
-    "multirow": {
-      "type": "multirow",
+    "176688954139a47093": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_eC7MXb": {
+      "type": "rich-text",
       "blocks": {
-        "template--15231063785533__1f309bc4-1a66-455b-90cb-63c739d1df21-column-1": {
+        "heading_7K3Pxg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ils nous ont confié leur projet de sadaqa",
+            "heading_size": "medium",
+            "heading_level": "h2"
+          }
+        },
+        "text_6KDjUV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This section should be structured clearly, ensuring the reader understands the purpose and value of the content</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7K3Pxg",
+        "text_6KDjUV"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "alignment": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "ss_testimonials_8_pro_zNmhMG": {
+      "type": "ss-testimonials-8-pro",
+      "blocks": {
+        "rating_pYbdMy": {
+          "type": "rating",
+          "settings": {
+            "rating_mt": 16,
+            "rating_mt_mobile": 16,
+            "rating_text": "<p>Excellent 4.9/5</p>",
+            "rating_custom": false,
+            "rating_font": "josefin_sans_n4",
+            "rating_size": 16,
+            "rating_size_mobile": 14,
+            "rating_height": 130,
+            "stars_count": 4.5,
+            "stars_size": 28,
+            "stars_size_mobile": 24,
+            "stars_gap": 2,
+            "rating_border": "none",
+            "rating_border_thickness": 1,
+            "rating_border_color": "#121212",
+            "rating_radius": 8,
+            "rating_bg_color": "#ffffff",
+            "use_shadow": true,
+            "shadow_color": "#959da5",
+            "rating_padding_horizontal": 14,
+            "rating_padding_horizontal_mobile": 14,
+            "rating_padding_vertical": 14,
+            "rating_padding_vertical_mobile": 14,
+            "rating_color": "#121212",
+            "stars_color": "#ffffff",
+            "stars_bg_color": "#00b67a",
+            "stars_bg_half_color": "#dddddd"
+          }
+        },
+        "testimonial_EGh3AJ": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_EJnRnY": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_6pppCN": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_ETX9yx": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_f73q3U": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_TWAC9K": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_WwCDJ6": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_dBqGXV": {
+          "type": "testimonial",
+          "settings": {
+            "title": "Review Title",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "verified": "Verified customer",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        }
+      },
+      "block_order": [
+        "rating_pYbdMy",
+        "testimonial_EGh3AJ",
+        "testimonial_EJnRnY",
+        "testimonial_6pppCN",
+        "testimonial_ETX9yx",
+        "testimonial_f73q3U",
+        "testimonial_TWAC9K",
+        "testimonial_WwCDJ6",
+        "testimonial_dBqGXV"
+      ],
+      "name": "SS - Testimonials #8 pro",
+      "settings": {
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "slider_view": 4,
+        "slider_view_mobile": 1.2,
+        "slider_gap": 24,
+        "slider_gap_mobile": 12,
+        "slider_mt": 40,
+        "slider_mt_mobile": 30,
+        "autoplay": true,
+        "autoplay_delay": 4,
+        "slide_padding_horizontal": 40,
+        "slide_padding_horizontal_mobile": 24,
+        "slide_padding_vertical": 30,
+        "slide_padding_vertical_mobile": 24,
+        "slide_radius": 16,
+        "slide_border_thickness": 0,
+        "slide_shadow": true,
+        "slide_shadow_color": "#959da5",
+        "uniform_slide_height": true,
+        "slide_content_align": "left",
+        "slide_content_align_mobile": "left",
+        "slide_stars_size": 28,
+        "slide_stars_size_mobile": 24,
+        "slide_stars_gap": 2,
+        "title_custom": false,
+        "title_font": "josefin_sans_n4",
+        "title_size": 14,
+        "title_size_mobile": 14,
+        "title_height": 130,
+        "title_mt": 16,
+        "title_mt_mobile": 12,
+        "text_custom": false,
+        "text_font": "josefin_sans_n4",
+        "text_size": 14,
+        "text_size_mobile": 14,
+        "text_height": 150,
+        "text_mt": 20,
+        "text_mt_mobile": 16,
+        "text_border_thickness": 2,
+        "author_image_size": 42,
+        "author_image_size_mobile": 42,
+        "author_image_radius": 100,
+        "author_image_border_thickness": 0,
+        "author_custom": false,
+        "author_font": "josefin_sans_n4",
+        "author_size": 14,
+        "author_size_mobile": 12,
+        "author_height": 130,
+        "author_mt": 16,
+        "author_mt_mobile": 12,
+        "verified_custom": false,
+        "verified_font": "josefin_sans_n4",
+        "verified_size": 12,
+        "verified_size_mobile": 10,
+        "verified_height": 130,
+        "verified_mt": 4,
+        "verified_mt_mobile": 4,
+        "arrow_show_desktop": true,
+        "arrow_show_mobile": false,
+        "arrow_size": 48,
+        "arrow_size_mobile": 38,
+        "arrow_icon_size": 10,
+        "arrow_icon_size_mobile": 8,
+        "arrow_border_thickness": 0,
+        "arrow_radius": 100,
+        "arrow_hover_effect": "color",
+        "arrow_shadow": true,
+        "title_color": "#121212",
+        "text_color": "#121212",
+        "text_border_color": "#dedede",
+        "author_color": "#121212",
+        "verified_color": "#121212",
+        "verified_icon_color": "#00b67a",
+        "slide_bg_color": "#ffffff",
+        "slide_border_color": "#121212",
+        "slide_stars_color": "#ffac00",
+        "slide_stars_bg_color": "#ffffff",
+        "slide_stars_bg_half_color": "#dddddd",
+        "author_image_color": "#020202",
+        "author_image_bg_color": "#fff3e4",
+        "author_image_border_color": "#121212",
+        "arrow_color": "#121212",
+        "arrow_hover_color": "#121212",
+        "arrow_bg_color": "#ffffff",
+        "arrow_bg_hover_color": "#fcfcfc",
+        "arrow_border_color": "#c7c7c7",
+        "arrow_border_hover_color": "#c7c7c7",
+        "background_style": "gradient",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 243, 228, 1) 100%, rgba(176, 247, 147, 1) 150%)",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "ss_image_with_text_24_JaPhrJ": {
+      "type": "ss-image-with-text-24",
+      "blocks": {
+        "heading_abVeyG": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2>Image with text #24</h2>",
+            "heading_custom": false,
+            "heading_font": "josefin_sans_n4",
+            "heading_size": 10,
+            "heading_size_mobile": 32,
+            "heading_advanced": false,
+            "heading_height": 130,
+            "heading_mt": 0,
+            "heading_mt_mobile": 0,
+            "heading_color": "#121212"
+          }
+        },
+        "text_wEbNBE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use this text to share information about your brand with your customers.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 18,
+            "text_size_mobile": 16,
+            "text_advanced": false,
+            "text_height": 150,
+            "text_mt": 12,
+            "text_mt_mobile": 12,
+            "text_color": "#121212"
+          }
+        },
+        "item_UXdmci": {
+          "type": "item",
+          "settings": {
+            "heading": "<p>Feature heading</p>",
+            "text": "<p>A short description of this feature.</p>"
+          }
+        },
+        "item_fFNAaD": {
+          "type": "item",
+          "settings": {
+            "heading": "<h3>Feature heading</h3>",
+            "text": "<p>A short description of this feature.</p>"
+          }
+        },
+        "item_bLAGxX": {
+          "type": "item",
+          "settings": {
+            "heading": "<h3>Feature heading</h3>",
+            "text": "<p>A short description of this feature.</p>"
+          }
+        },
+        "item_hiEckJ": {
+          "type": "item",
+          "settings": {
+            "heading": "<h3>Feature heading</h3>",
+            "text": "<p>A short description of this feature.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_abVeyG",
+        "text_wEbNBE",
+        "item_UXdmci",
+        "item_fFNAaD",
+        "item_bLAGxX",
+        "item_hiEckJ"
+      ],
+      "name": "SS - Image with text #24",
+      "settings": {
+        "layout": "content_image",
+        "image_item_width": 50,
+        "layout_gap": 60,
+        "content_align": "left",
+        "content_align_mobile": "center",
+        "features_advanced": false,
+        "items_mt": 40,
+        "items_mt_mobile": 20,
+        "items_gap": 40,
+        "item_padding_horizontal": 24,
+        "item_padding_horizontal_mobile": 0,
+        "progress_bar_width": 2,
+        "image_item_ratio": "landscape",
+        "image_item_ratio_mobile": "landscape",
+        "image_item_radius": 0,
+        "image_item_border_thickness": 0,
+        "item_heading_custom": true,
+        "item_heading_font": "poppins_n4",
+        "item_heading_size": 22,
+        "item_heading_size_mobile": 18,
+        "item_heading_advanced": false,
+        "item_heading_height": 130,
+        "item_heading_mt": 0,
+        "item_text_custom": false,
+        "item_text_font": "josefin_sans_n4",
+        "item_text_size": 14,
+        "item_text_size_mobile": 14,
+        "item_text_advanced": false,
+        "item_text_height": 150,
+        "item_text_mt": 12,
+        "item_text_mt_mobile": 12,
+        "text_hide_on_mobile": false,
+        "item_heading_color": "#121212",
+        "item_text_color": "#121212",
+        "progress_bar_bg": "#121212",
+        "image_item_border_color": "#121212",
+        "background_style": "solid",
+        "background_color": "#ffffff",
+        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(242, 242, 242, 1) 100%)",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "width": "custom",
+        "content_width": 1400,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "umm_text_image_steps_YEwbeB": {
+      "type": "umm-text-image-steps",
+      "blocks": {
+        "step_fzNLWR": {
+          "type": "step",
+          "settings": {
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "1",
+            "title": "Un inventaire inégalé",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
+          }
+        },
+        "step_JdRh7w": {
+          "type": "step",
+          "settings": {
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "2",
+            "title": "Un inventaire inégalé",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
+          }
+        },
+        "step_MyLDTW": {
+          "type": "step",
+          "settings": {
+            "image_alt": "Visuel",
+            "image_fit": "cover",
+            "number": "3",
+            "title": "Un inventaire inégalé",
+            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
+          }
+        }
+      },
+      "block_order": [
+        "step_fzNLWR",
+        "step_JdRh7w",
+        "step_MyLDTW"
+      ],
+      "name": "UMM — Text + image steps (native)",
+      "settings": {
+        "color_scheme": "",
+        "title": "Des économies record",
+        "description": "<p>Des leviers efficaces pour réduire les coûts de voyage de votre entreprise</p>",
+        "card_bg": "#f3f1fa",
+        "media_bg": "#f3f1fa",
+        "card_radius": 22,
+        "media_radius": 16,
+        "card_padding": 28,
+        "card_shadow": "",
+        "media_ratio": "4 / 3",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "enable_mobile_slider": true,
+        "slider_card_width": 86,
+        "slider_gap": 16,
+        "slider_left_gutter": 16
+      }
+    },
+    "image_with_text_7biCDR": {
+      "type": "image-with-text",
+      "blocks": {
+        "column_HzbJhx": {
           "type": "column",
           "settings": {
-            "icon": "lightning-bolt-1",
-            "icon_color_scheme": "",
-            "icon_fill_type": "gradient",
-            "show_video": false,
-            "autoplay_video": true,
-            "muted_video": true,
-            "loop_video": true,
-            "heading": "Add a Short, Engaging Title That Highlights The Key Feature",
-            "heading_line": "simple",
-            "line_color": "#1566e0",
-            "word_break": false,
-            "text": "<p>Here, you can highlight different features of your service, such as key benefits, unique offerings, or standout qualities.</p>",
-            "show_button": true,
-            "button_label": "Shop Now",
-            "button_link": "",
-            "button_style": "primary"
+            "icon": "none",
+            "icon_fill_type": "solid",
+            "heading": "",
+            "text": "Here can be a short introduction to the image content."
+          }
+        },
+        "column_3gQkBf": {
+          "type": "column",
+          "settings": {
+            "icon": "none",
+            "icon_fill_type": "solid",
+            "heading": "",
+            "text": "Here can be a short introduction to the image content."
           }
         }
       },
       "block_order": [
-        "template--15231063785533__1f309bc4-1a66-455b-90cb-63c739d1df21-column-1"
+        "column_HzbJhx",
+        "column_3gQkBf"
       ],
+      "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "section_type": "transparent",
-        "color_scheme": "background-2",
+        "layout": "text_last",
+        "color_scheme": "",
         "subheading": "",
         "subheading_style": "subtitle",
         "subheading_icon": "none",
@@ -590,32 +828,51 @@
         "word_break_an": false,
         "text": "",
         "text_align": "left",
+        "inner_subheading": "",
+        "inner_heading": "Showcase your message here",
+        "inner_heading_size": "h2",
+        "inner_heading_level": "h2",
+        "inner_heading_line": "simple",
+        "inner_line_color": "#1566e0",
+        "inner_word_break": false,
+        "description": "<p>Here can be a description explaining the purpose of the image, whether it’s showcasing a product, telling a brand story, or highlighting a campaign.</p>",
+        "text_align_inner": "top",
+        "enable_link": false,
+        "link": "",
+        "height": "square",
+        "overlay_opacity": 0.2,
+        "logo_width": 75,
+        "add_text": "Image Preview",
+        "author_color_scheme": "",
         "icon_size": "recommended",
-        "box_shadow": true,
+        "box_shadow": false,
         "icon_style": "colored",
-        "image_alignment": "right",
-        "image_width": "large",
-        "image_ratio": "landscape",
-        "object_fit": "cover",
-        "card_heading_size": "h2",
-        "padding_top": "l",
+        "show_button": true,
+        "button_label": "Shop Now",
+        "button_link": "",
+        "button_style": "primary",
+        "show_button_2": true,
+        "button_label_2": "Explore Now",
+        "button_link_2": "",
+        "button_style_2": "simple",
+        "padding_top": "m",
         "padding_bottom": "m",
         "margin_top": "no-indent",
         "margin_bottom": "no-indent"
       }
     },
-    "1766558169745e701c": {
+    "17668814935de4826b": {
       "type": "apps",
       "blocks": {
-        "yotpo_product_reviews_reviews_pjdQUq": {
+        "yotpo_product_reviews_reviews_c9GC8t": {
           "type": "shopify://apps/yotpo-product-reviews/blocks/reviews/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
           "settings": {
-            "product": "{{product}}"
+            "product": "mon-fauteuil-roulant-a-makkah"
           }
         }
       },
       "block_order": [
-        "yotpo_product_reviews_reviews_pjdQUq"
+        "yotpo_product_reviews_reviews_c9GC8t"
       ],
       "settings": {
         "include_margins": true
@@ -729,12 +986,15 @@
   },
   "order": [
     "main",
-    "576dad4a-7ffe-4bdd-9a60-a4572834977d",
-    "6284d95d-0127-47a7-b977-2a630c6f9383",
-    "slideshow",
-    "testimonials",
-    "multirow",
-    "1766558169745e701c",
+    "ss_trust_badges_emojis_mVQhN6",
+    "ss_tabs_block_JDcrAp",
+    "176688954139a47093",
+    "rich_text_eC7MXb",
+    "ss_testimonials_8_pro_zNmhMG",
+    "ss_image_with_text_24_JaPhrJ",
+    "umm_text_image_steps_YEwbeB",
+    "image_with_text_7biCDR",
+    "17668814935de4826b",
     "product-recommendations",
     "9b6afe8a-c2c6-4c06-ab47-03a55d729b4b"
   ]

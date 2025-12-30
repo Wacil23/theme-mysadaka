@@ -426,12 +426,12 @@
       {
         "type": "range",
         "id": "body_scale",
-        "min": 100,
-        "max": 150,
+        "min": 0,
+        "max": 100,
         "step": 1,
         "unit": "%",
         "label": "t:settings_schema.typography.settings.body_scale.label",
-        "default": 115
+        "default": 100
       },
       {
         "type": "range",
