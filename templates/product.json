@@ -688,8 +688,8 @@
         "dot_size": 10,
         "inactive_opacity": 0.3,
         "fade_range": 140,
-        "padding_top": 100,
-        "padding_bottom": 100,
+        "padding_top": "l",
+        "padding_bottom": "l",
         "lazy": true
       }
     },
