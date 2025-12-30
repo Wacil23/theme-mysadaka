@@ -1,0 +1,754 @@
+{%- liquid
+  assign full_width_background = section.settings.full_width_background
+  assign background_style = section.settings.background_style
+  assign background_color = section.settings.background_color
+  assign background_gradient = section.settings.background_gradient
+
+  assign box_enable = section.settings.box_enable
+  assign box_background = section.settings.box_background
+  assign box_radius = section.settings.box_radius
+  assign box_padding_y = section.settings.box_padding_y
+  assign box_padding_x = section.settings.box_padding_x
+  assign box_padding_y_mobile = section.settings.box_padding_y_mobile
+  assign box_padding_x_mobile = section.settings.box_padding_x_mobile
+
+  assign image = section.settings.image
+  assign image_position = section.settings.image_position
+  assign image_radius = section.settings.image_radius
+
+  assign line_color = section.settings.line_color
+  assign line_width = section.settings.line_width
+  assign dot_size = section.settings.dot_size
+  assign inactive_opacity = section.settings.inactive_opacity
+  assign fade_range = section.settings.fade_range
+
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign lazy = section.settings.lazy
+
+  assign loading_attribute = 'eager'
+  if lazy
+    assign loading_attribute = 'lazy'
+  endif
+-%}
+
+<section
+  class="tp-progress tp-progress--{{ section.id }}"
+  {% if full_width_background %}
+    {% if background_style == 'solid' %}
+      style="background-color: {{ background_color }};"
+    {% else %}
+      style="background-image: {{ background_gradient }};"
+    {% endif %}
+  {% endif %}
+>
+  <div class="tp-progress__container container">
+    <div class="tp-progress__box{% if box_enable %} tp-progress__box--enabled{% endif %}">
+      <div class="tp-progress__grid tp-progress__grid--{{ image_position }}">
+        {% if image != blank %}
+          <div class="tp-progress__media">
+            <div class="tp-progress__media-inner">
+              {{
+                image
+                | image_url: width: 1800
+                | image_tag: loading: loading_attribute, widths: '750, 1070, 1500, 2000'
+              }}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="tp-progress__content">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'subheading' -%}
+                <div class="rich-text__subheading subtitle" {{ block.shopify_attributes }}>
+                  {{ block.settings.subheading | escape }}
+                </div>
+              {%- when 'heading' -%}
+                <{{ block.settings.heading_level }}
+                  class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.heading }}
+                </{{ block.settings.heading_level }}>
+              {%- when 'text' -%}
+                <div class="rich-text__text" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </div>
+              {%- when 'button' -%}
+                <a
+                  {% if block.settings.button_link == blank %}
+                    aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link }}"
+                  {% endif %}
+                  class="button button--{{ block.settings.button_style }} focus-inset"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          <div class="tp-timeline" data-tp-timeline>
+            <ul class="tp-timeline__list" data-tp-list>
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'step' -%}
+                  <li class="tp-step" {{ block.shopify_attributes }}>
+                    <span class="tp-step__dot" aria-hidden="true"></span>
+                    <div class="tp-step__content">
+                      <div class="tp-step__title" data-tp-title>
+                        {{ block.settings.title | escape }}
+                      </div>
+                      {% if block.settings.text != blank %}
+                        <div class="tp-step__text rte">
+                          {{ block.settings.text }}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .tp-progress--{{ section.id }} .tp-progress__container {
+    padding-top: var(--tp-padding-top);
+    padding-bottom: var(--tp-padding-bottom);
+  }
+
+  .tp-progress--{{ section.id }} {
+    --tp-padding-top: {{ padding_top }}px;
+    --tp-padding-bottom: {{ padding_bottom }}px;
+    --tp-line-color: {{ line_color }};
+    --tp-line-width: {{ line_width }}px;
+    --tp-dot-size: {{ dot_size }}px;
+    --tp-inactive-opacity: {{ inactive_opacity }};
+    --tp-fade-range: {{ fade_range }}px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__box {
+    {% unless full_width_background %}
+      {% if background_style == 'solid' %}
+        background-color: {{ background_color }};
+      {% else %}
+        background-image: {{ background_gradient }};
+      {% endif %}
+    {% endunless %}
+    border-radius: {{ box_radius }}px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__box--enabled {
+    background: {{ box_background }};
+    border-radius: {{ box_radius }}px;
+    padding: {{ box_padding_y_mobile }}px {{ box_padding_x_mobile }}px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__media-inner {
+    overflow: hidden;
+    border-radius: {{ image_radius }}px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__media-inner img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .tp-progress--{{ section.id }} .tp-progress__content {
+    text-align: left;
+  }
+
+  .tp-progress--{{ section.id }} .tp-timeline {
+    margin-top: 24px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-timeline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    --tp-progress: 0;
+    --tp-line-x: 8px;
+    --tp-line-top: 0px;
+    --tp-line-height: 120px;
+    padding-left: 24px;
+  }
+
+  .tp-progress--{{ section.id }} .tp-timeline__list::before,
+  .tp-progress--{{ section.id }} .tp-timeline__list::after {
+    content: "";
+    position: absolute;
+    left: var(--tp-line-x);
+    top: var(--tp-line-top);
+    height: var(--tp-line-height);
+    width: var(--tp-line-width);
+    border-radius: 999px;
+    transform: translateX(-50%);
+  }
+
+  .tp-progress--{{ section.id }} .tp-timeline__list::before {
+    background: var(--tp-line-color);
+    opacity: 0.25;
+  }
+
+  .tp-progress--{{ section.id }} .tp-timeline__list::after {
+    background: var(--tp-line-color);
+    transform-origin: top;
+    transform: translateX(-50%) scaleY(var(--tp-progress));
+    will-change: transform;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step {
+    position: relative;
+    padding: 8px 0;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step__dot {
+    position: absolute;
+    left: var(--tp-line-x);
+    top: 0px;
+    width: var(--tp-dot-size);
+    height: var(--tp-dot-size);
+    border-radius: 999px;
+    background: var(--tp-line-color);
+    transform: translate(-50%, -50%);
+    opacity: var(--tp-inactive-opacity);
+    will-change: opacity, transform;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step__content {
+    opacity: var(--tp-inactive-opacity);
+    will-change: opacity;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step__title {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step__text {
+    margin-top: 10px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .tp-progress--{{ section.id }} .tp-progress__grid {
+      {% if image != blank %}
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      {% else %}
+        grid-template-columns: minmax(0, 1fr);
+      {% endif %}
+      gap: 48px;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__grid--image_right .tp-progress__media {
+      order: 2;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__grid--image_right .tp-progress__content {
+      order: 1;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__box--enabled {
+      padding: {{ box_padding_y }}px {{ box_padding_x }}px;
+    }
+  }
+{% endstyle %}
+
+<script>
+  (function () {
+    const sectionId = '{{ section.id }}';
+    const sectionEl = document.querySelector(`.tp-progress--${sectionId}`);
+    if (!sectionEl) return;
+
+    if (sectionEl.__tpCleanup) sectionEl.__tpCleanup();
+
+    const list = sectionEl.querySelector('[data-tp-list]');
+    const steps = Array.from(sectionEl.querySelectorAll('.tp-step'));
+    const dots = steps.map((s) => s.querySelector('.tp-step__dot')).filter(Boolean);
+    const contents = steps.map((s) => s.querySelector('.tp-step__content')).filter(Boolean);
+    const titles = steps.map((s) => s.querySelector('[data-tp-title]'));
+
+    if (!list || steps.length === 0 || dots.length === 0) return;
+
+    const thresholdRatio = 0.45;
+    const minOpacity = parseFloat(getComputedStyle(sectionEl).getPropertyValue('--tp-inactive-opacity')) || 0.25;
+    const fadeRange = parseFloat(getComputedStyle(sectionEl).getPropertyValue('--tp-fade-range')) || 140;
+
+    const clamp01 = (n) => Math.max(0, Math.min(1, n));
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    function layoutDotsAndLine() {
+      const listRect = list.getBoundingClientRect();
+      const listTop = listRect.top;
+
+      const positions = [];
+
+      steps.forEach((step, i) => {
+        const dot = dots[i];
+        const title = titles[i];
+        if (!dot || !title) return;
+
+        const stepRect = step.getBoundingClientRect();
+        const titleRect = title.getBoundingClientRect();
+        const dotY = (titleRect.top + titleRect.height / 2) - stepRect.top;
+        dot.style.top = `${dotY}px`;
+
+        const dotRect = dot.getBoundingClientRect();
+        positions.push(dotRect.top + dotRect.height / 2 - listTop);
+      });
+
+      if (positions.length === 0) return;
+
+      const first = positions[0];
+      const last = positions[positions.length - 1];
+      list.style.setProperty('--tp-line-top', `${first}px`);
+      list.style.setProperty('--tp-line-height', `${Math.max(1, last - first)}px`);
+
+      const dot0 = dots[0].getBoundingClientRect();
+      list.style.setProperty('--tp-line-x', `${dot0.left + dot0.width / 2 - listRect.left}px`);
+    }
+
+    let raf = null;
+    function update() {
+      layoutDotsAndLine();
+
+      const listRect = list.getBoundingClientRect();
+      const listTop = listRect.top;
+      const listHeight = listRect.height || 1;
+      const thresholdY = window.innerHeight * thresholdRatio;
+
+      const lineTop = parseFloat(getComputedStyle(list).getPropertyValue('--tp-line-top')) || 0;
+      const lineHeight = parseFloat(getComputedStyle(list).getPropertyValue('--tp-line-height')) || 1;
+
+      const progressPx = Math.max(0, Math.min(listHeight, thresholdY - listTop));
+      const normalized = Math.max(0, Math.min(lineHeight, progressPx - lineTop));
+      const progressRatio = clamp01(normalized / lineHeight);
+      list.style.setProperty('--tp-progress', String(progressRatio));
+
+      dots.forEach((dot) => {
+        const rect = dot.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const passed = centerY <= thresholdY;
+        const dist = Math.max(0, centerY - thresholdY);
+        const t = passed ? 1 : clamp01(1 - dist / fadeRange);
+        dot.style.opacity = String(lerp(minOpacity, 1, t));
+        dot.style.transform = t > 0.85 ? 'translate(-50%, -50%) scale(1.05)' : 'translate(-50%, -50%)';
+      });
+
+      contents.forEach((content, i) => {
+        const dot = dots[i];
+        if (!dot) return;
+        const rect = dot.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const passed = centerY <= thresholdY;
+        const dist = Math.max(0, centerY - thresholdY);
+        const t = passed ? 1 : clamp01(1 - dist / fadeRange);
+        content.style.opacity = String(lerp(minOpacity, 1, t));
+      });
+    }
+
+    function onScrollOrResize() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        update();
+      });
+    }
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+
+    sectionEl.__tpCleanup = () => {
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+
+      list.style.removeProperty('--tp-progress');
+      list.style.removeProperty('--tp-line-x');
+      list.style.removeProperty('--tp-line-top');
+      list.style.removeProperty('--tp-line-height');
+
+      dots.forEach((dot) => {
+        dot.style.opacity = '';
+        dot.style.transform = '';
+        dot.style.top = '';
+      });
+
+      contents.forEach((c) => {
+        c.style.opacity = '';
+      });
+    };
+
+    update();
+
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:section:unload', (event) => {
+        if (!event || !event.detail || event.detail.sectionId !== sectionId) return;
+        if (sectionEl.__tpCleanup) sectionEl.__tpCleanup();
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Text with progress bar",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (desktop)",
+      "default": "image_left",
+      "options": [
+        { "value": "image_left", "label": "Left" },
+        { "value": "image_right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_background",
+      "label": "Use full width background",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "gradient", "label": "Gradient" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.background_style == 'solid' }}"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+      "visible_if": "{{ section.settings.background_style == 'gradient' }}"
+    },
+    {
+      "type": "header",
+      "content": "Box"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_enable",
+      "label": "Enable box",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "box_background",
+      "label": "Box background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Box radius",
+      "default": 16,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_padding_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Box padding vertical",
+      "default": 48,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_padding_x",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Box padding horizontal",
+      "default": 48,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_padding_y_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Box padding vertical (mobile)",
+      "default": 24,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_padding_x_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Box padding horizontal (mobile)",
+      "default": 24,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "header",
+      "content": "Timeline"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line & dot color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "line_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Line width",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "dot_size",
+      "min": 6,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Dot size",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "inactive_opacity",
+      "min": 0.1,
+      "max": 0.7,
+      "step": 0.1,
+      "label": "Inactive opacity",
+      "default": 0.3
+    },
+    {
+      "type": "range",
+      "id": "fade_range",
+      "min": 40,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Fade range",
+      "default": 140
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "lazy",
+      "label": "Lazy load image",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "medium",
+          "label": "Heading size"
+        },
+        {
+          "type": "select",
+          "id": "heading_level",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ],
+          "default": "h2",
+          "label": "Heading level"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Use this text to share information.</p>",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Learn more",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" },
+            { "value": "tertiary", "label": "Tertiary" }
+          ],
+          "default": "primary",
+          "label": "Button style"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Timeline step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Every day"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Take 3 capsules with a glass of water.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text with progress bar",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "text" },
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
