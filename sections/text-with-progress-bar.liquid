@@ -1,3 +1,5 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign full_width_background = section.settings.full_width_background
   assign background_style = section.settings.background_style
@@ -16,11 +18,26 @@
   assign image_position = section.settings.image_position
   assign image_radius = section.settings.image_radius
 
+  assign content_padding_y = section.settings.content_padding_y
+  assign content_padding_x = section.settings.content_padding_x
+  assign content_padding_y_mobile = section.settings.content_padding_y_mobile
+  assign content_padding_x_mobile = section.settings.content_padding_x_mobile
+
+  assign image_padding_y = section.settings.image_padding_y
+  assign image_padding_x = section.settings.image_padding_x
+  assign image_padding_y_mobile = section.settings.image_padding_y_mobile
+  assign image_padding_x_mobile = section.settings.image_padding_x_mobile
+
   assign line_color = section.settings.line_color
   assign line_width = section.settings.line_width
   assign dot_size = section.settings.dot_size
   assign inactive_opacity = section.settings.inactive_opacity
   assign fade_range = section.settings.fade_range
+  assign inactive_color = section.settings.inactive_color
+  assign active_color = section.settings.active_color
+  assign steps_gap = section.settings.steps_gap
+  assign step_title_text_gap = section.settings.step_title_text_gap
+  assign timeline_marker_gap = section.settings.timeline_marker_gap
 
   assign padding_top = section.settings.padding_top
   assign padding_bottom = section.settings.padding_bottom
@@ -58,44 +75,50 @@
         {% endif %}
 
         <div class="tp-progress__content">
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when 'subheading' -%}
-                <div class="rich-text__subheading subtitle" {{ block.shopify_attributes }}>
-                  {{ block.settings.subheading | escape }}
-                </div>
-              {%- when 'heading' -%}
-                <{{ block.settings.heading_level }}
-                  class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
-                  {{ block.shopify_attributes }}
-                >
-                  {{ block.settings.heading }}
-                </{{ block.settings.heading_level }}>
-              {%- when 'text' -%}
-                <div class="rich-text__text" {{ block.shopify_attributes }}>
-                  {{ block.settings.text }}
-                </div>
-              {%- when 'button' -%}
-                <a
-                  {% if block.settings.button_link == blank %}
-                    aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link }}"
-                  {% endif %}
-                  class="button button--{{ block.settings.button_style }} focus-inset"
-                  {{ block.shopify_attributes }}
-                >
-                  {{ block.settings.button_label | escape }}
-                </a>
-            {%- endcase -%}
-          {%- endfor -%}
+          <div class="rich-text rich-text--align-left">
+            <div class="rich-text__blocks">
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'subheading' -%}
+                    <div class="rich-text__subheading subtitle" {{ block.shopify_attributes }}>
+                      {{ block.settings.subheading | escape }}
+                    </div>
+                  {%- when 'heading' -%}
+                    <{{ block.settings.heading_level }}
+                      class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {{ block.settings.heading }}
+                    </{{ block.settings.heading_level }}>
+                  {%- when 'text' -%}
+                    <div class="rich-text__text" {{ block.shopify_attributes }}>
+                      {{ block.settings.text }}
+                    </div>
+                  {%- when 'button' -%}
+                    <a
+                      {% if block.settings.button_link == blank %}
+                        aria-disabled="true"
+                      {% else %}
+                        href="{{ block.settings.button_link }}"
+                      {% endif %}
+                      class="button button--{{ block.settings.button_style }} focus-inset"
+                      {{ block.shopify_attributes }}
+                    >
+                      {{ block.settings.button_label | escape }}
+                    </a>
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
 
           <div class="tp-timeline" data-tp-timeline>
             <ul class="tp-timeline__list" data-tp-list>
               {%- for block in section.blocks -%}
                 {%- if block.type == 'step' -%}
                   <li class="tp-step" {{ block.shopify_attributes }}>
-                    <span class="tp-step__dot" aria-hidden="true"></span>
+                    <span class="tp-step__marker" aria-hidden="true">
+                      <span class="tp-step__dot"></span>
+                    </span>
                     <div class="tp-step__content">
                       <div class="tp-step__title" data-tp-title>
                         {{ block.settings.title | escape }}
@@ -127,10 +150,15 @@
     --tp-padding-top: {{ padding_top }}px;
     --tp-padding-bottom: {{ padding_bottom }}px;
     --tp-line-color: {{ line_color }};
+    --tp-active-color: {{ active_color }};
+    --tp-inactive-color: {{ inactive_color }};
     --tp-line-width: {{ line_width }}px;
     --tp-dot-size: {{ dot_size }}px;
     --tp-inactive-opacity: {{ inactive_opacity }};
     --tp-fade-range: {{ fade_range }}px;
+    --tp-steps-gap: {{ steps_gap }}px;
+    --tp-step-title-gap: {{ step_title_text_gap }}px;
+    --tp-marker-gap: {{ timeline_marker_gap }}px;
   }
 
   .tp-progress--{{ section.id }} .tp-progress__box {
@@ -157,19 +185,30 @@
     align-items: start;
   }
 
+  .tp-progress--{{ section.id }} .tp-progress__media {
+    padding: {{ image_padding_y_mobile }}px {{ image_padding_x_mobile }}px;
+  }
+
   .tp-progress--{{ section.id }} .tp-progress__media-inner {
     overflow: hidden;
     border-radius: {{ image_radius }}px;
+    aspect-ratio: 16 / 9;
   }
 
   .tp-progress--{{ section.id }} .tp-progress__media-inner img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   .tp-progress--{{ section.id }} .tp-progress__content {
     text-align: left;
+    padding: {{ content_padding_y_mobile }}px {{ content_padding_x_mobile }}px;
+  }
+
+  .tp-progress--{{ section.id }} .rich-text__blocks {
+    padding-inline: 0 !important;
   }
 
   .tp-progress--{{ section.id }} .tp-timeline {
@@ -184,8 +223,11 @@
     --tp-progress: 0;
     --tp-line-x: 8px;
     --tp-line-top: 0px;
-    --tp-line-height: 120px;
-    padding-left: 24px;
+    --tp-line-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--tp-steps-gap);
+    isolation: isolate;
   }
 
   .tp-progress--{{ section.id }} .tp-timeline__list::before,
@@ -198,51 +240,65 @@
     width: var(--tp-line-width);
     border-radius: 999px;
     transform: translateX(-50%);
+    z-index: 0;
   }
 
   .tp-progress--{{ section.id }} .tp-timeline__list::before {
-    background: var(--tp-line-color);
-    opacity: 0.25;
+    background: var(--tp-inactive-color);
+    opacity: 1;
   }
 
   .tp-progress--{{ section.id }} .tp-timeline__list::after {
-    background: var(--tp-line-color);
+    background: var(--tp-active-color);
     transform-origin: top;
     transform: translateX(-50%) scaleY(var(--tp-progress));
     will-change: transform;
+    z-index: 1;
   }
 
   .tp-progress--{{ section.id }} .tp-step {
     position: relative;
-    padding: 8px 0;
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr);
+    column-gap: var(--tp-marker-gap);
+    align-items: start;
+    z-index: 2;
+  }
+
+  .tp-progress--{{ section.id }} .tp-step__marker {
+    position: relative;
+    min-height: 1px;
   }
 
   .tp-progress--{{ section.id }} .tp-step__dot {
     position: absolute;
-    left: var(--tp-line-x);
-    top: 0px;
+    left: 50%;
+    top: 0;
     width: var(--tp-dot-size);
     height: var(--tp-dot-size);
     border-radius: 999px;
-    background: var(--tp-line-color);
+    background: var(--tp-inactive-color);
     transform: translate(-50%, -50%);
-    opacity: var(--tp-inactive-opacity);
-    will-change: opacity, transform;
+    opacity: 1;
+    will-change: background-color, transform;
+    z-index: 3;
   }
 
   .tp-progress--{{ section.id }} .tp-step__content {
-    opacity: var(--tp-inactive-opacity);
-    will-change: opacity;
+    color: var(--tp-inactive-color);
+    will-change: color;
+    position: relative;
+    z-index: 2;
   }
 
   .tp-progress--{{ section.id }} .tp-step__title {
     font-weight: 700;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .tp-progress--{{ section.id }} .tp-step__text {
-    margin-top: 10px;
+    margin-top: var(--tp-step-title-gap);
   }
 
   @media screen and (min-width: 990px) {
@@ -253,6 +309,7 @@
         grid-template-columns: minmax(0, 1fr);
       {% endif %}
       gap: 48px;
+      align-items: stretch;
     }
 
     .tp-progress--{{ section.id }} .tp-progress__grid--image_right .tp-progress__media {
@@ -266,6 +323,32 @@
     .tp-progress--{{ section.id }} .tp-progress__box--enabled {
       padding: {{ box_padding_y }}px {{ box_padding_x }}px;
     }
+
+    .tp-progress--{{ section.id }} .tp-progress__media {
+      padding: {{ image_padding_y }}px {{ image_padding_x }}px;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__content {
+      padding: {{ content_padding_y }}px {{ content_padding_x }}px;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__media-inner {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .tp-progress--{{ section.id }} .tp-progress__media-inner img {
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .tp-progress--{{ section.id }} .tp-progress__box--enabled .tp-progress__media-inner {
+      border-top-left-radius: {{ box_radius }}px;
+      border-top-right-radius: {{ box_radius }}px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
   }
 {% endstyle %}
 
@@ -278,21 +361,43 @@
     if (sectionEl.__tpCleanup) sectionEl.__tpCleanup();
 
     const list = sectionEl.querySelector('[data-tp-list]');
-    const steps = Array.from(sectionEl.querySelectorAll('.tp-step'));
-    const dots = steps.map((s) => s.querySelector('.tp-step__dot')).filter(Boolean);
+      const steps = Array.from(sectionEl.querySelectorAll('.tp-step'));
+      const dots = steps.map((s) => s.querySelector('.tp-step__dot')).filter(Boolean);
+      const markers = steps.map((s) => s.querySelector('.tp-step__marker'));
     const contents = steps.map((s) => s.querySelector('.tp-step__content')).filter(Boolean);
     const titles = steps.map((s) => s.querySelector('[data-tp-title]'));
 
     if (!list || steps.length === 0 || dots.length === 0) return;
 
     const thresholdRatio = 0.45;
-    const minOpacity = parseFloat(getComputedStyle(sectionEl).getPropertyValue('--tp-inactive-opacity')) || 0.25;
+    const inactiveColorVar = getComputedStyle(sectionEl).getPropertyValue('--tp-inactive-color').trim() || '#D9D9D9';
+    const activeColorVar = getComputedStyle(sectionEl).getPropertyValue('--tp-active-color').trim() || '#111111';
     const fadeRange = parseFloat(getComputedStyle(sectionEl).getPropertyValue('--tp-fade-range')) || 140;
 
     const clamp01 = (n) => Math.max(0, Math.min(1, n));
     const lerp = (a, b, t) => a + (b - a) * t;
+    const lerpColor = (a, b, t) => `rgb(${Math.round(lerp(a[0], b[0], t))} ${Math.round(lerp(a[1], b[1], t))} ${Math.round(lerp(a[2], b[2], t))})`;
 
-    function layoutDotsAndLine() {
+    function toRgbTriplet(colorValue) {
+      const tmp = document.createElement('span');
+      tmp.style.color = colorValue;
+      tmp.style.display = 'none';
+      document.body.appendChild(tmp);
+      const computed = getComputedStyle(tmp).color;
+      tmp.remove();
+      const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+      if (!match) return [17, 17, 17];
+      return [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10)];
+    }
+
+    const inactiveRgb = toRgbTriplet(inactiveColorVar);
+    const activeRgb = toRgbTriplet(activeColorVar);
+
+    let lineTop = 0;
+    let lineHeight = 1;
+    let hasLayout = false;
+
+      function layoutDotsAndLine() {
       const listRect = list.getBoundingClientRect();
       const listTop = listRect.top;
 
@@ -301,11 +406,13 @@
       steps.forEach((step, i) => {
         const dot = dots[i];
         const title = titles[i];
+          const marker = markers[i];
         if (!dot || !title) return;
+          if (!marker) return;
 
-        const stepRect = step.getBoundingClientRect();
+          const markerRect = marker.getBoundingClientRect();
         const titleRect = title.getBoundingClientRect();
-        const dotY = (titleRect.top + titleRect.height / 2) - stepRect.top;
+          const dotY = (titleRect.top + titleRect.height / 2) - markerRect.top;
         dot.style.top = `${dotY}px`;
 
         const dotRect = dot.getBoundingClientRect();
@@ -316,24 +423,24 @@
 
       const first = positions[0];
       const last = positions[positions.length - 1];
-      list.style.setProperty('--tp-line-top', `${first}px`);
-      list.style.setProperty('--tp-line-height', `${Math.max(1, last - first)}px`);
+      lineTop = first;
+      lineHeight = Math.max(1, last - first);
+      list.style.setProperty('--tp-line-top', `${lineTop}px`);
+      list.style.setProperty('--tp-line-height', `${lineHeight}px`);
 
-      const dot0 = dots[0].getBoundingClientRect();
-      list.style.setProperty('--tp-line-x', `${dot0.left + dot0.width / 2 - listRect.left}px`);
+        const marker0 = markers[0] ? markers[0].getBoundingClientRect() : dots[0].getBoundingClientRect();
+        list.style.setProperty('--tp-line-x', `${marker0.left + marker0.width / 2 - listRect.left}px`);
+      hasLayout = true;
     }
 
     let raf = null;
     function update() {
-      layoutDotsAndLine();
-
       const listRect = list.getBoundingClientRect();
       const listTop = listRect.top;
       const listHeight = listRect.height || 1;
       const thresholdY = window.innerHeight * thresholdRatio;
 
-      const lineTop = parseFloat(getComputedStyle(list).getPropertyValue('--tp-line-top')) || 0;
-      const lineHeight = parseFloat(getComputedStyle(list).getPropertyValue('--tp-line-height')) || 1;
+      if (!hasLayout) layoutDotsAndLine();
 
       const progressPx = Math.max(0, Math.min(listHeight, thresholdY - listTop));
       const normalized = Math.max(0, Math.min(lineHeight, progressPx - lineTop));
@@ -346,8 +453,8 @@
         const passed = centerY <= thresholdY;
         const dist = Math.max(0, centerY - thresholdY);
         const t = passed ? 1 : clamp01(1 - dist / fadeRange);
-        dot.style.opacity = String(lerp(minOpacity, 1, t));
-        dot.style.transform = t > 0.85 ? 'translate(-50%, -50%) scale(1.05)' : 'translate(-50%, -50%)';
+        dot.style.backgroundColor = lerpColor(inactiveRgb, activeRgb, t);
+        dot.style.transform = 'translate(-50%, -50%)';
       });
 
       contents.forEach((content, i) => {
@@ -358,7 +465,7 @@
         const passed = centerY <= thresholdY;
         const dist = Math.max(0, centerY - thresholdY);
         const t = passed ? 1 : clamp01(1 - dist / fadeRange);
-        content.style.opacity = String(lerp(minOpacity, 1, t));
+        content.style.color = lerpColor(inactiveRgb, activeRgb, t);
       });
     }
 
@@ -370,12 +477,17 @@
       });
     }
 
+    function onResize() {
+      hasLayout = false;
+      onScrollOrResize();
+    }
+
     window.addEventListener('scroll', onScrollOrResize, { passive: true });
-    window.addEventListener('resize', onScrollOrResize);
+    window.addEventListener('resize', onResize);
 
     sectionEl.__tpCleanup = () => {
       window.removeEventListener('scroll', onScrollOrResize);
-      window.removeEventListener('resize', onScrollOrResize);
+      window.removeEventListener('resize', onResize);
       if (raf) cancelAnimationFrame(raf);
       raf = null;
 
@@ -385,16 +497,17 @@
       list.style.removeProperty('--tp-line-height');
 
       dots.forEach((dot) => {
-        dot.style.opacity = '';
+        dot.style.backgroundColor = '';
         dot.style.transform = '';
         dot.style.top = '';
       });
 
       contents.forEach((c) => {
-        c.style.opacity = '';
+        c.style.color = '';
       });
     };
 
+    layoutDotsAndLine();
     update();
 
     if (window.Shopify && Shopify.designMode) {
@@ -432,6 +545,50 @@
       "label": "Image"
     },
     {
+      "type": "header",
+      "content": "Image padding"
+    },
+    {
+      "type": "range",
+      "id": "image_padding_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_x",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_y_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical (mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_x_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal (mobile)",
+      "default": 0
+    },
+    {
       "type": "range",
       "id": "image_radius",
       "min": 0,
@@ -440,6 +597,50 @@
       "unit": "px",
       "label": "Image radius",
       "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Content padding"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_y_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical (mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal (mobile)",
+      "default": 0
     },
     {
       "type": "header",
@@ -550,6 +751,48 @@
     {
       "type": "header",
       "content": "Timeline"
+    },
+    {
+      "type": "color",
+      "id": "inactive_color",
+      "label": "Inactive color",
+      "default": "#D9D9D9"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Active color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "steps_gap",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between steps",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "step_title_text_gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between step title and text",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "timeline_marker_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between marker and content",
+      "default": 16
     },
     {
       "type": "color",
