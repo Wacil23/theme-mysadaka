@@ -53,8 +53,33 @@
             "description": ""
           }
         },
+        "section_store_block_benefits_list_RB3MkD": {
+          "type": "shopify://apps/section-store/blocks/block-benefits-list/d7a2e423-ea88-4344-b866-6d0fb487c3dd",
+          "settings": {
+            "items_gap": 10,
+            "first_text": "<p>Soulage les pèlerins</p>",
+            "second_text": "<p>Finance des étudiants en science islamique</p>",
+            "third_text": "<p>Hassanates continues (Sadaqa jariya)</p>",
+            "fourth_text": "<p>Certificat et vidéo du dépôt (avec invocation)</p>",
+            "icon_selection": "icon_5",
+            "icon_size": 20,
+            "icon_color": "#006d6c",
+            "text_size": 15,
+            "text_color": "#000000",
+            "content_align": "left",
+            "border": "none",
+            "border_thickness": 1,
+            "border_color": "#000000",
+            "radius": 0,
+            "background": "",
+            "background_gradient": "",
+            "padding_vertical": 10,
+            "padding_horizontal": 0
+          }
+        },
         "custom_liquid_7qVfc4": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<div id='ss-emoji'></div>"
           }
@@ -105,6 +130,7 @@
         "price",
         "info_separator_MF7mzL",
         "description",
+        "section_store_block_benefits_list_RB3MkD",
         "custom_liquid_7qVfc4",
         "playshorts_shoppable_video_ugc_playshorts_product_4NEfcp",
         "stepper_stepper_C9HVKP",
@@ -123,7 +149,9 @@
         "thumb_active_bar_height": 2,
         "info_blocks_gap_mobile": 16,
         "info_blocks_gap_desktop": 18,
-        "gallery_media_source": "product",
+        "gallery_media_source": "custom",
+        "custom_gallery_image_1": "shopify://shop_images/ProductImageWheel.png",
+        "custom_gallery_image_2": "shopify://shop_images/Transparence_PP.png",
         "desktop_alignment": "right",
         "mobile_alignment": "before",
         "gallery_type": "grid_gallery",
@@ -132,7 +160,7 @@
         "aspect_ratio": "1/1",
         "image_fit": "cover",
         "image_fit_modal": "contain",
-        "padding_bottom": "no-indent"
+        "padding_bottom": "m"
       }
     },
     "ss_trust_badges_emojis_mVQhN6": {
@@ -323,13 +351,29 @@
         "include_margins": true
       }
     },
+    "separateur_avec_texte_PcBFEH": {
+      "type": "separateur-avec-texte",
+      "name": "Séparateur avec texte",
+      "settings": {
+        "text": "Des milliers de clients nous font confiance",
+        "text_tag": "p",
+        "width_mode": "full",
+        "custom_width": 80,
+        "text_color": "#6B7280",
+        "line_color": "#D1D5DB",
+        "line_thickness": 1,
+        "font_size": 14,
+        "gap": 16,
+        "padding_y": 18
+      }
+    },
     "rich_text_eC7MXb": {
       "type": "rich-text",
       "blocks": {
         "heading_7K3Pxg": {
           "type": "heading",
           "settings": {
-            "heading": "Ils nous ont confié leur projet de sadaqa",
+            "heading": "+50.000 Musulmans témoignent",
             "heading_size": "medium",
             "heading_level": "h2"
           }
@@ -352,7 +396,7 @@
         "alignment": "center",
         "margin_top": "no-indent",
         "margin_bottom": "no-indent",
-        "padding_top": "m",
+        "padding_top": "xs",
         "padding_bottom": "no-indent"
       }
     },
@@ -394,10 +438,10 @@
         "testimonial_EGh3AJ": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>Je recommande vivement. La vidéo du dépôt du fauteuil fait chaud au cœur… Les duʿâ de l’étudiant m’ont vraiment émue.</p>",
+            "author": "S.O",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -405,10 +449,10 @@
         "testimonial_EJnRnY": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>J’ai eu des frissons en voyant les vidéos… un moment très intense, qui touche profondément le cœur.</p>",
+            "author": "Bea",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -416,10 +460,10 @@
         "testimonial_6pppCN": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>J’ai été émue en voyant la vidéo de la sadaqa “fauteuil roulant” faite pour mon père. BarakAllahou fikoum.</p>",
+            "author": "F.M",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -427,10 +471,10 @@
         "testimonial_ETX9yx": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>Vidéos bien reçues pour plusieurs fauteuils roulants… Ma maman était très heureuse de ce cadeau, vraiment émue.</p>",
+            "author": "Linda",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -438,10 +482,10 @@
         "testimonial_f73q3U": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>Sadaqa d’un fauteuil roulant pour une personne décédée… équipe très réactive, et la vidéo est superbe.</p>",
+            "author": "Marine Antunes",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -449,10 +493,10 @@
         "testimonial_TWAC9K": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>Première expérience avec MySadaka… sadaqa dédiée à mon père, mon grand-père, et ma mère actuellement malade.</p>",
+            "author": "Jasmine",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -460,10 +504,10 @@
         "testimonial_WwCDJ6": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
-            "verified": "Verified customer",
+            "title": "",
+            "text": "<p>C’est avec émotion que je reçois les vidéos du dépôt… merci pour le sérieux et la rapidité, qu’Allah accepte.</p>",
+            "author": "Samira",
+            "verified": "Avis vérifié",
             "use_icon": true,
             "stars_count": 5
           }
@@ -471,9 +515,20 @@
         "testimonial_dBqGXV": {
           "type": "testimonial",
           "settings": {
-            "title": "Review Title",
-            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
-            "author": "Author's name",
+            "title": "",
+            "text": "<p>Très heureuse d’avoir les vidéos de la sadaqa pour ma mère et moi… mention spéciale à l’étudiant.</p>",
+            "author": "Chaima Lahmar",
+            "verified": "Avis vérifié",
+            "use_icon": true,
+            "stars_count": 5
+          }
+        },
+        "testimonial_Ny9ibe": {
+          "type": "testimonial",
+          "settings": {
+            "title": "",
+            "text": "<p>Je recommande à 100%… vidéos visionnées avec beaucoup d’émotions, qu’Allah accepte.</p>",
+            "author": "Sara A.",
             "verified": "Verified customer",
             "use_icon": true,
             "stars_count": 5
@@ -489,7 +544,8 @@
         "testimonial_f73q3U",
         "testimonial_TWAC9K",
         "testimonial_WwCDJ6",
-        "testimonial_dBqGXV"
+        "testimonial_dBqGXV",
+        "testimonial_Ny9ibe"
       ],
       "name": "SS - Testimonials #8 pro",
       "settings": {
@@ -501,7 +557,7 @@
         "slider_gap_mobile": 12,
         "slider_mt": 40,
         "slider_mt_mobile": 30,
-        "autoplay": true,
+        "autoplay": false,
         "autoplay_delay": 4,
         "slide_padding_horizontal": 40,
         "slide_padding_horizontal_mobile": 24,
@@ -589,7 +645,7 @@
         "margin_horizontal": 0,
         "margin_horizontal_mobile": 0,
         "padding_top": 36,
-        "padding_bottom": 36,
+        "padding_bottom": 0,
         "padding_horizontal": 5,
         "padding_horizontal_mobile": 1.5,
         "full_width": true,
@@ -599,13 +655,42 @@
         "lazy": true
       }
     },
+    "rich_text_9GBPNW": {
+      "type": "rich-text",
+      "blocks": {
+        "button_JAztk8": {
+          "type": "button",
+          "settings": {
+            "button_label": "Découvrir plus de témoignages",
+            "button_link": "shopify://products/mon-fauteuil-roulant-a-makkah",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "button_JAztk8"
+      ],
+      "custom_css": [
+        ".rich-text.rich-text--full-width.rich-text--align-center {background: #faf6f3;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "scheme-b5e79bca-07cd-4cf8-b8b4-4ce55a4cca52",
+        "full_width": true,
+        "alignment": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "no-indent",
+        "padding_bottom": "m"
+      }
+    },
     "text_with_progress_bar_FECBpy": {
       "type": "text-with-progress-bar",
       "blocks": {
         "heading_VCF6Qm": {
           "type": "heading",
           "settings": {
-            "heading": "Le cheminement de votre sadaqa",
+            "heading": "Comment est réalisée votre sadaqa ?",
             "heading_size": "medium",
             "heading_level": "h2"
           }
@@ -657,7 +742,7 @@
       "name": "Text with progress bar",
       "settings": {
         "image_position": "image_left",
-        "image": "shopify://shop_images/Step2wheel.gif",
+        "image": "shopify://shop_images/Step3_compressed.webp",
         "image_padding_y": 0,
         "image_padding_x": 0,
         "image_padding_y_mobile": 0,
@@ -679,7 +764,7 @@
         "box_padding_y_mobile": 24,
         "box_padding_x_mobile": 24,
         "inactive_color": "#d9d9d9",
-        "active_color": "#111111",
+        "active_color": "#006d6c",
         "steps_gap": 20,
         "step_title_text_gap": 10,
         "timeline_marker_gap": 16,
@@ -691,141 +776,6 @@
         "padding_top": "l",
         "padding_bottom": "l",
         "lazy": true
-      }
-    },
-    "umm_text_image_steps_YEwbeB": {
-      "type": "umm-text-image-steps",
-      "blocks": {
-        "step_fzNLWR": {
-          "type": "step",
-          "settings": {
-            "image_alt": "Visuel",
-            "image_fit": "cover",
-            "number": "1",
-            "title": "Un inventaire inégalé",
-            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
-          }
-        },
-        "step_JdRh7w": {
-          "type": "step",
-          "settings": {
-            "image_alt": "Visuel",
-            "image_fit": "cover",
-            "number": "2",
-            "title": "Un inventaire inégalé",
-            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
-          }
-        },
-        "step_MyLDTW": {
-          "type": "step",
-          "settings": {
-            "image_alt": "Visuel",
-            "image_fit": "cover",
-            "number": "3",
-            "title": "Un inventaire inégalé",
-            "description": "Avec Navan, vous accédez à un vaste inventaire de voyage..."
-          }
-        }
-      },
-      "block_order": [
-        "step_fzNLWR",
-        "step_JdRh7w",
-        "step_MyLDTW"
-      ],
-      "name": "UMM — Text + image steps (native)",
-      "settings": {
-        "color_scheme": "",
-        "title": "Des économies record",
-        "description": "<p>Des leviers efficaces pour réduire les coûts de voyage de votre entreprise</p>",
-        "card_bg": "#f3f1fa",
-        "media_bg": "#f3f1fa",
-        "card_radius": 22,
-        "media_radius": 16,
-        "card_padding": 28,
-        "card_shadow": "",
-        "media_ratio": "4 / 3",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "enable_mobile_slider": true,
-        "slider_card_width": 86,
-        "slider_gap": 16,
-        "slider_left_gutter": 16
-      }
-    },
-    "image_with_text_7biCDR": {
-      "type": "image-with-text",
-      "blocks": {
-        "column_HzbJhx": {
-          "type": "column",
-          "settings": {
-            "icon": "none",
-            "icon_fill_type": "solid",
-            "heading": "",
-            "text": "Here can be a short introduction to the image content."
-          }
-        },
-        "column_3gQkBf": {
-          "type": "column",
-          "settings": {
-            "icon": "none",
-            "icon_fill_type": "solid",
-            "heading": "",
-            "text": "Here can be a short introduction to the image content."
-          }
-        }
-      },
-      "block_order": [
-        "column_HzbJhx",
-        "column_3gQkBf"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "layout": "text_last",
-        "color_scheme": "",
-        "subheading": "",
-        "subheading_style": "subtitle",
-        "subheading_icon": "none",
-        "heading": "",
-        "heading_size": "h2",
-        "heading_level": "h2",
-        "heading_line": "simple",
-        "line_color": "#1566e0",
-        "word_break": false,
-        "heading_animation": "none",
-        "word_break_an": false,
-        "text": "",
-        "text_align": "left",
-        "inner_subheading": "",
-        "inner_heading": "Showcase your message here",
-        "inner_heading_size": "h2",
-        "inner_heading_level": "h2",
-        "inner_heading_line": "simple",
-        "inner_line_color": "#1566e0",
-        "inner_word_break": false,
-        "description": "<p>Here can be a description explaining the purpose of the image, whether it’s showcasing a product, telling a brand story, or highlighting a campaign.</p>",
-        "text_align_inner": "top",
-        "enable_link": false,
-        "link": "",
-        "height": "square",
-        "overlay_opacity": 0.2,
-        "logo_width": 75,
-        "add_text": "Image Preview",
-        "author_color_scheme": "",
-        "icon_size": "recommended",
-        "box_shadow": false,
-        "icon_style": "colored",
-        "show_button": true,
-        "button_label": "Shop Now",
-        "button_link": "",
-        "button_style": "primary",
-        "show_button_2": true,
-        "button_label_2": "Explore Now",
-        "button_link_2": "",
-        "button_style_2": "simple",
-        "padding_top": "m",
-        "padding_bottom": "m",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent"
       }
     },
     "17668814935de4826b": {
@@ -956,11 +906,11 @@
     "ss_trust_badges_emojis_mVQhN6",
     "ss_tabs_block_JDcrAp",
     "176688954139a47093",
+    "separateur_avec_texte_PcBFEH",
     "rich_text_eC7MXb",
     "ss_testimonials_8_pro_zNmhMG",
+    "rich_text_9GBPNW",
     "text_with_progress_bar_FECBpy",
-    "umm_text_image_steps_YEwbeB",
-    "image_with_text_7biCDR",
     "17668814935de4826b",
     "product-recommendations",
     "9b6afe8a-c2c6-4c06-ab47-03a55d729b4b"

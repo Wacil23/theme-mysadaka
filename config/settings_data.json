@@ -274,12 +274,12 @@
           "colors_text": "#656565",
           "colors_secondary_text": "#303030",
           "colors_text_title": "#333333",
-          "colors_background_1": "#fff3e6",
+          "colors_background_1": "#faf6f3",
           "colors_background_2": "#f7f8f8",
           "background_gradient": "",
-          "colors_solid_button_labels": "#ffffff",
+          "colors_solid_button_labels": "#006d6c",
           "colors_solid_button_labels_hover": "#ffffff",
-          "colors_solid_button_background": "#000000",
+          "colors_solid_button_background": "#faf6f3",
           "colors_solid_button_background_hover": "#424242",
           "colors_secondary_button_labels": "#ffffff",
           "colors_secondary_button_labels_hover": "#ffffff",
@@ -1141,7 +1141,6 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".multicolumn-card__image-wrapper--image.multicolumn-card__image-wrapper--medium {width: 10rem;}",
       ".multicolumn-list__wrapper.multicolumn-list__wrapper--3.multicolumn-list__wrapper--static.content {padding-bottom: 5rem;}",
       ".list-menu--inline .header__menu-item span {color: #141e1d !important;}",
       ".header__icon .icon {color: #141e1d !important;}",
