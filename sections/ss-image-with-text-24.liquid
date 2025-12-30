@@ -27,6 +27,25 @@
   assign section_radius = section.settings.section_radius
   assign background_style = section.settings.background_style
 
+  assign main_image = section.settings.main_image
+
+  assign box_enable = section.settings.box_enable
+  assign box_background = section.settings.box_background
+  assign box_radius = section.settings.box_radius
+  assign box_border_thickness = section.settings.box_border_thickness
+  assign box_border_color = section.settings.box_border_color
+  assign box_border_style = section.settings.box_border_style
+
+  assign image_padding_vertical = section.settings.image_padding_vertical
+  assign image_padding_horizontal = section.settings.image_padding_horizontal
+  assign image_padding_vertical_mobile = section.settings.image_padding_vertical_mobile
+  assign image_padding_horizontal_mobile = section.settings.image_padding_horizontal_mobile
+
+  assign content_padding_vertical = section.settings.content_padding_vertical
+  assign content_padding_horizontal = section.settings.content_padding_horizontal
+  assign content_padding_vertical_mobile = section.settings.content_padding_vertical_mobile
+  assign content_padding_horizontal_mobile = section.settings.content_padding_horizontal_mobile
+
   assign layout = section.settings.layout
   assign layout_gap = section.settings.layout_gap
 
@@ -112,12 +131,35 @@
     padding-right: {{ padding_horizontal_mobile }}rem;
   }
 
+  .image-with-text-box-{{ section.id }} {
+    {% if box_enable %}
+      background: {{ box_background }};
+      border-radius: {{ box_radius | times: 0.75 | round: 0 }}px;
+      border: {{ box_border_thickness }}px {{ box_border_style }} {{ box_border_color }};
+      overflow: hidden;
+    {% else %}
+      background: transparent;
+      border-radius: 0px;
+      border: 0px solid transparent;
+      overflow: visible;
+    {% endif %}
+  }
+
+  .image-with-text-image-area-{{ section.id }} {
+    grid-area: image;
+    padding: {{ image_padding_vertical_mobile }}px {{ image_padding_horizontal_mobile }}px;
+  }
+
+  .image-with-text-content-area-{{ section.id }} {
+    grid-area: content;
+    padding: {{ content_padding_vertical_mobile }}px {{ content_padding_horizontal_mobile }}px;
+  }
+
   .image-with-text-body-{{ section.id }} {
     position: relative;
   }
 
   .image-with-text-content-{{ section.id }} {
-    grid-area: content;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -127,12 +169,10 @@
   }
 
   .image-with-text-image-{{ section.id }} {
-    grid-area: image;
     border: {{ image_item_border_thickness }}px solid {{ image_item_border_color }};
     border-radius: {{ image_item_radius }}px;
     overflow: hidden;
     position: relative;
-    margin-top: 40px;
   }
 
   .image-with-text-image-{{ section.id }} img,
@@ -148,7 +188,7 @@
   }
 
   .image-with-text-image-desktop-{{ section.id }} {
-    display: none;
+    display: block;
   }
 
   .image-with-text-wrap-{{ section.id }} {
@@ -276,6 +316,12 @@
       padding-right: {{ padding_horizontal }}rem;
     }
 
+    .image-with-text-box-{{ section.id }} {
+      {% if box_enable %}
+        border-radius: {{ box_radius }}px;
+      {% endif %}
+    }
+
     .image-with-text-body-{{ section.id }} {
       display: grid;
       align-items: center;
@@ -304,17 +350,12 @@
       padding: 0 {{ item_padding_horizontal }}px;
     }
 
-    .image-with-text-image-{{ section.id }} img,
-    .image-with-text-image-{{ section.id }} svg {
-      display: none;
+    .image-with-text-image-area-{{ section.id }} {
+      padding: {{ image_padding_vertical }}px {{ image_padding_horizontal }}px;
     }
 
-    .image-with-text-image-mobile-{{ section.id }} {
-      display: none;
-    }
-
-    .image-with-text-image-desktop-{{ section.id }} {
-      display: block;
+    .image-with-text-content-area-{{ section.id }} {
+      padding: {{ content_padding_vertical }}px {{ content_padding_horizontal }}px;
     }
 
     .image-with-text-progress-bar-{{ section.id }} {
@@ -369,6 +410,21 @@
   <style>
     .section-{{ section.id }}-settings {
       max-width: clamp(100px, var(--page-content-width, var(--page-width)), 100%);
+    }
+  </style>
+{% endif %}
+
+{% if box_enable %}
+  <style>
+    .image-with-text-box-{{ section.id }} {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      {% if width == 'custom' %}
+        max-width: {{ content_width }}px;
+      {% else %}
+        max-width: clamp(100px, var(--page-content-width, var(--page-width)), 100%);
+      {% endif %}
     }
   </style>
 {% endif %}
@@ -754,32 +810,36 @@
 
 <div
   class="section-{{ section.id }} image-with-text-{{ section.id }}"
-  {% if background_style == 'solid' %}
-    style="background-color:{{ background_color }};"
-  {% else %}
-    style="background-image: {{ background_gradient }};"
-  {% endif %}
+  {% unless box_enable %}
+    {% if background_style == 'solid' %}
+      style="background-color:{{ background_color }};"
+    {% else %}
+      style="background-image: {{ background_gradient }};"
+    {% endif %}
+  {% endunless %}
 >
   <div class="section-{{ section.id }}-settings">
-    <div class="image-with-text-body-{{ section.id }}">
-      <div class="image-with-text-image-{{ section.id }} image-with-text-image-desktop-{{ section.id }}">
-        {% for block in section.blocks %}
-          {% case block.type %}
-            {% when 'item' %}
-              {% if block.settings.image != blank %}
+    <div class="image-with-text-box-{{ section.id }}">
+      <div class="image-with-text-body-{{ section.id }}">
+        <div class="image-with-text-image-area-{{ section.id }}">
+          <div class="image-with-text-image-{{ section.id }}">
+            <div class="image-with-text-image-desktop-{{ section.id }}">
+              {% if main_image != blank %}
                 {%- capture sizes -%}(min-width: {{ content_width }}px) {{ content_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2){%- endcapture -%}
                 {{
-                  block.settings.image
-                  | image_url: width: 1000
-                  | image_tag: loading: loading_attribute, sizes: sizes, widths: '750, 1070, 1500'
+                  main_image
+                  | image_url: width: 1600
+                  | image_tag: loading: loading_attribute, sizes: sizes, widths: '750, 1070, 1500, 2000'
                 }}
               {% else %}
                 {{ 'image' | placeholder_svg_tag }}
               {% endif %}
-          {% endcase %}
-        {% endfor %}
-      </div>
-      <div class="image-with-text-content-{{ section.id }}">
+            </div>
+          </div>
+        </div>
+
+        <div class="image-with-text-content-area-{{ section.id }}">
+          <div class="image-with-text-content-{{ section.id }}">
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'heading' %}
@@ -808,10 +868,14 @@
                   <li class="image-with-text-item-{{ section.id }}">
                     <span
                       class="image-with-text-item-dot-overlay-{{ section.id }}"
-                      {% if background_style == 'solid' %}
-                        style="background-color:{{ background_color }};"
+                      {% if box_enable %}
+                        style="background-color:{{ box_background }};"
                       {% else %}
-                        style="background-image: {{ background_gradient }};"
+                        {% if background_style == 'solid' %}
+                          style="background-color:{{ background_color }};"
+                        {% else %}
+                          style="background-image: {{ background_gradient }};"
+                        {% endif %}
                       {% endif %}
                     ></span>
                     <span class="image-with-text-item-dot-{{ section.id }}"></span>
@@ -826,19 +890,6 @@
                           <div class="image-with-text-item-text-{{ section.id }}">
                             {{ block.settings.text }}
                           </div>
-                        {% endif %}
-                      </div>
-
-                      <div class="image-with-text-image-{{ section.id }} image-with-text-image-mobile-{{ section.id }}">
-                        {% if block.settings.image != blank %}
-                          {%- capture sizes -%}(min-width: {{ content_width }}px) {{ content_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2){%- endcapture -%}
-                          {{
-                            block.settings.image
-                            | image_url: width: 1000
-                            | image_tag: loading: loading_attribute, sizes: sizes, widths: '750, 1070, 1500'
-                          }}
-                        {% else %}
-                          {{ 'image' | placeholder_svg_tag }}
                         {% endif %}
                       </div>
                     </div>
@@ -880,9 +931,11 @@
               {% endif %}
           {% endcase %}
         {% endfor %}
-      </div>
+          </div>
+        </div>
     </div>
   </div>
+</div>
 </div>
 
 <script>
@@ -912,7 +965,6 @@
       const progressBar = wrapElement.querySelector('.image-with-text-progress-bar-progress-{{ section.id }}');
       const dots = wrapElement.querySelectorAll('.image-with-text-item-dot-{{ section.id }}');
       const items = wrapElement.querySelectorAll('.image-with-text-item-{{ section.id }}');
-      const images = document.querySelectorAll('.image-with-text-image-desktop-{{ section.id }} > *');
       
       if (progressBar) progressBar.style.height = '';
       
@@ -925,10 +977,6 @@
         const itemText = item.querySelector('.image-with-text-item-text-{{ section.id }}');
         if (itemHeading) itemHeading.style.opacity = '';
         if (itemText) itemText.style.opacity = '';
-      });
-      
-      images.forEach((img) => {
-        img.style.display = '';
       });
     }
 
@@ -988,9 +1036,8 @@
       const progressBarBg = wrapElement.querySelector('.image-with-text-progress-bar-background-{{ section.id }}');
       const dots = wrapElement.querySelectorAll('.image-with-text-item-dot-{{ section.id }}');
       const items = wrapElement.querySelectorAll('.image-with-text-item-{{ section.id }}');
-      const images = document.querySelectorAll('.image-with-text-image-desktop-{{ section.id }} > *');
 
-      if (!progressBar || !progressBarBg || dots.length === 0 || images.length === 0) return;
+      if (!progressBar || !progressBarBg || dots.length === 0) return;
 
       const progressBarBgRect = progressBarBg.getBoundingClientRect();
       const dotsPositions = [];
@@ -1044,10 +1091,6 @@
           if (itemText) itemText.style.opacity = '0.5';
         }
       });
-
-      images.forEach((img, index) => {
-        img.style.display = index === activeIndex ? 'block' : 'none';
-      });
     }
 
     function initMobile() {
@@ -1062,11 +1105,6 @@
       
       const dots = wrapElement.querySelectorAll('.image-with-text-item-dot-{{ section.id }}');
       const items = wrapElement.querySelectorAll('.image-with-text-item-{{ section.id }}');
-      const images = document.querySelectorAll('.image-with-text-image-desktop-{{ section.id }} > *');
-      
-      images.forEach((img, index) => {
-        img.style.display = index === 0 ? 'block' : 'none';
-      });
       
       if (dots[0]) {
         dots[0].style.opacity = '1';
@@ -1176,6 +1214,64 @@
     },
     {
       "type": "header",
+      "content": "Box (container)"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_enable",
+      "label": "Enable boxed container (page width)",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "box_background",
+      "label": "Box background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Box radius",
+      "default": 16,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "select",
+      "id": "box_border_style",
+      "label": "Box border style",
+      "default": "solid",
+      "options": [
+        { "label": "Solid", "value": "solid" },
+        { "label": "Dashed", "value": "dashed" },
+        { "label": "Dotted", "value": "dotted" }
+      ],
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "range",
+      "id": "box_border_thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Box border thickness",
+      "default": 1,
+      "visible_if": "{{ section.settings.box_enable }}"
+    },
+    {
+      "type": "color",
+      "id": "box_border_color",
+      "label": "Box border color",
+      "default": "#E5E5E5",
+      "visible_if": "{{ section.settings.box_enable and section.settings.box_border_thickness > 0 }}"
+    },
+    {
+      "type": "header",
       "content": "Features"
     },
     {
@@ -1252,6 +1348,99 @@
     {
       "type": "header",
       "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main image"
+    },
+    {
+      "type": "header",
+      "content": "Image padding (inside the section)"
+    },
+    {
+      "type": "range",
+      "id": "image_padding_vertical",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_horizontal",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_vertical_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical - mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_padding_horizontal_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal - mobile",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text/Timeline padding (inside the section)"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_vertical",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_horizontal",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_vertical_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical - mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_padding_horizontal_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal - mobile",
+      "default": 0
     },
     {
       "type": "select",
@@ -1874,9 +2063,13 @@
       "name": "Feature",
       "settings": [
         {
+          "type": "paragraph",
+          "content": "ℹ️ Cette section utilise une image unique (réglage 'Main image' ci-dessus). L'image du bloc n'est plus utilisée."
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image (non utilisée)"
         },
         {
           "type": "richtext",
