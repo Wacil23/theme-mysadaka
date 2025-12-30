@@ -378,13 +378,13 @@
             "rating_border_thickness": 1,
             "rating_border_color": "#121212",
             "rating_radius": 8,
-            "rating_bg_color": "#ffffff",
-            "use_shadow": true,
+            "rating_bg_color": "rgba(0,0,0,0)",
+            "use_shadow": false,
             "shadow_color": "#959da5",
-            "rating_padding_horizontal": 14,
-            "rating_padding_horizontal_mobile": 14,
-            "rating_padding_vertical": 14,
-            "rating_padding_vertical_mobile": 14,
+            "rating_padding_horizontal": 0,
+            "rating_padding_horizontal_mobile": 0,
+            "rating_padding_vertical": 0,
+            "rating_padding_vertical_mobile": 0,
             "rating_color": "#121212",
             "stars_color": "#ffffff",
             "stars_bg_color": "#00b67a",
@@ -509,7 +509,7 @@
         "slide_padding_vertical_mobile": 24,
         "slide_radius": 16,
         "slide_border_thickness": 0,
-        "slide_shadow": true,
+        "slide_shadow": false,
         "slide_shadow_color": "#959da5",
         "uniform_slide_height": true,
         "slide_content_align": "left",
@@ -582,7 +582,7 @@
         "arrow_border_hover_color": "#c7c7c7",
         "background_style": "gradient",
         "background_color": "#ffffff",
-        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 243, 228, 1) 100%, rgba(176, 247, 147, 1) 150%)",
+        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 243, 1) 100%, rgba(176, 247, 147, 1) 150%)",
         "border_color": "#121212",
         "margin_top": 0,
         "margin_bottom": 0,
@@ -605,54 +605,71 @@
         "heading_VCF6Qm": {
           "type": "heading",
           "settings": {
-            "heading": "Heading",
+            "heading": "Le cheminement de votre sadaqa",
             "heading_size": "medium",
             "heading_level": "h2"
-          }
-        },
-        "text_jkYADC": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Use this text to share information.</p>"
           }
         },
         "step_7twwgx": {
           "type": "step",
           "settings": {
-            "title": "Every day",
-            "text": "<p>Take 3 capsules with a glass of water.</p>"
+            "title": "Vous validez votre demande",
+            "text": "<p>En quelques clics, vous vous mettez sur une cause de bien… pour quelqu’un qui compte vraiment.</p>"
           }
         },
         "step_pUFqVb": {
           "type": "step",
           "settings": {
-            "title": "Every day",
-            "text": "<p>Take 3 capsules with a glass of water.</p>"
+            "title": "MySadaka garantit l’exécution à Makkah",
+            "text": "<p>Un étudiant en sciences islamiques vous est dédié pour réaliser votre dépôt sur place.</p>"
           }
         },
         "step_AXGMx9": {
           "type": "step",
           "settings": {
-            "title": "Every day",
-            "text": "<p>Take 3 capsules with a glass of water.</p>"
+            "title": "Achat et dépôt du fauteuil",
+            "text": "<p>L'étudiant se déplace et achète un fauteuil chez notre réseau partenaire puis déposé au point de ramassage gratuit.</p>"
+          }
+        },
+        "step_K9xhcT": {
+          "type": "step",
+          "settings": {
+            "title": "Preuve vidéo et invocations",
+            "text": "<p>Le dépôt est filmé sur place, avec des duʿâ prononcées selon la situation de votre proche (Malade, décédé...).</p>"
+          }
+        },
+        "step_zYN8Aa": {
+          "type": "step",
+          "settings": {
+            "title": "Envoie des documents",
+            "text": "<p>Nous préparons votre certificat et son QR code, puis vous recevez le tout par email ou WhatsApp selon votre choix.</p>"
           }
         }
       },
       "block_order": [
         "heading_VCF6Qm",
-        "text_jkYADC",
         "step_7twwgx",
         "step_pUFqVb",
-        "step_AXGMx9"
+        "step_AXGMx9",
+        "step_K9xhcT",
+        "step_zYN8Aa"
       ],
       "name": "Text with progress bar",
       "settings": {
-        "image_position": "image_right",
-        "image": "shopify://shop_images/Hero_Section_Mysadaka.png",
-        "image_radius": 12,
-        "full_width_background": false,
+        "image_position": "image_left",
+        "image": "shopify://shop_images/Step2wheel.gif",
+        "image_padding_y": 0,
+        "image_padding_x": 0,
+        "image_padding_y_mobile": 0,
+        "image_padding_x_mobile": 0,
+        "image_radius": 6,
+        "content_padding_y": 52,
+        "content_padding_x": 52,
+        "content_padding_y_mobile": 20,
+        "content_padding_x_mobile": 20,
+        "full_width_background": true,
         "background_style": "solid",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
         "box_enable": false,
         "box_background": "#f2f2f2",
@@ -661,13 +678,18 @@
         "box_padding_x": 48,
         "box_padding_y_mobile": 24,
         "box_padding_x_mobile": 24,
+        "inactive_color": "#d9d9d9",
+        "active_color": "#111111",
+        "steps_gap": 20,
+        "step_title_text_gap": 10,
+        "timeline_marker_gap": 16,
         "line_color": "#111111",
         "line_width": 2,
         "dot_size": 10,
         "inactive_opacity": 0.3,
         "fade_range": 140,
-        "padding_top": 40,
-        "padding_bottom": 40,
+        "padding_top": 100,
+        "padding_bottom": 100,
         "lazy": true
       }
     },
