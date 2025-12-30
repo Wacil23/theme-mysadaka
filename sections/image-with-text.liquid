@@ -16,6 +16,102 @@
 	{% endif %}
 {%- endstyle -%}
 
+{%- liquid
+	assign timeline_columns = section.blocks | where: 'type', 'column' | slice: 0, 5
+-%}
+
+{% style %}
+	#shopify-section-{{ section.id }} .iwt-timeline {
+		margin-top: 2.4rem;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-timeline__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: {{ section.settings.timeline_steps_gap }}px;
+		--iwt-progress: 0;
+		--iwt-line-x: 8px;
+		--iwt-line-top: 0px;
+		--iwt-line-height: 100%;
+		--iwt-inactive-color: {{ section.settings.timeline_inactive_color }};
+		--iwt-active-color: {{ section.settings.timeline_active_color }};
+		isolation: isolate;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-timeline__list::before,
+	#shopify-section-{{ section.id }} .iwt-timeline__list::after {
+		content: '';
+		position: absolute;
+		left: var(--iwt-line-x);
+		top: var(--iwt-line-top);
+		height: var(--iwt-line-height);
+		width: {{ section.settings.timeline_line_width }}px;
+		border-radius: 999px;
+		transform: translateX(-50%);
+		z-index: 0;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-timeline__list::before {
+		background: var(--iwt-inactive-color);
+		opacity: 1;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-timeline__list::after {
+		background: var(--iwt-active-color);
+		transform-origin: top;
+		transform: translateX(-50%) scaleY(var(--iwt-progress));
+		will-change: transform;
+		z-index: 1;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step {
+		position: relative;
+		display: grid;
+		grid-template-columns: calc({{ section.settings.timeline_dot_size }}px + 6px) minmax(0, 1fr);
+		column-gap: {{ section.settings.timeline_marker_gap }}px;
+		align-items: start;
+		z-index: 2;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step__marker {
+		position: relative;
+		min-height: 1px;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step__dot {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		width: {{ section.settings.timeline_dot_size }}px;
+		height: {{ section.settings.timeline_dot_size }}px;
+		border-radius: 999px;
+		background: var(--iwt-inactive-color);
+		transform: translate(-50%, -50%);
+		will-change: background-color, transform;
+		z-index: 3;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step__content {
+		color: var(--iwt-inactive-color);
+		will-change: color;
+		position: relative;
+		z-index: 2;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step__title {
+		font-weight: 700;
+		text-transform: none;
+	}
+
+	#shopify-section-{{ section.id }} .iwt-step__text {
+		margin-top: {{ section.settings.timeline_title_text_gap }}px;
+	}
+{% endstyle %}
+
 {% if section.settings.inner_heading_line == 'rounded' %}
 	{% assign color = section.settings.inner_line_color | remove: '#' %}
 	{% style %}
@@ -170,6 +266,12 @@
 							{% for block in section.blocks %}
 								{% assign mod = forloop.index | modulo: 2 %}
 								{% if mod == 1 %}
+									{% if section.settings.enable_timeline %}
+										{% continue %}
+									{% endif %}
+									{% unless block.type == 'column' %}
+										{% continue %}
+									{% endunless %}
 									<div
 										class='image-with-text__column'
 										{{ block.shopify_attributes }}
@@ -307,6 +409,9 @@
 							{% for block in section.blocks %}
 								{% assign mod = forloop.index | modulo: 2 %}
 								{% if mod == 0 %}
+									{% if section.settings.enable_timeline %}
+										{% continue %}
+									{% endif %}
 									<div
 										class='image-with-text__column'
 										{{ block.shopify_attributes }}
@@ -366,13 +471,16 @@
 							</div>
 						{% endif %}
 
-						{% if section.blocks.size > 0 %}
+						{% if section.blocks.size > 0 and section.settings.enable_timeline == false %}
 							<div class='image-with-text__columns'>
 								{% for block in section.blocks %}
 									<div
 										class='image-with-text__column'
 										{{ block.shopify_attributes }}
 									>
+										{% unless block.type == 'column' %}
+											{% continue %}
+										{% endunless %}
 										{% if block.settings.icon != 'none' %}
 											<div
 												class='
@@ -400,6 +508,30 @@
 										{% endif %}
 									</div>
 								{% endfor %}
+							</div>
+						{% endif %}
+
+						{% if section.settings.enable_timeline and timeline_columns.size > 0 %}
+							<div class="iwt-timeline" data-iwt-timeline>
+								<ul class="iwt-timeline__list" data-iwt-list>
+									{% for block in timeline_columns %}
+										<li class="iwt-step" {{ block.shopify_attributes }}>
+											<span class="iwt-step__marker" aria-hidden="true">
+												<span class="iwt-step__dot"></span>
+											</span>
+											<div class="iwt-step__content">
+												{% if block.settings.heading != blank %}
+													<div class="iwt-step__title" data-iwt-title>{{ block.settings.heading | escape }}</div>
+												{% else %}
+													<div class="iwt-step__title" data-iwt-title>{{ ' ' }}</div>
+												{% endif %}
+												{% if block.settings.text != blank %}
+													<div class="iwt-step__text">{{ block.settings.text | escape }}</div>
+												{% endif %}
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
 							</div>
 						{% endif %}
 
@@ -452,6 +584,30 @@
 						{% endif %}
 					</div>
 				{% endif %}
+
+				{% if section.settings.enable_timeline and timeline_columns.size > 0 %}
+					<div class="iwt-timeline" data-iwt-timeline>
+						<ul class="iwt-timeline__list" data-iwt-list>
+							{% for block in timeline_columns %}
+								<li class="iwt-step" {{ block.shopify_attributes }}>
+									<span class="iwt-step__marker" aria-hidden="true">
+										<span class="iwt-step__dot"></span>
+									</span>
+									<div class="iwt-step__content">
+										{% if block.settings.heading != blank %}
+											<div class="iwt-step__title" data-iwt-title>{{ block.settings.heading | escape }}</div>
+										{% else %}
+											<div class="iwt-step__title" data-iwt-title>{{ ' ' }}</div>
+										{% endif %}
+										{% if block.settings.text != blank %}
+											<div class="iwt-step__text">{{ block.settings.text | escape }}</div>
+										{% endif %}
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
 				{%- if section.settings.show_button
 					or section.settings.show_button_2
 				-%}
@@ -478,6 +634,171 @@
 		</div>
 	</div>
 </div>
+
+{% if section.settings.enable_timeline and timeline_columns.size > 0 %}
+<script>
+	(function () {
+		const sectionId = '{{ section.id }}';
+		const sectionEl = document.querySelector(`#shopify-section-${sectionId}`);
+		if (!sectionEl) return;
+
+		if (sectionEl.__iwtCleanup) sectionEl.__iwtCleanup();
+
+		const list = sectionEl.querySelector('[data-iwt-list]');
+		const steps = Array.from(sectionEl.querySelectorAll('.iwt-step'));
+		const dots = steps.map((s) => s.querySelector('.iwt-step__dot')).filter(Boolean);
+		const markers = steps.map((s) => s.querySelector('.iwt-step__marker'));
+		const contents = steps.map((s) => s.querySelector('.iwt-step__content')).filter(Boolean);
+		const titles = steps.map((s) => s.querySelector('[data-iwt-title]'));
+
+		if (!list || steps.length === 0 || dots.length === 0) return;
+
+		const thresholdRatio = 0.45;
+		const fadeRange = {{ section.settings.timeline_fade_range }};
+
+		const inactiveColorVar = getComputedStyle(list).getPropertyValue('--iwt-inactive-color').trim() || '{{ section.settings.timeline_inactive_color }}';
+		const activeColorVar = getComputedStyle(list).getPropertyValue('--iwt-active-color').trim() || '{{ section.settings.timeline_active_color }}';
+
+		const clamp01 = (n) => Math.max(0, Math.min(1, n));
+		const lerp = (a, b, t) => a + (b - a) * t;
+		const lerpColor = (a, b, t) => `rgb(${Math.round(lerp(a[0], b[0], t))} ${Math.round(lerp(a[1], b[1], t))} ${Math.round(lerp(a[2], b[2], t))})`;
+
+		function toRgbTriplet(colorValue) {
+			const tmp = document.createElement('span');
+			tmp.style.color = colorValue;
+			tmp.style.display = 'none';
+			document.body.appendChild(tmp);
+			const computed = getComputedStyle(tmp).color;
+			tmp.remove();
+			const match = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+			if (!match) return [17, 17, 17];
+			return [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10)];
+		}
+
+		const inactiveRgb = toRgbTriplet(inactiveColorVar);
+		const activeRgb = toRgbTriplet(activeColorVar);
+
+		let lineTop = 0;
+		let lineHeight = 1;
+		let hasLayout = false;
+
+		function layoutDotsAndLine() {
+			const listRect = list.getBoundingClientRect();
+			const listTop = listRect.top;
+			const positions = [];
+
+			steps.forEach((step, i) => {
+				const dot = dots[i];
+				const title = titles[i];
+				const marker = markers[i];
+				if (!dot || !title || !marker) return;
+
+				const markerRect = marker.getBoundingClientRect();
+				const titleRect = title.getBoundingClientRect();
+				const dotY = (titleRect.top + titleRect.height / 2) - markerRect.top;
+				dot.style.top = `${dotY}px`;
+
+				const dotRect = dot.getBoundingClientRect();
+				positions.push(dotRect.top + dotRect.height / 2 - listTop);
+			});
+
+			if (positions.length === 0) return;
+			const first = positions[0];
+			const last = positions[positions.length - 1];
+			lineTop = first;
+			lineHeight = Math.max(1, last - first);
+			list.style.setProperty('--iwt-line-top', `${lineTop}px`);
+			list.style.setProperty('--iwt-line-height', `${lineHeight}px`);
+
+			const marker0 = markers[0] ? markers[0].getBoundingClientRect() : dots[0].getBoundingClientRect();
+			list.style.setProperty('--iwt-line-x', `${marker0.left + marker0.width / 2 - listRect.left}px`);
+			hasLayout = true;
+		}
+
+		let raf = null;
+		function update() {
+			if (!hasLayout) layoutDotsAndLine();
+
+			const listRect = list.getBoundingClientRect();
+			const listTop = listRect.top;
+			const listHeightPx = listRect.height || 1;
+			const thresholdY = window.innerHeight * thresholdRatio;
+
+			const progressPx = Math.max(0, Math.min(listHeightPx, thresholdY - listTop));
+			const normalized = Math.max(0, Math.min(lineHeight, progressPx - lineTop));
+			const progressRatio = clamp01(normalized / lineHeight);
+			list.style.setProperty('--iwt-progress', String(progressRatio));
+
+			dots.forEach((dot) => {
+				const rect = dot.getBoundingClientRect();
+				const centerY = rect.top + rect.height / 2;
+				const passed = centerY <= thresholdY;
+				const dist = Math.max(0, centerY - thresholdY);
+				const t = passed ? 1 : clamp01(1 - dist / fadeRange);
+				dot.style.backgroundColor = lerpColor(inactiveRgb, activeRgb, t);
+			});
+
+			contents.forEach((content, i) => {
+				const dot = dots[i];
+				if (!dot) return;
+				const rect = dot.getBoundingClientRect();
+				const centerY = rect.top + rect.height / 2;
+				const passed = centerY <= thresholdY;
+				const dist = Math.max(0, centerY - thresholdY);
+				const t = passed ? 1 : clamp01(1 - dist / fadeRange);
+				content.style.color = lerpColor(inactiveRgb, activeRgb, t);
+			});
+		}
+
+		function onScrollOrResize() {
+			if (raf) return;
+			raf = requestAnimationFrame(() => {
+				raf = null;
+				update();
+			});
+		}
+
+		function onResize() {
+			hasLayout = false;
+			onScrollOrResize();
+		}
+
+		window.addEventListener('scroll', onScrollOrResize, { passive: true });
+		window.addEventListener('resize', onResize);
+
+		sectionEl.__iwtCleanup = () => {
+			window.removeEventListener('scroll', onScrollOrResize);
+			window.removeEventListener('resize', onResize);
+			if (raf) cancelAnimationFrame(raf);
+			raf = null;
+
+			list.style.removeProperty('--iwt-progress');
+			list.style.removeProperty('--iwt-line-x');
+			list.style.removeProperty('--iwt-line-top');
+			list.style.removeProperty('--iwt-line-height');
+
+			dots.forEach((dot) => {
+				dot.style.backgroundColor = '';
+				dot.style.top = '';
+			});
+
+			contents.forEach((c) => {
+				c.style.color = '';
+			});
+		};
+
+		layoutDotsAndLine();
+		update();
+
+		if (window.Shopify && Shopify.designMode) {
+			document.addEventListener('shopify:section:unload', (event) => {
+				if (!event || !event.detail || event.detail.sectionId !== sectionId) return;
+				if (sectionEl.__iwtCleanup) sectionEl.__iwtCleanup();
+			});
+		}
+	})();
+</script>
+{% endif %}
 
 {% schema %}
 {
@@ -1249,6 +1570,88 @@
 			"id": "description",
 			"default": "t:sections.image-with-text.settings.description.default",
 			"label": "t:sections.image-with-text.settings.text.label"
+		},
+		{
+			"type": "header",
+			"content": "Barre de progression"
+		},
+		{
+			"type": "checkbox",
+			"id": "enable_timeline",
+			"default": false,
+			"label": "Activer la barre de progression (utilise les 5 premières colonnes)"
+		},
+		{
+			"type": "color",
+			"id": "timeline_inactive_color",
+			"default": "#CFCFCF",
+			"label": "Couleur inactive"
+		},
+		{
+			"type": "color",
+			"id": "timeline_active_color",
+			"default": "#111111",
+			"label": "Couleur active"
+		},
+		{
+			"type": "range",
+			"id": "timeline_line_width",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"default": 2,
+			"unit": "px",
+			"label": "Épaisseur de la ligne"
+		},
+		{
+			"type": "range",
+			"id": "timeline_dot_size",
+			"min": 4,
+			"max": 24,
+			"step": 1,
+			"default": 10,
+			"unit": "px",
+			"label": "Taille des points"
+		},
+		{
+			"type": "range",
+			"id": "timeline_marker_gap",
+			"min": 0,
+			"max": 48,
+			"step": 1,
+			"default": 16,
+			"unit": "px",
+			"label": "Espace entre la timeline et le texte"
+		},
+		{
+			"type": "range",
+			"id": "timeline_steps_gap",
+			"min": 0,
+			"max": 120,
+			"step": 1,
+			"default": 24,
+			"unit": "px",
+			"label": "Espace entre les étapes"
+		},
+		{
+			"type": "range",
+			"id": "timeline_title_text_gap",
+			"min": 0,
+			"max": 48,
+			"step": 1,
+			"default": 8,
+			"unit": "px",
+			"label": "Espace titre → description"
+		},
+		{
+			"type": "range",
+			"id": "timeline_fade_range",
+			"min": 40,
+			"max": 400,
+			"step": 10,
+			"default": 140,
+			"unit": "px",
+			"label": "Zone de transition (scroll)"
 		},
 		{
 			"type": "select",
