@@ -599,130 +599,75 @@
         "lazy": true
       }
     },
-    "ss_image_with_text_24_JaPhrJ": {
-      "type": "ss-image-with-text-24",
+    "text_with_progress_bar_FECBpy": {
+      "type": "text-with-progress-bar",
       "blocks": {
-        "heading_abVeyG": {
+        "heading_VCF6Qm": {
           "type": "heading",
           "settings": {
-            "heading": "<h2>Image with text #24</h2>",
-            "heading_custom": false,
-            "heading_font": "josefin_sans_n4",
-            "heading_size": 10,
-            "heading_size_mobile": 32,
-            "heading_advanced": false,
-            "heading_height": 130,
-            "heading_mt": 0,
-            "heading_mt_mobile": 0,
-            "heading_color": "#121212"
+            "heading": "Heading",
+            "heading_size": "medium",
+            "heading_level": "h2"
           }
         },
-        "text_wEbNBE": {
+        "text_jkYADC": {
           "type": "text",
           "settings": {
-            "text": "<p>Use this text to share information about your brand with your customers.</p>",
-            "text_custom": false,
-            "text_font": "josefin_sans_n4",
-            "text_size": 18,
-            "text_size_mobile": 16,
-            "text_advanced": false,
-            "text_height": 150,
-            "text_mt": 12,
-            "text_mt_mobile": 12,
-            "text_color": "#121212"
+            "text": "<p>Use this text to share information.</p>"
           }
         },
-        "item_UXdmci": {
-          "type": "item",
+        "step_7twwgx": {
+          "type": "step",
           "settings": {
-            "heading": "<p>Feature heading</p>",
-            "text": "<p>A short description of this feature.</p>"
+            "title": "Every day",
+            "text": "<p>Take 3 capsules with a glass of water.</p>"
           }
         },
-        "item_fFNAaD": {
-          "type": "item",
+        "step_pUFqVb": {
+          "type": "step",
           "settings": {
-            "heading": "<h3>Feature heading</h3>",
-            "text": "<p>A short description of this feature.</p>"
+            "title": "Every day",
+            "text": "<p>Take 3 capsules with a glass of water.</p>"
           }
         },
-        "item_bLAGxX": {
-          "type": "item",
+        "step_AXGMx9": {
+          "type": "step",
           "settings": {
-            "heading": "<h3>Feature heading</h3>",
-            "text": "<p>A short description of this feature.</p>"
-          }
-        },
-        "item_hiEckJ": {
-          "type": "item",
-          "settings": {
-            "heading": "<h3>Feature heading</h3>",
-            "text": "<p>A short description of this feature.</p>"
+            "title": "Every day",
+            "text": "<p>Take 3 capsules with a glass of water.</p>"
           }
         }
       },
       "block_order": [
-        "heading_abVeyG",
-        "text_wEbNBE",
-        "item_UXdmci",
-        "item_fFNAaD",
-        "item_bLAGxX",
-        "item_hiEckJ"
+        "heading_VCF6Qm",
+        "text_jkYADC",
+        "step_7twwgx",
+        "step_pUFqVb",
+        "step_AXGMx9"
       ],
-      "name": "SS - Image with text #24",
+      "name": "Text with progress bar",
       "settings": {
-        "layout": "content_image",
-        "image_item_width": 50,
-        "layout_gap": 60,
-        "content_align": "left",
-        "content_align_mobile": "center",
-        "features_advanced": false,
-        "items_mt": 40,
-        "items_mt_mobile": 20,
-        "items_gap": 40,
-        "item_padding_horizontal": 24,
-        "item_padding_horizontal_mobile": 0,
-        "progress_bar_width": 2,
-        "image_item_ratio": "landscape",
-        "image_item_ratio_mobile": "landscape",
-        "image_item_radius": 0,
-        "image_item_border_thickness": 0,
-        "item_heading_custom": true,
-        "item_heading_font": "poppins_n4",
-        "item_heading_size": 22,
-        "item_heading_size_mobile": 18,
-        "item_heading_advanced": false,
-        "item_heading_height": 130,
-        "item_heading_mt": 0,
-        "item_text_custom": false,
-        "item_text_font": "josefin_sans_n4",
-        "item_text_size": 14,
-        "item_text_size_mobile": 14,
-        "item_text_advanced": false,
-        "item_text_height": 150,
-        "item_text_mt": 12,
-        "item_text_mt_mobile": 12,
-        "text_hide_on_mobile": false,
-        "item_heading_color": "#121212",
-        "item_text_color": "#121212",
-        "progress_bar_bg": "#121212",
-        "image_item_border_color": "#121212",
+        "image_position": "image_right",
+        "image": "shopify://shop_images/Hero_Section_Mysadaka.png",
+        "image_radius": 12,
+        "full_width_background": false,
         "background_style": "solid",
-        "background_color": "#ffffff",
-        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(242, 242, 242, 1) 100%)",
-        "border_color": "#121212",
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "margin_horizontal": 0,
-        "margin_horizontal_mobile": 0,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_horizontal": 5,
-        "padding_horizontal_mobile": 1.5,
-        "width": "custom",
-        "content_width": 1400,
-        "border_thickness": 0,
-        "section_radius": 0,
+        "background_color": "#FFFFFF",
+        "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+        "box_enable": false,
+        "box_background": "#f2f2f2",
+        "box_radius": 16,
+        "box_padding_y": 48,
+        "box_padding_x": 48,
+        "box_padding_y_mobile": 24,
+        "box_padding_x_mobile": 24,
+        "line_color": "#111111",
+        "line_width": 2,
+        "dot_size": 10,
+        "inactive_opacity": 0.3,
+        "fade_range": 140,
+        "padding_top": 40,
+        "padding_bottom": 40,
         "lazy": true
       }
     },
@@ -991,7 +936,7 @@
     "176688954139a47093",
     "rich_text_eC7MXb",
     "ss_testimonials_8_pro_zNmhMG",
-    "ss_image_with_text_24_JaPhrJ",
+    "text_with_progress_bar_FECBpy",
     "umm_text_image_steps_YEwbeB",
     "image_with_text_7biCDR",
     "17668814935de4826b",
