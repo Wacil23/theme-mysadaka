@@ -2380,18 +2380,20 @@
   grid-column: 1;
   grid-row: 1;
   color: var(--mtbp-title-color);
-  font-weight: 800;
+  font-weight: var(--mtbp-title-weight, 800);
   font-size: 2.6rem;
   line-height: 1.1;
+  font-family: var(--mtbp-font-family, inherit);
 }
 
 .mp-title-badge-price__subtitle {
   grid-column: 1;
   grid-row: 2;
   color: var(--mtbp-subtitle-color);
-  font-weight: 700;
+  font-weight: var(--mtbp-subtitle-weight, 700);
   font-size: 1.4rem;
   line-height: 1.2;
+  font-family: var(--mtbp-font-family, inherit);
 }
 
 .mp-title-badge-price__badge {

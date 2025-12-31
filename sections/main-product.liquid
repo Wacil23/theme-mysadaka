@@ -605,6 +605,19 @@
               </div>
 
             {%- when 'title_badge_price' -%}
+              {%- if block.settings.use_custom_font and block.settings.custom_font != blank -%}
+                {% style %}
+                  {{ block.settings.custom_font | font_face: font_display: 'swap' }}
+                {% endstyle %}
+              {%- endif -%}
+
+              {%- liquid
+                assign mtbp_font_stack = ''
+                if block.settings.use_custom_font and block.settings.custom_font != blank
+                  assign mtbp_font_stack = "'" | append: block.settings.custom_font.family | append: "', " | append: block.settings.custom_font.fallback_families
+                endif
+              -%}
+
               <div
                 class="mp-title-badge-price"
                 style="
@@ -613,6 +626,9 @@
                   --mtbp-badge-bg: {{ block.settings.badge_bg }};
                   --mtbp-badge-color: {{ block.settings.badge_color }};
                   --mtbp-badge-radius: {{ block.settings.badge_radius }}px;
+                  --mtbp-title-weight: {{ block.settings.title_weight }};
+                  --mtbp-subtitle-weight: {{ block.settings.subtitle_weight }};
+                  {% if mtbp_font_stack != blank %}--mtbp-font-family: {{ mtbp_font_stack }};{% endif %}
                   --mtbp-divider-color: {{ block.settings.divider_color }};
                   --mtbp-divider-thickness: {{ block.settings.divider_thickness }}px;
                 "
@@ -2553,6 +2569,18 @@
       "limit": 1,
       "settings": [
         {
+          "type": "checkbox",
+          "id": "use_custom_font",
+          "default": false,
+          "label": "Utiliser une police personnalisée"
+        },
+        {
+          "type": "font_picker",
+          "id": "custom_font",
+          "default": "inter_n6",
+          "label": "Police (catalogue Shopify)"
+        },
+        {
           "type": "text",
           "id": "subtitle",
           "default": "Transformez vos toilettes en WC Japonais",
@@ -2599,10 +2627,38 @@
           "label": "Couleur du titre"
         },
         {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Weight du titre",
+          "default": "800",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" },
+            { "value": "900", "label": "900" }
+          ]
+        },
+        {
           "type": "color",
           "id": "subtitle_color",
           "default": "#111245",
           "label": "Couleur du sous-titre"
+        },
+        {
+          "type": "select",
+          "id": "subtitle_weight",
+          "label": "Weight du sous-titre",
+          "default": "700",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" },
+            { "value": "900", "label": "900" }
+          ]
         },
         {
           "type": "checkbox",
