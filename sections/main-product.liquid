@@ -812,6 +812,8 @@
                   --mpop-title-color: {{ block.settings.title_color }};
                   --mpop-text-color: {{ block.settings.text_color }};
                   --mpop-muted-color: {{ block.settings.muted_color }};
+                  --mpop-inner-bg: {{ block.settings.inner_bg }};
+                  --mpop-inner-radius: {{ block.settings.inner_radius }}px;
                   --mpop-bar-bg: {{ block.settings.bar_bg }};
                   --mpop-bar-fill: {{ block.settings.bar_fill }};
                   --mpop-bar-height: {{ block.settings.bar_height }}px;
@@ -840,7 +842,9 @@
                       {% endif %}
                     </span>
                   </div>
+                </div>
 
+                <div class="mp-orders-progress__inner" aria-label="progress">
                   <div class="mp-orders-progress__row mp-orders-progress__row--active">
                     <span class="mp-orders-progress__left">
                       {% if block.settings.row2_left != blank %}
@@ -857,10 +861,10 @@
                       {% endif %}
                     </span>
                   </div>
-                </div>
 
-                <div class="mp-orders-progress__bar" aria-hidden="true">
-                  <div class="mp-orders-progress__fill {% if block.settings.enable_shimmer %}mp-orders-progress__fill--shimmer{% endif %}"></div>
+                  <div class="mp-orders-progress__bar" aria-hidden="true">
+                    <div class="mp-orders-progress__fill {% if block.settings.enable_shimmer %}mp-orders-progress__fill--shimmer{% endif %}"></div>
+                  </div>
                 </div>
 
                 {% if block.settings.show_meta_line and goal_count_num > 0 %}
@@ -2664,6 +2668,22 @@
           "id": "muted_color",
           "default": "#9A9A9A",
           "label": "Couleur secondaire"
+        },
+        {
+          "type": "color",
+          "id": "inner_bg",
+          "default": "#FFFFFF",
+          "label": "Fond de la box (progress)"
+        },
+        {
+          "type": "range",
+          "id": "inner_radius",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "default": 12,
+          "unit": "px",
+          "label": "Radius de la box (progress)"
         },
         {
           "type": "color",

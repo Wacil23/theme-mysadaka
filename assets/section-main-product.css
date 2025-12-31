@@ -2274,6 +2274,14 @@
   margin-top: 1.4rem;
 }
 
+.mp-orders-progress__inner {
+  margin-top: 1.2rem;
+  background: var(--mpop-inner-bg);
+  border-radius: var(--mpop-inner-radius);
+  padding: 1.2rem 1.2rem 0 1.2rem;
+  overflow: hidden;
+}
+
 .mp-orders-progress__row {
   display: flex;
   align-items: center;
@@ -2302,16 +2310,19 @@
   margin-top: 1.2rem;
   height: var(--mpop-bar-height);
   background: var(--mpop-bar-bg);
-  border-radius: 999px;
+  border-radius: 0 0 var(--mpop-inner-radius) var(--mpop-inner-radius);
   overflow: hidden;
   position: relative;
+  margin-left: -1.2rem;
+  margin-right: -1.2rem;
+  margin-bottom: 0;
 }
 
 .mp-orders-progress__fill {
   height: 100%;
   width: var(--mpop-progress);
   background: var(--mpop-bar-fill);
-  border-radius: 999px;
+  border-radius: 0 0 var(--mpop-inner-radius) var(--mpop-inner-radius);
   position: relative;
   overflow: hidden;
   will-change: width;
