@@ -662,8 +662,11 @@
                   --mtbp-badge-bg: {{ block.settings.badge_bg }};
                   --mtbp-badge-color: {{ block.settings.badge_color }};
                   --mtbp-badge-radius: {{ block.settings.badge_radius }}px;
+                  --mtbp-badge-weight: {{ block.settings.badge_weight }};
                   --mtbp-title-weight: {{ block.settings.title_weight }};
                   --mtbp-subtitle-weight: {{ block.settings.subtitle_weight }};
+                  --mtbp-price-size: {{ block.settings.price_size }}px;
+                  --mtbp-price-weight: {{ block.settings.price_weight }};
                   {% if mtbp_title_font_stack != blank %}--mtbp-title-font-family: {{ mtbp_title_font_stack }};{% endif %}
                   {% if mtbp_subtitle_font_stack != blank %}--mtbp-subtitle-font-family: {{ mtbp_subtitle_font_stack }};{% endif %}
                   {% if mtbp_badge_font_stack != blank %}--mtbp-badge-font-family: {{ mtbp_badge_font_stack }};{% endif %}
@@ -672,6 +675,13 @@
                 "
                 {{ block.shopify_attributes }}
               >
+                {%- liquid
+                  assign v = product.selected_or_first_available_variant
+                  assign mtbp_on_sale = false
+                  if v.compare_at_price > v.price
+                    assign mtbp_on_sale = true
+                  endif
+                -%}
                 <div class="mp-title-badge-price__grid">
                   <div class="mp-title-badge-price__title">
                     {% if block.settings.use_custom_title and block.settings.custom_title != blank %}
@@ -694,12 +704,25 @@
                   </div>
 
                   <div class="mp-title-badge-price__price">
-                    {%- render 'price',
-                      product: product,
-                      use_variant: true,
-                      show_badges: false,
-                      price_class: 'price--product'
-                    -%}
+                    <div class="mp-title-badge-price__price-inner {% if mtbp_on_sale %}is-sale{% endif %}">
+                      {% if mtbp_on_sale %}
+                        <span class="mp-title-badge-price__compare">
+                          {% if block.settings.strip_trailing_zeros %}
+                            {{ v.compare_at_price | money_without_trailing_zeros }}
+                          {% else %}
+                            {{ v.compare_at_price | money }}
+                          {% endif %}
+                        </span>
+                      {% endif %}
+
+                      <span class="mp-title-badge-price__current">
+                        {% if block.settings.strip_trailing_zeros %}
+                          {{ v.price | money_without_trailing_zeros }}
+                        {% else %}
+                          {{ v.price | money }}
+                        {% endif %}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -802,14 +825,66 @@
             
             {%- when 'description' -%}
               {% if product.description != blank or block.settings.description != blank %}
+                {%- liquid
+                  assign desc_is_custom = false
+                  if block.settings.description != blank
+                    assign desc_is_custom = true
+                  endif
+
+                  assign desc_full_html = ''
+                  assign desc_preview = ''
+
+                  if desc_is_custom
+                    assign desc_full_html = block.settings.description | escape
+                    assign desc_preview = block.settings.description | escape
+                  else
+                    assign desc_full_html = product.description
+                    assign desc_preview = product.description | strip_html | strip_newlines
+                  endif
+
+                  assign use_truncate = block.settings.enable_truncate
+                  assign max_chars = block.settings.max_chars | default: 180
+                  assign max_chars = max_chars | plus: 0
+                  assign preview_text = desc_preview
+
+                  if use_truncate and max_chars > 0
+                    assign preview_text = desc_preview | truncate: max_chars, '…'
+                  endif
+
+                  assign needs_toggle = false
+                  if use_truncate and desc_preview.size > max_chars
+                    assign needs_toggle = true
+                  endif
+                -%}
+
                 <div
-                  class="product__description {% if block.settings.description == blank and product.description != blank %} rte {% endif %}"
+                  class="product__description {% if desc_is_custom == false %} rte {% endif %} mp-desc"
+                  style="
+                    --mpdesc-btn-bg: {{ block.settings.more_bg }};
+                    --mpdesc-btn-color: {{ block.settings.more_color }};
+                    --mpdesc-btn-radius: {{ block.settings.more_radius }}px;
+                  "
                   {{ block.shopify_attributes }}
                 >
-                  {% if block.settings.description != blank %}
-                    {{- block.settings.description | escape -}}
+                  {% if needs_toggle %}
+                    <details class="mp-desc__details">
+                      <summary class="mp-desc__summary">
+                        <span class="mp-desc__summary-text">{{ preview_text }}</span>
+                        <span class="mp-desc__summary-btn">
+                          <span class="mp-desc__more-text mp-desc__more-text--more">{{ block.settings.more_label | escape }}</span>
+                          <span class="mp-desc__more-text mp-desc__more-text--less">{{ block.settings.less_label | escape }}</span>
+                        </span>
+                      </summary>
+                      <div class="mp-desc__full">
+                        {{ desc_full_html }}
+                      </div>
+                    </details>
                   {% else %}
-                    {{- product.description -}}
+                    {% if desc_is_custom %}
+                      {{ desc_full_html }}
+                    {% else %}
+                      {{ desc_full_html }}
+                    {% endif %}
                   {% endif %}
                 </div>
               {% endif %}
@@ -2715,6 +2790,20 @@
           "label": "Radius du badge"
         },
         {
+          "type": "select",
+          "id": "badge_weight",
+          "label": "Weight du badge",
+          "default": "800",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" },
+            { "value": "900", "label": "900" }
+          ]
+        },
+        {
           "type": "color",
           "id": "title_color",
           "default": "#111245",
@@ -2753,6 +2842,40 @@
             { "value": "800", "label": "800" },
             { "value": "900", "label": "900" }
           ]
+        },
+        {
+          "type": "header",
+          "content": "Prix"
+        },
+        {
+          "type": "range",
+          "id": "price_size",
+          "min": 12,
+          "max": 40,
+          "step": 1,
+          "default": 18,
+          "unit": "px",
+          "label": "Taille du prix"
+        },
+        {
+          "type": "select",
+          "id": "price_weight",
+          "label": "Weight du prix",
+          "default": "800",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" },
+            { "value": "900", "label": "900" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "strip_trailing_zeros",
+          "default": true,
+          "label": "Supprimer les décimales si .00 (ex: 169€)"
         },
         {
           "type": "checkbox",
@@ -2798,6 +2921,59 @@
           "id": "description",
           "label": "t:sections.all.text.label",
           "info": "t:sections.main-product.blocks.description.settings.text.info"
+        },
+        {
+          "type": "header",
+          "content": "Lire la suite"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_truncate",
+          "default": true,
+          "label": "Limiter le nombre de caractères"
+        },
+        {
+          "type": "range",
+          "id": "max_chars",
+          "min": 40,
+          "max": 400,
+          "step": 10,
+          "default": 180,
+          "label": "Nombre de caractères (aperçu)"
+        },
+        {
+          "type": "text",
+          "id": "more_label",
+          "default": "Lire la suite",
+          "label": "Texte bouton (ouvrir)"
+        },
+        {
+          "type": "text",
+          "id": "less_label",
+          "default": "Réduire",
+          "label": "Texte bouton (fermer)"
+        },
+        {
+          "type": "color",
+          "id": "more_bg",
+          "default": "#DDE6FF",
+          "label": "Couleur surlignage"
+        },
+        {
+          "type": "color",
+          "id": "more_color",
+          "default": "#111245",
+          "label": "Couleur texte bouton"
+        },
+        {
+          "type": "range",
+          "id": "more_radius",
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "default": 4,
+          "unit": "px",
+          "label": "Radius surlignage"
         }
       ]
     },

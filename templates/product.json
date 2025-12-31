@@ -23,9 +23,11 @@
             "custom_font_subtitle": "poppins_n4",
             "use_custom_font_badge": true,
             "custom_font_badge": "poppins_n4",
-            "subtitle": "Avec vidéo et certificat du dépôt",
+            "subtitle": "Vidéo et certificat du dépôt inclus",
+            "use_custom_title": true,
+            "custom_title": "Fauteuil roulant",
             "show_badge": true,
-            "badge_text": "Sadaqa jariya",
+            "badge_text": "Makkah",
             "badge_bg": "#fff1d6",
             "badge_color": "#111111",
             "badge_radius": 6,
@@ -201,7 +203,8 @@
       ],
       "custom_css": [
         ".product__outer.product__outer--grid-gallery.product__outer--desktop-order {justify-content: space-between;}",
-        ".skallup-stories-video-product {min-width: 90px !important; max-width: 90px !important;}"
+        ".skallup-stories-video-product {min-width: 90px !important; max-width: 90px !important;}",
+        ".product-info-separator--info_separator_MF7mzL {margin-top: 0px !important;}"
       ],
       "settings": {
         "media_border_radius": "5px",
