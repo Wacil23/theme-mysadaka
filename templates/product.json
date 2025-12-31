@@ -15,6 +15,14 @@
         "title_badge_price_MPLwYm": {
           "type": "title_badge_price",
           "settings": {
+            "use_custom_font": true,
+            "custom_font": "poppins_n4",
+            "use_custom_font_title": true,
+            "custom_font_title": "poppins_n4",
+            "use_custom_font_subtitle": true,
+            "custom_font_subtitle": "poppins_n4",
+            "use_custom_font_badge": true,
+            "custom_font_badge": "poppins_n4",
             "subtitle": "Avec vidéo et certificat du dépôt",
             "show_badge": true,
             "badge_text": "Sadaqa jariya",
@@ -22,7 +30,9 @@
             "badge_color": "#111111",
             "badge_radius": 6,
             "title_color": "#000000",
+            "title_weight": "600",
             "subtitle_color": "#000000",
+            "subtitle_weight": "500",
             "show_divider": false,
             "divider_color": "#11124526",
             "divider_thickness": 1
