@@ -2248,3 +2248,110 @@
   background: var(--pis-color, rgba(var(--color-foreground), 0.15));
   margin-inline: var(--pis-margin-inline, auto);
 }
+
+.mp-orders-progress {
+  background: var(--mpop-card-bg);
+  border-radius: var(--mpop-card-radius);
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.mp-orders-progress__title {
+  color: var(--mpop-title-color);
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.mp-orders-progress__text {
+  color: var(--mpop-text-color);
+  font-size: 1.3rem;
+  line-height: 1.35;
+  margin-top: 0.8rem;
+}
+
+.mp-orders-progress__rows {
+  margin-top: 1.4rem;
+}
+
+.mp-orders-progress__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  color: var(--mpop-muted-color);
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mp-orders-progress__row + .mp-orders-progress__row {
+  margin-top: 1.2rem;
+}
+
+.mp-orders-progress__row--active {
+  color: var(--mpop-title-color);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+
+.mp-orders-progress__bar {
+  margin-top: 1.2rem;
+  height: var(--mpop-bar-height);
+  background: var(--mpop-bar-bg);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mp-orders-progress__fill {
+  height: 100%;
+  width: var(--mpop-progress);
+  background: var(--mpop-bar-fill);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  will-change: width;
+}
+
+.mp-orders-progress__fill--shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -120% auto -120% -60%;
+  width: 45%;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, var(--mpop-shimmer-opacity)) 45%, rgba(255, 255, 255, 0) 70%);
+  transform: skewX(-18deg) translateX(0);
+  filter: blur(0.4px);
+  animation: mp-orders-progress-shimmer var(--mpop-shimmer-duration) linear infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+@keyframes mp-orders-progress-shimmer {
+  from {
+    transform: skewX(-18deg) translateX(-160%);
+  }
+  to {
+    transform: skewX(-18deg) translateX(420%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp-orders-progress__fill--shimmer::after {
+    animation: none;
+  }
+}
+
+.mp-orders-progress__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  color: var(--mpop-muted-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}

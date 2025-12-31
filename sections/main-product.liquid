@@ -749,6 +749,121 @@
                 </div>
               {% endif %}
 
+            {%- when 'orders_progress' -%}
+              {%- liquid
+                assign target_product = block.settings.product
+                if target_product == blank
+                  assign target_product = product
+                endif
+
+                assign current_count = block.settings.current_count | default: 0
+                assign goal_count = block.settings.goal_count | default: 0
+                assign start_date_text = block.settings.start_date
+
+                if block.settings.use_product_metafields and target_product != blank
+                  if target_product.metafields.custom.orders_count != blank
+                    assign current_count = target_product.metafields.custom.orders_count.value | default: target_product.metafields.custom.orders_count
+                  endif
+                  if target_product.metafields.custom.orders_goal != blank
+                    assign goal_count = target_product.metafields.custom.orders_goal.value | default: target_product.metafields.custom.orders_goal
+                  endif
+                  if target_product.metafields.custom.orders_start_date != blank
+                    assign start_date_text = target_product.metafields.custom.orders_start_date.value | default: target_product.metafields.custom.orders_start_date
+                  endif
+                endif
+
+                assign current_count_num = current_count | plus: 0
+                assign goal_count_num = goal_count | plus: 0
+
+                assign progress_pct = 0
+                if goal_count_num > 0
+                  assign progress_pct = current_count_num | times: 100.0 | divided_by: goal_count_num
+                endif
+                if progress_pct > 100
+                  assign progress_pct = 100
+                endif
+                if progress_pct < 0
+                  assign progress_pct = 0
+                endif
+                assign progress_pct_rounded = progress_pct | round
+
+                assign is_full = false
+                if goal_count_num > 0 and current_count_num >= goal_count_num
+                  assign is_full = true
+                endif
+              -%}
+
+              <div
+                class="mp-orders-progress"
+                style="
+                  --mpop-card-bg: {{ block.settings.card_bg }};
+                  --mpop-card-radius: {{ block.settings.card_radius }}px;
+                  --mpop-title-color: {{ block.settings.title_color }};
+                  --mpop-text-color: {{ block.settings.text_color }};
+                  --mpop-muted-color: {{ block.settings.muted_color }};
+                  --mpop-bar-bg: {{ block.settings.bar_bg }};
+                  --mpop-bar-fill: {{ block.settings.bar_fill }};
+                  --mpop-bar-height: {{ block.settings.bar_height }}px;
+                  --mpop-progress: {{ progress_pct_rounded }}%;
+                  --mpop-shimmer-opacity: {{ block.settings.shimmer_opacity }};
+                  --mpop-shimmer-duration: {{ block.settings.shimmer_duration }}s;
+                "
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.title != blank %}
+                  <div class="mp-orders-progress__title">{{ block.settings.title | escape }}</div>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <div class="mp-orders-progress__text">{{ block.settings.text }}</div>
+                {% endif %}
+
+                <div class="mp-orders-progress__rows">
+                  <div class="mp-orders-progress__row">
+                    <span class="mp-orders-progress__left">{{ block.settings.row1_left | escape }}</span>
+                    <span class="mp-orders-progress__right">
+                      {% if is_full %}
+                        {{ block.settings.row1_right_full | escape }}
+                      {% else %}
+                        {{ block.settings.row1_right | escape }}
+                      {% endif %}
+                    </span>
+                  </div>
+
+                  <div class="mp-orders-progress__row mp-orders-progress__row--active">
+                    <span class="mp-orders-progress__left">
+                      {% if block.settings.row2_left != blank %}
+                        {{ block.settings.row2_left | escape }}
+                      {% elsif goal_count_num > 0 %}
+                        {{ goal_count_num }}
+                      {% endif %}
+                    </span>
+                    <span class="mp-orders-progress__right">
+                      {% if block.settings.row2_right != blank %}
+                        {{ block.settings.row2_right | escape }}
+                      {% else %}
+                        {{ progress_pct_rounded }}% {{ block.settings.percent_suffix | escape }}
+                      {% endif %}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="mp-orders-progress__bar" aria-hidden="true">
+                  <div class="mp-orders-progress__fill {% if block.settings.enable_shimmer %}mp-orders-progress__fill--shimmer{% endif %}"></div>
+                </div>
+
+                {% if block.settings.show_meta_line and goal_count_num > 0 %}
+                  <div class="mp-orders-progress__meta">
+                    <span class="mp-orders-progress__meta-left">
+                      {{ current_count_num }}/{{ goal_count_num }}
+                    </span>
+                    {% if start_date_text != blank %}
+                      <span class="mp-orders-progress__meta-right">{{ start_date_text | escape }}</span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+
             {%- when 'variant_picker' -%}
               {% if product.has_only_default_variant != true %}
                 <div class="product-parameters">
@@ -2408,6 +2523,189 @@
       "type": "inventory",
       "name": "t:sections.main-product.blocks.inventory.name",
       "limit": 1
+    },
+    {
+      "type": "orders_progress",
+      "name": "Barre de progression (commandes)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produit à suivre (vide = produit courant)"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_product_metafields",
+          "default": true,
+          "label": "Utiliser les metafields du produit (custom.orders_count / custom.orders_goal / custom.orders_start_date)"
+        },
+        {
+          "type": "header",
+          "content": "Contenu"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Stock limité",
+          "label": "Titre"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Réservez votre boîte aujourd’hui avant que le prochain stock ne soit épuisé.<br>Expéditions début Janvier.</p>",
+          "label": "Texte"
+        },
+        {
+          "type": "text",
+          "id": "row1_left",
+          "default": "6 000 unités",
+          "label": "Ligne 1 — gauche"
+        },
+        {
+          "type": "text",
+          "id": "row1_right",
+          "default": "EN COURS",
+          "label": "Ligne 1 — droite (quand pas rempli)"
+        },
+        {
+          "type": "text",
+          "id": "row1_right_full",
+          "default": "STOCK ÉPUISÉ",
+          "label": "Ligne 1 — droite (quand objectif atteint)"
+        },
+        {
+          "type": "text",
+          "id": "row2_left",
+          "default": "15 000 unités",
+          "label": "Ligne 2 — gauche (vide = objectif)"
+        },
+        {
+          "type": "text",
+          "id": "row2_right",
+          "default": "",
+          "label": "Ligne 2 — droite (vide = % auto)"
+        },
+        {
+          "type": "text",
+          "id": "percent_suffix",
+          "default": "déjà réservé",
+          "label": "Suffixe après le %"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_meta_line",
+          "default": false,
+          "label": "Afficher la ligne meta (x/y + date)"
+        },
+        {
+          "type": "text",
+          "id": "start_date",
+          "default": "",
+          "label": "Date de départ (si pas de metafield)"
+        },
+        {
+          "type": "number",
+          "id": "current_count",
+          "default": 0,
+          "label": "Compteur actuel (fallback)"
+        },
+        {
+          "type": "number",
+          "id": "goal_count",
+          "default": 15000,
+          "label": "Objectif (fallback)"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "default": "#F4F4F4",
+          "label": "Fond de la carte"
+        },
+        {
+          "type": "range",
+          "id": "card_radius",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "default": 14,
+          "unit": "px",
+          "label": "Radius"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "default": "#111111",
+          "label": "Couleur titre"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "default": "#1A1A1A",
+          "label": "Couleur texte"
+        },
+        {
+          "type": "color",
+          "id": "muted_color",
+          "default": "#9A9A9A",
+          "label": "Couleur secondaire"
+        },
+        {
+          "type": "color",
+          "id": "bar_bg",
+          "default": "#DADADA",
+          "label": "Fond barre"
+        },
+        {
+          "type": "color",
+          "id": "bar_fill",
+          "default": "#E6E060",
+          "label": "Couleur progression"
+        },
+        {
+          "type": "range",
+          "id": "bar_height",
+          "min": 6,
+          "max": 18,
+          "step": 1,
+          "default": 10,
+          "unit": "px",
+          "label": "Hauteur barre"
+        },
+        {
+          "type": "header",
+          "content": "Effet verre"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_shimmer",
+          "default": true,
+          "label": "Activer l’animation verre"
+        },
+        {
+          "type": "range",
+          "id": "shimmer_opacity",
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "default": 0.6,
+          "label": "Opacité"
+        },
+        {
+          "type": "range",
+          "id": "shimmer_duration",
+          "min": 0.8,
+          "max": 4,
+          "step": 0.1,
+          "default": 1.8,
+          "unit": "s",
+          "label": "Durée"
+        }
+      ]
     },
     {
       "type": "variant_picker",
