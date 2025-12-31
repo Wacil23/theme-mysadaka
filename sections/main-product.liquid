@@ -604,6 +604,52 @@
                 </h1>
               </div>
 
+            {%- when 'title_badge_price' -%}
+              <div
+                class="mp-title-badge-price"
+                style="
+                  --mtbp-title-color: {{ block.settings.title_color }};
+                  --mtbp-subtitle-color: {{ block.settings.subtitle_color }};
+                  --mtbp-badge-bg: {{ block.settings.badge_bg }};
+                  --mtbp-badge-color: {{ block.settings.badge_color }};
+                  --mtbp-badge-radius: {{ block.settings.badge_radius }}px;
+                  --mtbp-divider-color: {{ block.settings.divider_color }};
+                  --mtbp-divider-thickness: {{ block.settings.divider_thickness }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <div class="mp-title-badge-price__grid">
+                  <div class="mp-title-badge-price__title">
+                    {{ product.title | escape }}
+                  </div>
+
+                  <div class="mp-title-badge-price__badge">
+                    {% if block.settings.show_badge %}
+                      <span class="mp-title-badge-price__badge-pill">
+                        {{ block.settings.badge_text | escape }}
+                      </span>
+                    {% endif %}
+                  </div>
+
+                  <div class="mp-title-badge-price__subtitle">
+                    {{ block.settings.subtitle | escape }}
+                  </div>
+
+                  <div class="mp-title-badge-price__price">
+                    {%- render 'price',
+                      product: product,
+                      use_variant: true,
+                      show_badges: false,
+                      price_class: 'price--product'
+                    -%}
+                  </div>
+                </div>
+
+                {% if block.settings.show_divider %}
+                  <div class="mp-title-badge-price__divider" aria-hidden="true"></div>
+                {% endif %}
+              </div>
+
             {%- when 'tags' -%}
               {%- if product.tags != blank -%}
                 <ul class="product-tags product__tags list-unstyled">
@@ -2498,6 +2544,87 @@
           ],
           "default": "h3",
           "label": "t:sections.all.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "title_badge_price",
+      "name": "Titre + badge + prix",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subtitle",
+          "default": "Transformez vos toilettes en WC Japonais",
+          "label": "Sous-titre"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "default": true,
+          "label": "Afficher le badge"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "default": "Économisez 20€",
+          "label": "Texte du badge"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg",
+          "default": "#E6E060",
+          "label": "Fond du badge"
+        },
+        {
+          "type": "color",
+          "id": "badge_color",
+          "default": "#111111",
+          "label": "Couleur du badge"
+        },
+        {
+          "type": "range",
+          "id": "badge_radius",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "default": 6,
+          "unit": "px",
+          "label": "Radius du badge"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "default": "#111245",
+          "label": "Couleur du titre"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "default": "#111245",
+          "label": "Couleur du sous-titre"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_divider",
+          "default": true,
+          "label": "Afficher le séparateur"
+        },
+        {
+          "type": "color",
+          "id": "divider_color",
+          "default": "rgba(17, 18, 69, 0.15)",
+          "label": "Couleur du séparateur"
+        },
+        {
+          "type": "range",
+          "id": "divider_thickness",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 1,
+          "unit": "px",
+          "label": "Épaisseur du séparateur"
         }
       ]
     },
