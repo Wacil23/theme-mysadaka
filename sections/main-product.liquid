@@ -663,6 +663,7 @@
                   --mtbp-badge-color: {{ block.settings.badge_color }};
                   --mtbp-badge-radius: {{ block.settings.badge_radius }}px;
                   --mtbp-badge-weight: {{ block.settings.badge_weight }};
+                  --mtbp-badge-size: {{ block.settings.badge_size }}px;
                   --mtbp-title-weight: {{ block.settings.title_weight }};
                   --mtbp-subtitle-weight: {{ block.settings.subtitle_weight }};
                   --mtbp-price-size: {{ block.settings.price_size }}px;
@@ -860,21 +861,20 @@
                 <div
                   class="product__description {% if desc_is_custom == false %} rte {% endif %} mp-desc"
                   style="
-                    --mpdesc-btn-bg: {{ block.settings.more_bg }};
-                    --mpdesc-btn-color: {{ block.settings.more_color }};
-                    --mpdesc-btn-radius: {{ block.settings.more_radius }}px;
+                    --mpdesc-link-color: {{ block.settings.more_color }};
+                    --mpdesc-link-thickness: {{ block.settings.more_underline_thickness }}px;
                   "
                   {{ block.shopify_attributes }}
                 >
                   {% if needs_toggle %}
                     <details class="mp-desc__details">
                       <summary class="mp-desc__summary">
-                        <span class="mp-desc__summary-text">{{ preview_text }}</span>
-                        <span class="mp-desc__summary-btn">
-                          <span class="mp-desc__more-text mp-desc__more-text--more">{{ block.settings.more_label | escape }}</span>
-                          <span class="mp-desc__more-text mp-desc__more-text--less">{{ block.settings.less_label | escape }}</span>
-                        </span>
+                        <span class="mp-desc__more-text mp-desc__more-text--more">{{ block.settings.more_label | escape }}</span>
+                        <span class="mp-desc__more-text mp-desc__more-text--less">{{ block.settings.less_label | escape }}</span>
                       </summary>
+                      <div class="mp-desc__preview">
+                        {{ preview_text }}
+                      </div>
                       <div class="mp-desc__full">
                         {{ desc_full_html }}
                       </div>
@@ -2804,6 +2804,16 @@
           ]
         },
         {
+          "type": "range",
+          "id": "badge_size",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "default": 12,
+          "unit": "px",
+          "label": "Taille du texte badge"
+        },
+        {
           "type": "color",
           "id": "title_color",
           "default": "#111245",
@@ -2955,25 +2965,19 @@
         },
         {
           "type": "color",
-          "id": "more_bg",
-          "default": "#DDE6FF",
-          "label": "Couleur surlignage"
-        },
-        {
-          "type": "color",
           "id": "more_color",
           "default": "#111245",
-          "label": "Couleur texte bouton"
+          "label": "Couleur lien (texte + soulignage)"
         },
         {
           "type": "range",
-          "id": "more_radius",
+          "id": "more_underline_thickness",
           "min": 0,
-          "max": 16,
+          "max": 6,
           "step": 1,
-          "default": 4,
+          "default": 1,
           "unit": "px",
-          "label": "Radius surlignage"
+          "label": "Épaisseur soulignage"
         }
       ]
     },
