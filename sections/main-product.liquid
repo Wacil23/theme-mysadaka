@@ -832,28 +832,25 @@
                     assign desc_is_custom = true
                   endif
 
-                  assign desc_full_html = ''
-                  assign desc_preview = ''
+                  assign desc_full_text = ''
 
                   if desc_is_custom
-                    assign desc_full_html = block.settings.description | escape
-                    assign desc_preview = block.settings.description | escape
+                    assign desc_full_text = block.settings.description | escape
                   else
-                    assign desc_full_html = product.description
-                    assign desc_preview = product.description | strip_html | strip_newlines
+                    assign desc_full_text = product.description | strip_html | strip_newlines
                   endif
 
                   assign use_truncate = block.settings.enable_truncate
                   assign max_chars = block.settings.max_chars | default: 180
                   assign max_chars = max_chars | plus: 0
-                  assign preview_text = desc_preview
+                  assign preview_text = desc_full_text
 
                   if use_truncate and max_chars > 0
-                    assign preview_text = desc_preview | truncate: max_chars, '…'
+                    assign preview_text = desc_full_text | truncate: max_chars, '…'
                   endif
 
                   assign needs_toggle = false
-                  if use_truncate and desc_preview.size > max_chars
+                  if use_truncate and desc_full_text.size > max_chars
                     assign needs_toggle = true
                   endif
                 -%}
@@ -863,28 +860,24 @@
                   style="
                     --mpdesc-link-color: {{ block.settings.more_color }};
                     --mpdesc-link-thickness: {{ block.settings.more_underline_thickness }}px;
+                    --mpdesc-link-weight: {{ block.settings.more_weight }};
                   "
                   {{ block.shopify_attributes }}
                 >
                   {% if needs_toggle %}
-                    <details class="mp-desc__details">
-                      <summary class="mp-desc__summary">
-                        <span class="mp-desc__more-text mp-desc__more-text--more">{{ block.settings.more_label | escape }}</span>
-                        <span class="mp-desc__more-text mp-desc__more-text--less">{{ block.settings.less_label | escape }}</span>
-                      </summary>
-                      <div class="mp-desc__preview">
-                        {{ preview_text }}
-                      </div>
-                      <div class="mp-desc__full">
-                        {{ desc_full_html }}
-                      </div>
-                    </details>
+                    <input
+                      class="mp-desc__toggle"
+                      type="checkbox"
+                      id="mp-desc-toggle-{{ block.id }}"
+                    >
+                    <span class="mp-desc__preview">{{ preview_text }}</span>
+                    <span class="mp-desc__full">{{ desc_full_text }}</span>
+                    <label class="mp-desc__link" for="mp-desc-toggle-{{ block.id }}">
+                      <span class="mp-desc__more-text mp-desc__more-text--more">{{ block.settings.more_label | escape }}</span>
+                      <span class="mp-desc__more-text mp-desc__more-text--less">{{ block.settings.less_label | escape }}</span>
+                    </label>
                   {% else %}
-                    {% if desc_is_custom %}
-                      {{ desc_full_html }}
-                    {% else %}
-                      {{ desc_full_html }}
-                    {% endif %}
+                    {{ desc_full_text }}
                   {% endif %}
                 </div>
               {% endif %}
@@ -2968,6 +2961,20 @@
           "id": "more_color",
           "default": "#111245",
           "label": "Couleur lien (texte + soulignage)"
+        },
+        {
+          "type": "select",
+          "id": "more_weight",
+          "default": "700",
+          "label": "Weight du lien",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" },
+            { "value": "900", "label": "900" }
+          ]
         },
         {
           "type": "range",

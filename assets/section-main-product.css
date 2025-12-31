@@ -2446,49 +2446,52 @@
   font-size: inherit;
 }
 
-.mp-desc__details {
-  display: flex;
-  flex-direction: column;
+.mp-desc {
+  position: relative;
 }
 
-.mp-desc__summary {
-  list-style: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-self: flex-start;
-  order: 3;
-  color: var(--mpdesc-link-color);
-  text-decoration: underline;
-  text-decoration-thickness: var(--mpdesc-link-thickness, 1px);
-  text-decoration-color: var(--mpdesc-link-color);
+.mp-desc__toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.mp-desc__summary::-webkit-details-marker {
-  display: none;
-}
-
-.mp-desc__preview {
-  order: 1;
+.mp-desc__preview,
+.mp-desc__full,
+.mp-desc__link {
+  display: inline;
 }
 
 .mp-desc__full {
-  order: 2;
-  margin-top: 0.8rem;
+  display: none;
+}
+
+.mp-desc__link {
+  cursor: pointer;
+  color: var(--mpdesc-link-color);
+  font-weight: var(--mpdesc-link-weight, 700);
+  text-decoration: underline;
+  text-decoration-thickness: var(--mpdesc-link-thickness, 1px);
+  text-decoration-color: var(--mpdesc-link-color);
 }
 
 .mp-desc__more-text--less {
   display: none;
 }
 
-.mp-desc__details[open] .mp-desc__preview {
+.mp-desc__toggle:checked ~ .mp-desc__preview {
   display: none;
 }
 
-.mp-desc__details[open] .mp-desc__more-text--more {
+.mp-desc__toggle:checked ~ .mp-desc__full {
+  display: inline;
+}
+
+.mp-desc__toggle:checked ~ .mp-desc__link .mp-desc__more-text--more {
   display: none;
 }
 
-.mp-desc__details[open] .mp-desc__more-text--less {
+.mp-desc__toggle:checked ~ .mp-desc__link .mp-desc__more-text--less {
   display: inline;
 }
 
