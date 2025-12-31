@@ -882,6 +882,46 @@
                 </div>
               {% endif %}
 
+            {%- when 'benefits_list' -%}
+              {%- liquid
+                assign benefit_items = section.blocks | where: 'type', 'benefit_item' | slice: 0, 10
+                assign icon_svg = block.settings.icon_svg | default: ''
+                assign icon_svg = icon_svg | strip
+              -%}
+
+              {% if benefit_items.size > 0 %}
+                <div
+                  class="mp-benefits"
+                  style="
+                    --mpb-icon-size: {{ block.settings.icon_size }}px;
+                    --mpb-icon-color: {{ block.settings.icon_color }};
+                    --mpb-gap: {{ block.settings.gap }}px;
+                    --mpb-text-size: {{ block.settings.text_size }}px;
+                  "
+                  {{ block.shopify_attributes }}
+                >
+                  <ul class="mp-benefits__list" role="list">
+                    {% for item in benefit_items %}
+                      <li class="mp-benefits__item" {{ item.shopify_attributes }}>
+                        <span class="mp-benefits__icon" aria-hidden="true">
+                          {% if icon_svg != blank %}
+                            {{ icon_svg }}
+                          {% else %}
+                            {% render 'icon-check' %}
+                          {% endif %}
+                        </span>
+                        <div class="mp-benefits__text rte">
+                          {{ item.settings.text }}
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+            {%- when 'benefit_item' -%}
+              {% continue %}
+
             {%- when 'sku' -%}
               {% if product.selected_or_first_available_variant.sku != blank %}
                 <p
@@ -2985,6 +3025,68 @@
           "default": 1,
           "unit": "px",
           "label": "Épaisseur soulignage"
+        }
+      ]
+    },
+    {
+      "type": "benefits_list",
+      "name": "Benefits list",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "icon_svg",
+          "label": "Icône SVG (optionnel)",
+          "info": "Colle un SVG. Pour appliquer la couleur, utilise currentColor dans le SVG (fill/stroke)."
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "default": "#2F56FF",
+          "label": "Couleur icône"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 10,
+          "max": 32,
+          "step": 1,
+          "default": 18,
+          "unit": "px",
+          "label": "Taille icône"
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "min": 4,
+          "max": 24,
+          "step": 1,
+          "default": 10,
+          "unit": "px",
+          "label": "Gap (icône/texte)"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "default": 14,
+          "unit": "px",
+          "label": "Taille texte"
+        }
+      ]
+    },
+    {
+      "type": "benefit_item",
+      "name": "Benefit",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Bénéfice</p>",
+          "label": "Texte"
         }
       ]
     },
