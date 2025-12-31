@@ -2383,7 +2383,7 @@
   font-weight: var(--mtbp-title-weight, 800);
   font-size: 2.6rem;
   line-height: 1.1;
-  font-family: var(--mtbp-font-family, inherit);
+  font-family: var(--mtbp-title-font-family, inherit) !important;
 }
 
 .mp-title-badge-price__subtitle {
@@ -2393,7 +2393,7 @@
   font-weight: var(--mtbp-subtitle-weight, 700);
   font-size: 1.4rem;
   line-height: 1.2;
-  font-family: var(--mtbp-font-family, inherit);
+  font-family: var(--mtbp-subtitle-font-family, inherit) !important;
 }
 
 .mp-title-badge-price__badge {
@@ -2412,6 +2412,7 @@
   font-size: 1.2rem;
   line-height: 1.1;
   white-space: nowrap;
+  font-family: var(--mtbp-badge-font-family, inherit) !important;
 }
 
 .mp-title-badge-price__price {

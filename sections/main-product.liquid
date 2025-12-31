@@ -605,18 +605,54 @@
               </div>
 
             {%- when 'title_badge_price' -%}
+              {%- liquid
+                assign mtbp_base_font_stack = ''
+                if block.settings.use_custom_font and block.settings.custom_font != blank
+                  assign mtbp_base_font_stack = "'" | append: block.settings.custom_font.family | append: "', " | append: block.settings.custom_font.fallback_families
+                endif
+
+                assign mtbp_title_font_stack = ''
+                if block.settings.use_custom_font_title and block.settings.custom_font_title != blank
+                  assign mtbp_title_font_stack = "'" | append: block.settings.custom_font_title.family | append: "', " | append: block.settings.custom_font_title.fallback_families
+                elsif mtbp_base_font_stack != blank
+                  assign mtbp_title_font_stack = mtbp_base_font_stack
+                endif
+
+                assign mtbp_subtitle_font_stack = ''
+                if block.settings.use_custom_font_subtitle and block.settings.custom_font_subtitle != blank
+                  assign mtbp_subtitle_font_stack = "'" | append: block.settings.custom_font_subtitle.family | append: "', " | append: block.settings.custom_font_subtitle.fallback_families
+                elsif mtbp_base_font_stack != blank
+                  assign mtbp_subtitle_font_stack = mtbp_base_font_stack
+                endif
+
+                assign mtbp_badge_font_stack = ''
+                if block.settings.use_custom_font_badge and block.settings.custom_font_badge != blank
+                  assign mtbp_badge_font_stack = "'" | append: block.settings.custom_font_badge.family | append: "', " | append: block.settings.custom_font_badge.fallback_families
+                elsif mtbp_base_font_stack != blank
+                  assign mtbp_badge_font_stack = mtbp_base_font_stack
+                endif
+              -%}
+
               {%- if block.settings.use_custom_font and block.settings.custom_font != blank -%}
                 {% style %}
                   {{ block.settings.custom_font | font_face: font_display: 'swap' }}
                 {% endstyle %}
               {%- endif -%}
-
-              {%- liquid
-                assign mtbp_font_stack = ''
-                if block.settings.use_custom_font and block.settings.custom_font != blank
-                  assign mtbp_font_stack = "'" | append: block.settings.custom_font.family | append: "', " | append: block.settings.custom_font.fallback_families
-                endif
-              -%}
+              {%- if block.settings.use_custom_font_title and block.settings.custom_font_title != blank -%}
+                {% style %}
+                  {{ block.settings.custom_font_title | font_face: font_display: 'swap' }}
+                {% endstyle %}
+              {%- endif -%}
+              {%- if block.settings.use_custom_font_subtitle and block.settings.custom_font_subtitle != blank -%}
+                {% style %}
+                  {{ block.settings.custom_font_subtitle | font_face: font_display: 'swap' }}
+                {% endstyle %}
+              {%- endif -%}
+              {%- if block.settings.use_custom_font_badge and block.settings.custom_font_badge != blank -%}
+                {% style %}
+                  {{ block.settings.custom_font_badge | font_face: font_display: 'swap' }}
+                {% endstyle %}
+              {%- endif -%}
 
               <div
                 class="mp-title-badge-price"
@@ -628,7 +664,9 @@
                   --mtbp-badge-radius: {{ block.settings.badge_radius }}px;
                   --mtbp-title-weight: {{ block.settings.title_weight }};
                   --mtbp-subtitle-weight: {{ block.settings.subtitle_weight }};
-                  {% if mtbp_font_stack != blank %}--mtbp-font-family: {{ mtbp_font_stack }};{% endif %}
+                  {% if mtbp_title_font_stack != blank %}--mtbp-title-font-family: {{ mtbp_title_font_stack }};{% endif %}
+                  {% if mtbp_subtitle_font_stack != blank %}--mtbp-subtitle-font-family: {{ mtbp_subtitle_font_stack }};{% endif %}
+                  {% if mtbp_badge_font_stack != blank %}--mtbp-badge-font-family: {{ mtbp_badge_font_stack }};{% endif %}
                   --mtbp-divider-color: {{ block.settings.divider_color }};
                   --mtbp-divider-thickness: {{ block.settings.divider_thickness }}px;
                 "
@@ -2579,6 +2617,46 @@
           "id": "custom_font",
           "default": "inter_n6",
           "label": "Police (catalogue Shopify)"
+        },
+        {
+          "type": "header",
+          "content": "Police (par élément)"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_font_title",
+          "default": false,
+          "label": "Police custom — titre"
+        },
+        {
+          "type": "font_picker",
+          "id": "custom_font_title",
+          "default": "inter_n6",
+          "label": "Police titre"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_font_subtitle",
+          "default": false,
+          "label": "Police custom — sous-titre"
+        },
+        {
+          "type": "font_picker",
+          "id": "custom_font_subtitle",
+          "default": "inter_n6",
+          "label": "Police sous-titre"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_font_badge",
+          "default": false,
+          "label": "Police custom — badge"
+        },
+        {
+          "type": "font_picker",
+          "id": "custom_font_badge",
+          "default": "inter_n6",
+          "label": "Police badge"
         },
         {
           "type": "text",
