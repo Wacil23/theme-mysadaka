@@ -674,7 +674,11 @@
               >
                 <div class="mp-title-badge-price__grid">
                   <div class="mp-title-badge-price__title">
-                    {{ product.title | escape }}
+                    {% if block.settings.use_custom_title and block.settings.custom_title != blank %}
+                      {{ block.settings.custom_title | escape }}
+                    {% else %}
+                      {{ product.title | escape }}
+                    {% endif %}
                   </div>
 
                   <div class="mp-title-badge-price__badge">
@@ -2663,6 +2667,18 @@
           "id": "subtitle",
           "default": "Transformez vos toilettes en WC Japonais",
           "label": "Sous-titre"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_title",
+          "default": false,
+          "label": "Texte custom — titre"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "default": "Titre produit",
+          "label": "Titre (custom)"
         },
         {
           "type": "checkbox",
