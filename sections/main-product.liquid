@@ -758,7 +758,8 @@
 
                 assign current_count = block.settings.current_count | default: 0
                 assign goal_count = block.settings.goal_count | default: 0
-                assign start_date_text = block.settings.start_date
+                assign start_date_text = block.settings.start_date | default: 'auto'
+                assign row2_right_value = block.settings.row2_right | default: 'auto'
 
                 if block.settings.use_product_metafields and target_product != blank
                   if target_product.metafields.custom.orders_count != blank
@@ -770,6 +771,16 @@
                   if target_product.metafields.custom.orders_start_date != blank
                     assign start_date_text = target_product.metafields.custom.orders_start_date.value | default: target_product.metafields.custom.orders_start_date
                   endif
+                endif
+
+                assign start_date_text = start_date_text | strip
+                if start_date_text == 'auto'
+                  assign start_date_text = ''
+                endif
+
+                assign row2_right_value = row2_right_value | strip
+                if row2_right_value == 'auto'
+                  assign row2_right_value = ''
                 endif
 
                 assign current_count_num = current_count | plus: 0
@@ -839,8 +850,8 @@
                       {% endif %}
                     </span>
                     <span class="mp-orders-progress__right">
-                      {% if block.settings.row2_right != blank %}
-                        {{ block.settings.row2_right | escape }}
+                      {% if row2_right_value != blank %}
+                        {{ row2_right_value | escape }}
                       {% else %}
                         {{ progress_pct_rounded }}% {{ block.settings.percent_suffix | escape }}
                       {% endif %}
@@ -2526,7 +2537,7 @@
     },
     {
       "type": "orders_progress",
-      "name": "Barre de progression (commandes)",
+      "name": "Barre de progression",
       "limit": 1,
       "settings": [
         {
@@ -2538,7 +2549,7 @@
           "type": "checkbox",
           "id": "use_product_metafields",
           "default": true,
-          "label": "Utiliser les metafields du produit (custom.orders_count / custom.orders_goal / custom.orders_start_date)"
+          "label": "Utiliser les metafields"
         },
         {
           "type": "header",
@@ -2583,8 +2594,8 @@
         {
           "type": "text",
           "id": "row2_right",
-          "default": "",
-          "label": "Ligne 2 — droite (vide = % auto)"
+          "default": "auto",
+          "label": "Ligne 2 — droite ('auto' = % automatique)"
         },
         {
           "type": "text",
@@ -2601,8 +2612,8 @@
         {
           "type": "text",
           "id": "start_date",
-          "default": "",
-          "label": "Date de départ (si pas de metafield)"
+          "default": "auto",
+          "label": "Date de départ (si pas de metafield — 'auto' = ne rien afficher)"
         },
         {
           "type": "number",
