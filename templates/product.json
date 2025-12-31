@@ -12,28 +12,27 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "title_badge_price_MPLwYm": {
+          "type": "title_badge_price",
+          "settings": {
+            "subtitle": "Avec vidéo et certificat du dépôt",
+            "show_badge": true,
+            "badge_text": "Sadaqa jariya",
+            "badge_bg": "#fff1d6",
+            "badge_color": "#111111",
+            "badge_radius": 6,
+            "title_color": "#000000",
+            "subtitle_color": "#000000",
+            "show_divider": false,
+            "divider_color": "#11124526",
+            "divider_thickness": 1
+          }
+        },
         "yotpo_product_reviews_star_rating_AJqWxd": {
           "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
           "settings": {
             "product": "mon-fauteuil-roulant-a-makkah"
           }
-        },
-        "custom_liquid_pcUmyQ": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": ""
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {
-            "heading_size": "h3"
-          }
-        },
-        "price": {
-          "type": "price",
-          "disabled": true,
-          "settings": {}
         },
         "info_separator_MF7mzL": {
           "type": "info_separator",
@@ -47,10 +46,28 @@
             "padding_bottom": "no-indent"
           }
         },
+        "custom_liquid_pcUmyQ": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "title": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "heading_size": "h3"
+          }
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {}
+        },
         "description": {
           "type": "description",
           "settings": {
-            "description": ""
+            "description": "Chaque fois qu’un pèlerin l’utilise gratuitement, des hassanates sont inscrites pour le bénéficiaire. Vous recevez aussi la vidéo authentique du dépôt, supervisé par nos étudiants en sciences islamiques."
           }
         },
         "section_store_block_benefits_list_RB3MkD": {
@@ -157,11 +174,12 @@
         }
       },
       "block_order": [
+        "title_badge_price_MPLwYm",
         "yotpo_product_reviews_star_rating_AJqWxd",
+        "info_separator_MF7mzL",
         "custom_liquid_pcUmyQ",
         "title",
         "price",
-        "info_separator_MF7mzL",
         "description",
         "section_store_block_benefits_list_RB3MkD",
         "orders_progress_JQPD9g",

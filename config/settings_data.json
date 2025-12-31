@@ -1148,7 +1148,8 @@
       ".header__account::before {}",
       ".image-with-text__grid.image-with-text__grid--text_last.image-with-text__grid--reverse.image-with-text__grid--center {border-radius: 1.5rem;}",
       ".logo-list__item.swiper-slide {box-shadow: 0 0 0px black;}",
-      ".yotpo-base-layout {width: 100% !important;}"
+      ".yotpo-base-layout {width: 100% !important;}",
+      "span.yotpo-sr-vertical-border {display: none !important;}"
     ]
   }
 }
