@@ -43,6 +43,8 @@
     --ess-track-height: {{ section.settings.track_height }}px;
     --ess-fade-width: {{ section.settings.fade_width }}px;
     --ess-progress: 0%;
+    --ess-thumb-w: 100%;
+    --ess-thumb-x: 0%;
 
     background: var(--ess-bg);
     color: var(--ess-text);
@@ -122,9 +124,15 @@
     margin: 0;
     list-style: none;
     scrollbar-width: none;
+    cursor: grab;
   }
   .ess-{{ section.id }} .ess__scroller::-webkit-scrollbar {
     display: none;
+  }
+
+  .ess-{{ section.id }}.is-dragging .ess__scroller {
+    cursor: grabbing;
+    user-select: none;
   }
 
   .ess-{{ section.id }} .ess__item {
@@ -163,10 +171,12 @@
 
   .ess-{{ section.id }} .ess__track-fill {
     height: 100%;
-    width: var(--ess-progress);
+    width: var(--ess-thumb-w);
     background: var(--ess-track-fill);
     border-radius: inherit;
-    transition: width 120ms linear;
+    transform: translateX(var(--ess-thumb-x));
+    transition: transform 120ms linear;
+    will-change: transform;
   }
 
   .ess-{{ section.id }} .ess__fade {
@@ -194,6 +204,23 @@
     opacity: 1;
   }
   .ess-{{ section.id }}[data-can-scroll="true"][data-at-end="false"] .ess__fade--right {
+    opacity: 1;
+  }
+
+  .ess-{{ section.id }} .ess__cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-9999px, -9999px);
+    transition: opacity 120ms ease;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .ess-{{ section.id }}.has-cursor .ess__cursor {
     opacity: 1;
   }
 
@@ -240,6 +267,7 @@
         </div>
 
         <div class="ess__slider-wrap" data-ess-slider>
+          <span class="ess__cursor" aria-hidden="true" data-ess-cursor>✋</span>
           <span class="ess__fade ess__fade--left" aria-hidden="true"></span>
           <span class="ess__fade ess__fade--right" aria-hidden="true"></span>
 
@@ -292,9 +320,21 @@
         root.setAttribute('data-at-start', atStart ? 'true' : 'false');
         root.setAttribute('data-at-end', atEnd ? 'true' : 'false');
 
-        var pct = 0;
-        if (max > 1) pct = Math.max(0, Math.min(1, left / max));
-        root.style.setProperty('--ess-progress', (pct * 100).toFixed(2) + '%');
+        var total = scroller.scrollWidth;
+        var view = scroller.clientWidth;
+        var thumbW = 100;
+        if (total > 0 && view > 0) {
+          thumbW = Math.max(8, Math.min(100, (view / total) * 100));
+        }
+
+        var thumbX = 0;
+        if (max > 1) {
+          var maxX = 100 - thumbW;
+          thumbX = Math.max(0, Math.min(maxX, (left / max) * maxX));
+        }
+
+        root.style.setProperty('--ess-thumb-w', thumbW.toFixed(2) + '%');
+        root.style.setProperty('--ess-thumb-x', thumbX.toFixed(2) + '%');
       }
 
       var raf = 0;
@@ -309,6 +349,60 @@
       scroller.addEventListener('scroll', onScroll);
       window.addEventListener('resize', update);
       update();
+
+      // Desktop: drag-to-scroll + emoji cursor (✋ hover, 🤏 while dragging)
+      var cursorEl = root.querySelector('[data-ess-cursor]');
+      var finePointer = false;
+      if (window.matchMedia) {
+        finePointer = window.matchMedia('(pointer: fine)').matches;
+      }
+
+      if (finePointer && cursorEl) {
+        var isDown = false;
+        var startX = 0;
+        var startLeft = 0;
+
+        function moveCursor(e) {
+          if (!e) return;
+          root.classList.add('has-cursor');
+          cursorEl.style.transform = 'translate(' + (e.clientX + 10) + 'px,' + (e.clientY + 10) + 'px)';
+        }
+
+        scroller.addEventListener('mouseenter', function () {
+          root.classList.add('has-cursor');
+          cursorEl.textContent = '✋';
+        });
+
+        scroller.addEventListener('mouseleave', function () {
+          root.classList.remove('has-cursor');
+          root.classList.remove('is-dragging');
+          isDown = false;
+          cursorEl.textContent = '✋';
+        });
+
+        scroller.addEventListener('mousemove', function (e) {
+          moveCursor(e);
+          if (!isDown) return;
+          var dx = e.clientX - startX;
+          scroller.scrollLeft = startLeft - dx;
+        });
+
+        scroller.addEventListener('mousedown', function (e) {
+          if (e.button !== 0) return;
+          isDown = true;
+          startX = e.clientX;
+          startLeft = scroller.scrollLeft;
+          root.classList.add('is-dragging');
+          cursorEl.textContent = '🤏';
+        });
+
+        window.addEventListener('mouseup', function () {
+          if (!isDown) return;
+          isDown = false;
+          root.classList.remove('is-dragging');
+          cursorEl.textContent = '✋';
+        });
+      }
     })();
   </script>
 </section>
