@@ -1,0 +1,624 @@
+{%- comment -%}
+  Section: Efficacy stats slider (2 colonnes desktop, slider horizontal)
+{%- endcomment -%}
+
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign section_subheading = section.settings.subheading
+  assign section_text = section.settings.text
+
+  assign boxed = false
+  if section.settings.layout == 'boxed'
+    assign boxed = true
+  endif
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+  assign accent_color = section.settings.accent_color
+  assign track_bg = section.settings.track_bg
+  assign track_fill = section.settings.track_fill
+  assign fade_color = section.settings.fade_color
+-%}
+
+{%- style -%}
+  {% render 'section-padding' %}
+
+  .ess-{{ section.id }} {
+    --ess-bg: {{ bg_color }};
+    --ess-text: {{ text_color }};
+    --ess-accent: {{ accent_color }};
+    --ess-track-bg: {{ track_bg }};
+    --ess-track-fill: {{ track_fill }};
+    --ess-fade-color: {{ fade_color }};
+
+    --ess-gap: {{ section.settings.columns_gap }}px;
+    --ess-inner-pad: {{ section.settings.inner_padding }}px;
+    --ess-slider-pad-bottom: {{ section.settings.slider_padding_bottom }}px;
+    --ess-items-gap: {{ section.settings.items_gap }}px;
+    --ess-slide-min: {{ section.settings.slide_min_width }}px;
+    --ess-number-size: {{ section.settings.number_size }}px;
+    --ess-label-size: {{ section.settings.label_size }}px;
+    --ess-heading-size: {{ section.settings.heading_size }}px;
+    --ess-subheading-size: {{ section.settings.subheading_size }}px;
+    --ess-text-size: {{ section.settings.text_size }}px;
+    --ess-track-height: {{ section.settings.track_height }}px;
+    --ess-fade-width: {{ section.settings.fade_width }}px;
+    --ess-progress: 0%;
+
+    background: var(--ess-bg);
+    color: var(--ess-text);
+  }
+
+  .ess-{{ section.id }} .ess__box {
+    {% if boxed %}
+      border-radius: {{ section.settings.box_radius }}px;
+      overflow: hidden;
+      padding: var(--ess-inner-pad);
+      background: var(--ess-bg);
+    {% else %}
+      padding: 0;
+      background: transparent;
+    {% endif %}
+  }
+
+  .ess-{{ section.id }} .ess__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+    align-items: center;
+    gap: var(--ess-gap);
+  }
+
+  .ess-{{ section.id }} .ess__copy {
+    max-width: 52rem;
+  }
+
+  .ess-{{ section.id }} .ess__heading {
+    margin: 0;
+    font-size: var(--ess-heading-size);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ess-text);
+  }
+
+  .ess-{{ section.id }} .ess__heading em {
+    font-style: italic;
+    color: var(--ess-text);
+  }
+
+  .ess-{{ section.id }} .ess__subheading {
+    margin: 0.6rem 0 0;
+    font-size: var(--ess-subheading-size);
+    line-height: 1.15;
+    color: var(--ess-text);
+    opacity: 0.95;
+  }
+
+  .ess-{{ section.id }} .ess__text {
+    margin: 1.2rem 0 0;
+    font-size: var(--ess-text-size);
+    line-height: 1.35;
+    color: var(--ess-text);
+    opacity: 0.9;
+  }
+
+  .ess-{{ section.id }} .ess__slider-wrap {
+    position: relative;
+    padding-bottom: var(--ess-slider-pad-bottom);
+  }
+
+  .ess-{{ section.id }} .ess__scroller {
+    display: flex;
+    gap: var(--ess-items-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1px;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    scrollbar-width: none;
+  }
+  .ess-{{ section.id }} .ess__scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ess-{{ section.id }} .ess__item {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    min-width: var(--ess-slide-min);
+    max-width: 22rem;
+  }
+
+  .ess-{{ section.id }} .ess__number {
+    font-size: var(--ess-number-size);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ess-accent);
+  }
+
+  .ess-{{ section.id }} .ess__label {
+    margin: 0.6rem 0 0;
+    font-size: var(--ess-label-size);
+    line-height: 1.25;
+    color: var(--ess-text);
+    opacity: 0.95;
+  }
+
+  .ess-{{ section.id }} .ess__track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ess-track-height);
+    background: var(--ess-track-bg);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .ess-{{ section.id }} .ess__track-fill {
+    height: 100%;
+    width: var(--ess-progress);
+    background: var(--ess-track-fill);
+    border-radius: inherit;
+    transition: width 120ms linear;
+  }
+
+  .ess-{{ section.id }} .ess__fade {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: var(--ess-track-height);
+    width: var(--ess-fade-width);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 140ms ease;
+  }
+
+  .ess-{{ section.id }} .ess__fade--left {
+    left: 0;
+    background: linear-gradient(90deg, var(--ess-fade-color) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .ess-{{ section.id }} .ess__fade--right {
+    right: 0;
+    background: linear-gradient(270deg, var(--ess-fade-color) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .ess-{{ section.id }}[data-can-scroll="true"][data-at-start="false"] .ess__fade--left {
+    opacity: 1;
+  }
+  .ess-{{ section.id }}[data-can-scroll="true"][data-at-end="false"] .ess__fade--right {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ess-{{ section.id }} .ess__grid {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.mobile_gap }}px;
+    }
+
+    .ess-{{ section.id }} .ess__item {
+      min-width: {{ section.settings.slide_min_width_mobile }}px;
+    }
+
+    .ess-{{ section.id }} .ess__box {
+      {% if boxed %}
+        padding: {{ section.settings.inner_padding_mobile }}px;
+      {% endif %}
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="ess-{{ section.id }} section-{{ section.id }}-padding"
+  data-section-id="{{ section.id }}"
+  data-can-scroll="false"
+  data-at-start="true"
+  data-at-end="true"
+>
+  <div class="container">
+    <div class="ess__box">
+      <div class="ess__grid">
+        <div class="ess__copy">
+          {% if section_heading != blank %}
+            <h2 class="ess__heading">{{ section_heading }}</h2>
+          {% endif %}
+
+          {% if section_subheading != blank %}
+            <p class="ess__subheading">{{ section_subheading }}</p>
+          {% endif %}
+
+          {% if section_text != blank %}
+            <div class="ess__text">{{ section_text }}</div>
+          {% endif %}
+        </div>
+
+        <div class="ess__slider-wrap" data-ess-slider>
+          <span class="ess__fade ess__fade--left" aria-hidden="true"></span>
+          <span class="ess__fade ess__fade--right" aria-hidden="true"></span>
+
+          <ul class="ess__scroller" role="list" data-ess-scroller>
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'stat' -%}
+                  <li class="ess__item" {{ block.shopify_attributes }}>
+                    <p class="ess__number">{{ block.settings.value | escape }}</p>
+                    <div class="ess__label">{{ block.settings.label }}</div>
+                  </li>
+              {%- endcase -%}
+            {%- endfor -%}
+          </ul>
+
+          <div class="ess__track" aria-hidden="true">
+            <div class="ess__track-fill" data-ess-fill></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var currentScript = document.currentScript;
+      var root = null;
+
+      if (currentScript && currentScript.closest) {
+        root = currentScript.closest('.ess-{{ section.id }}');
+      } else {
+        var candidates = document.querySelectorAll('.ess-{{ section.id }}');
+        root = candidates && candidates.length ? candidates[candidates.length - 1] : null;
+      }
+
+      if (!root) return;
+
+      var scroller = root.querySelector('[data-ess-scroller]');
+      var fill = root.querySelector('[data-ess-fill]');
+      if (!scroller || !fill) return;
+
+      function update() {
+        var max = scroller.scrollWidth - scroller.clientWidth;
+        var canScroll = max > 1;
+        root.setAttribute('data-can-scroll', canScroll ? 'true' : 'false');
+
+        var left = scroller.scrollLeft;
+        var atStart = left <= 1;
+        var atEnd = max <= 1 ? true : left >= max - 1;
+        root.setAttribute('data-at-start', atStart ? 'true' : 'false');
+        root.setAttribute('data-at-end', atEnd ? 'true' : 'false');
+
+        var pct = 0;
+        if (max > 1) pct = Math.max(0, Math.min(1, left / max));
+        root.style.setProperty('--ess-progress', (pct * 100).toFixed(2) + '%');
+      }
+
+      var raf = 0;
+      function onScroll() {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = 0;
+          update();
+        });
+      }
+
+      scroller.addEventListener('scroll', onScroll);
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Efficacité — stats slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "full",
+      "options": [
+        { "value": "full", "label": "Fond full width + contenu aligné au container" },
+        { "value": "boxed", "label": "Box (fond + radius)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "box_radius",
+      "label": "Radius (box)",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Gap colonnes (desktop)",
+      "min": 12,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Gap (mobile)",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "inner_padding",
+      "label": "Padding interne (desktop)",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_mobile",
+      "label": "Padding interne (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#DDF3EF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#0B4A43"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur chiffres",
+      "default": "#0B4A43"
+    },
+    {
+      "type": "color",
+      "id": "fade_color",
+      "label": "Couleur fade (doit matcher le fond)",
+      "default": "#DDF3EF"
+    },
+    {
+      "type": "header",
+      "content": "Typographie (px)"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Une efficacité <em>prouvée</em>"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Taille titre",
+      "min": 18,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "Ce qu'en pensent nos clients"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Taille sous-titre",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "default": "Test effectué sur un panel de 33 consommateurs pendant 5 semaines."
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Taille texte",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "range",
+      "id": "items_gap",
+      "label": "Gap entre les cards",
+      "min": 6,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "slide_min_width",
+      "label": "Largeur min card (desktop)",
+      "min": 120,
+      "max": 260,
+      "step": 2,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "slide_min_width_mobile",
+      "label": "Largeur min card (mobile)",
+      "min": 120,
+      "max": 260,
+      "step": 2,
+      "unit": "px",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Taille chiffre",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Taille description (card)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "slider_padding_bottom",
+      "label": "Espace au-dessus de la barre",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "track_bg",
+      "label": "Couleur barre (fond)",
+      "default": "rgba(11, 74, 67, 0.15)"
+    },
+    {
+      "type": "color",
+      "id": "track_fill",
+      "label": "Couleur barre (progression)",
+      "default": "#0B4A43"
+    },
+    {
+      "type": "range",
+      "id": "track_height",
+      "label": "Épaisseur barre",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "fade_width",
+      "label": "Largeur du fade (côtés)",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Padding du thème"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        { "value": "no-indent", "label": "t:sections.all.section-padding.options__1.label" },
+        { "value": "xs", "label": "t:sections.all.section-padding.options__2.label" },
+        { "value": "s", "label": "t:sections.all.section-padding.options__3.label" },
+        { "value": "m", "label": "t:sections.all.section-padding.options__4.label" },
+        { "value": "l", "label": "t:sections.all.section-padding.options__5.label" },
+        { "value": "xl", "label": "t:sections.all.section-padding.options__6.label" }
+      ],
+      "default": "l",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        { "value": "no-indent", "label": "t:sections.all.section-padding.options__1.label" },
+        { "value": "xs", "label": "t:sections.all.section-padding.options__2.label" },
+        { "value": "s", "label": "t:sections.all.section-padding.options__3.label" },
+        { "value": "m", "label": "t:sections.all.section-padding.options__4.label" },
+        { "value": "l", "label": "t:sections.all.section-padding.options__5.label" },
+        { "value": "xl", "label": "t:sections.all.section-padding.options__6.label" }
+      ],
+      "default": "l",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valeur",
+          "default": "91%"
+        },
+        {
+          "type": "richtext",
+          "id": "label",
+          "label": "Description",
+          "default": "<p>ressentent une baisse de la fatigue</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Efficacité — stats slider",
+      "blocks": [
+        { "type": "stat" },
+        { "type": "stat", "settings": { "value": "71%", "label": "<p>observent une diminution du stress</p>" } },
+        { "type": "stat", "settings": { "value": "97%", "label": "<p>ont perçu des bénéfices durant leur cure</p>" } },
+        { "type": "stat", "settings": { "value": "91%", "label": "<p>recommandent ceci</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
