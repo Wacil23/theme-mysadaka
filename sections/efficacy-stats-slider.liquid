@@ -69,6 +69,11 @@
 
   .ess-{{ section.id }} .ess__copy {
     max-width: 52rem;
+    min-width: 0;
+  }
+
+  .ess-{{ section.id }} .ess__slider-wrap {
+    min-width: 0;
   }
 
   .ess-{{ section.id }} .ess__heading {
@@ -77,6 +82,7 @@
     line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--ess-text);
+    overflow-wrap: anywhere;
   }
 
   .ess-{{ section.id }} .ess__heading em {
@@ -191,7 +197,7 @@
     opacity: 1;
   }
 
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 989px) {
     .ess-{{ section.id }} .ess__grid {
       grid-template-columns: 1fr;
       gap: {{ section.settings.mobile_gap }}px;
@@ -341,7 +347,7 @@
       "type": "range",
       "id": "columns_gap",
       "label": "Gap colonnes (desktop)",
-      "min": 12,
+      "min": 0,
       "max": 120,
       "step": 2,
       "unit": "px",
@@ -351,7 +357,7 @@
       "type": "range",
       "id": "mobile_gap",
       "label": "Gap (mobile)",
-      "min": 10,
+      "min": 0,
       "max": 60,
       "step": 2,
       "unit": "px",
@@ -465,7 +471,7 @@
       "type": "range",
       "id": "items_gap",
       "label": "Gap entre les cards",
-      "min": 6,
+      "min": 0,
       "max": 48,
       "step": 1,
       "unit": "px",
@@ -515,7 +521,7 @@
       "type": "range",
       "id": "slider_padding_bottom",
       "label": "Espace au-dessus de la barre",
-      "min": 10,
+      "min": 0,
       "max": 40,
       "step": 1,
       "unit": "px",
