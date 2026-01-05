@@ -117,26 +117,26 @@
     display: flex;
     gap: var(--ess-items-gap);
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     scroll-padding-inline: 1px;
     -webkit-overflow-scrolling: touch;
     padding: 0;
     margin: 0;
     list-style: none;
     scrollbar-width: none;
-    cursor: grab;
   }
   .ess-{{ section.id }} .ess__scroller::-webkit-scrollbar {
     display: none;
   }
 
-  .ess-{{ section.id }}.is-dragging .ess__scroller {
-    cursor: grabbing;
+  .ess-{{ section.id }}.is-dragging {
     user-select: none;
   }
 
+  .ess-{{ section.id }}.has-cursor [data-ess-scroller] {
+    cursor: none;
+  }
+
   .ess-{{ section.id }} .ess__item {
-    scroll-snap-align: start;
     flex: 0 0 auto;
     min-width: var(--ess-slide-min);
     max-width: 22rem;
@@ -358,14 +358,38 @@
       }
 
       if (finePointer && cursorEl) {
+        root.classList.add('is-fine');
         var isDown = false;
         var startX = 0;
         var startLeft = 0;
+        var lastX = 0;
+        var lastT = 0;
+        var velocity = 0;
+        var inertiaRaf = 0;
 
         function moveCursor(e) {
           if (!e) return;
           root.classList.add('has-cursor');
           cursorEl.style.transform = 'translate(' + (e.clientX + 10) + 'px,' + (e.clientY + 10) + 'px)';
+        }
+
+        function stopInertia() {
+          if (inertiaRaf) {
+            cancelAnimationFrame(inertiaRaf);
+            inertiaRaf = 0;
+          }
+        }
+
+        function startInertia() {
+          stopInertia();
+          function step() {
+            if (isDown) return;
+            velocity *= 0.94;
+            if (Math.abs(velocity) < 0.02) return;
+            scroller.scrollLeft = scroller.scrollLeft - velocity * 16;
+            inertiaRaf = requestAnimationFrame(step);
+          }
+          inertiaRaf = requestAnimationFrame(step);
         }
 
         scroller.addEventListener('mouseenter', function () {
@@ -378,22 +402,38 @@
           root.classList.remove('is-dragging');
           isDown = false;
           cursorEl.textContent = '✋';
+          stopInertia();
         });
 
         scroller.addEventListener('mousemove', function (e) {
           moveCursor(e);
           if (!isDown) return;
+          e.preventDefault();
           var dx = e.clientX - startX;
           scroller.scrollLeft = startLeft - dx;
+
+          var now = Date.now();
+          var dt = now - lastT;
+          if (dt > 0) {
+            var vx = (e.clientX - lastX) / dt;
+            velocity = vx * 120;
+            lastX = e.clientX;
+            lastT = now;
+          }
         });
 
         scroller.addEventListener('mousedown', function (e) {
           if (e.button !== 0) return;
+          stopInertia();
           isDown = true;
           startX = e.clientX;
           startLeft = scroller.scrollLeft;
           root.classList.add('is-dragging');
           cursorEl.textContent = '🤏';
+          lastX = e.clientX;
+          lastT = Date.now();
+          velocity = 0;
+          e.preventDefault();
         });
 
         window.addEventListener('mouseup', function () {
@@ -401,7 +441,12 @@
           isDown = false;
           root.classList.remove('is-dragging');
           cursorEl.textContent = '✋';
+          startInertia();
         });
+
+        scroller.addEventListener('wheel', function () {
+          stopInertia();
+        }, { passive: true });
       }
     })();
   </script>
