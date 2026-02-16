@@ -989,25 +989,26 @@ For inquiries or permissions, contact daniel@section.store
           margin-top: {{ block.settings.icon_mt_mobile }}px;
         }
 
-        .testimonials-icon-{{ block.id }} svg {
+        .testimonials-icon-{{ block.id }} img {
           width: {{ block.settings.icon_size_mobile }}px;
           height: auto;
-          max-height: {{ block.settings.icon_size_mobile }}px;
+          object-fit: contain;
         }
 
-        {% if block.settings.icon_use_custom_color %}
-          .testimonials-icon-{{ block.id }} svg,
-          .testimonials-icon-{{ block.id }} svg path,
-          .testimonials-icon-{{ block.id }} svg circle,
-          .testimonials-icon-{{ block.id }} svg rect,
-          .testimonials-icon-{{ block.id }} svg polygon,
-          .testimonials-icon-{{ block.id }} svg line,
-          .testimonials-icon-{{ block.id }} svg polyline,
-          .testimonials-icon-{{ block.id }} svg ellipse {
-            fill: {{ block.settings.icon_color }} !important;
-            color: {{ block.settings.icon_color }};
-          }
-        {% endif %}
+        .testimonials-icon-{{ block.id }} .testimonials-icon-mask-{{ block.id }} {
+          display: inline-block;
+          width: {{ block.settings.icon_size_mobile }}px;
+          height: {{ block.settings.icon_size_mobile }}px;
+          background-color: {{ block.settings.icon_color }};
+          -webkit-mask-image: var(--icon-url);
+          mask-image: var(--icon-url);
+          -webkit-mask-size: contain;
+          mask-size: contain;
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-position: center;
+          mask-position: center;
+        }
 
         @media(min-width: 1024px) {
           .testimonials-icon-{{ block.id }} {
@@ -1015,9 +1016,13 @@ For inquiries or permissions, contact daniel@section.store
             margin-top: {{ block.settings.icon_mt }}px;
           }
 
-          .testimonials-icon-{{ block.id }} svg {
+          .testimonials-icon-{{ block.id }} img {
             width: {{ block.settings.icon_size }}px;
-            max-height: {{ block.settings.icon_size }}px;
+          }
+
+          .testimonials-icon-{{ block.id }} .testimonials-icon-mask-{{ block.id }} {
+            width: {{ block.settings.icon_size }}px;
+            height: {{ block.settings.icon_size }}px;
           }
         }
       </style>
@@ -1064,8 +1069,14 @@ For inquiries or permissions, contact daniel@section.store
               {% endif %} 
 
             {% when 'icon' %}
-              {% if block.settings.icon_svg != blank %}
-                <div class="testimonials-icon-{{ block.id }}">{{ block.settings.icon_svg }}</div>
+              {% if block.settings.icon_image != blank %}
+                <div class="testimonials-icon-{{ block.id }}">
+                  {% if block.settings.icon_use_custom_color %}
+                    <div class="testimonials-icon-mask-{{ block.id }}" style="--icon-url: url('{{ block.settings.icon_image | image_url: width: 600 }}');"></div>
+                  {% else %}
+                    <img src="{{ block.settings.icon_image | image_url: width: 600 }}" alt="{{ block.settings.icon_image.alt | default: 'Icon' }}" {% if lazy %}loading="lazy"{% endif %}>
+                  {% endif %}
+                </div>
               {% endif %}
 
           {% endcase %}
@@ -2635,10 +2646,9 @@ For inquiries or permissions, contact daniel@section.store
         "name": "Icon SVG",
         "settings": [
           {
-            "type": "html",
-            "id": "icon_svg",
-            "label": "SVG code",
-            "info": "Paste your SVG code here"
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon image"
           },
           {
             "type": "header",
