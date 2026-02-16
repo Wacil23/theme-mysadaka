@@ -11,6 +11,9 @@
   "markets": {
     "royaume-uni": {
       "parent": "@default"
+    },
+    "cana": {
+      "parent": "@default"
     }
   }
 }

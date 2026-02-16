@@ -489,333 +489,16 @@
       "type": "separateur-avec-texte",
       "name": "Séparateur avec texte",
       "settings": {
-        "text": "Des milliers de clients nous font confiance",
+        "text": "",
         "text_tag": "p",
         "width_mode": "full",
         "custom_width": 80,
         "text_color": "#6b7280",
         "line_color": "#d1d5db",
         "line_thickness": 1,
-        "font_size": 14,
-        "gap": 16,
+        "font_size": 10,
+        "gap": 6,
         "padding_y": 18
-      }
-    },
-    "rich_text_eC7MXb": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_7K3Pxg": {
-          "type": "heading",
-          "settings": {
-            "heading": "+50.000 Musulmans témoignent",
-            "heading_size": "medium",
-            "heading_level": "h2"
-          }
-        },
-        "text_6KDjUV": {
-          "type": "text",
-          "settings": {
-            "text": "<p>This section should be structured clearly, ensuring the reader understands the purpose and value of the content</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_7K3Pxg",
-        "text_6KDjUV"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "",
-        "full_width": true,
-        "alignment": "center",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent",
-        "padding_top": "xs",
-        "padding_bottom": "no-indent"
-      }
-    },
-    "ss_testimonials_8_pro_zNmhMG": {
-      "type": "ss-testimonials-8-pro",
-      "blocks": {
-        "rating_pYbdMy": {
-          "type": "rating",
-          "settings": {
-            "rating_mt": 16,
-            "rating_mt_mobile": 16,
-            "rating_text": "<p>Excellent 4.9/5</p>",
-            "rating_custom": false,
-            "rating_font": "josefin_sans_n4",
-            "rating_size": 16,
-            "rating_size_mobile": 14,
-            "rating_height": 130,
-            "stars_count": 4.5,
-            "stars_size": 28,
-            "stars_size_mobile": 24,
-            "stars_gap": 2,
-            "rating_border": "none",
-            "rating_border_thickness": 1,
-            "rating_border_color": "#121212",
-            "rating_radius": 8,
-            "rating_bg_color": "rgba(0,0,0,0)",
-            "use_shadow": false,
-            "shadow_color": "#959da5",
-            "rating_padding_horizontal": 0,
-            "rating_padding_horizontal_mobile": 0,
-            "rating_padding_vertical": 0,
-            "rating_padding_vertical_mobile": 0,
-            "rating_color": "#121212",
-            "stars_color": "#ffffff",
-            "stars_bg_color": "#00b67a",
-            "stars_bg_half_color": "#dddddd"
-          }
-        },
-        "testimonial_EGh3AJ": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Je recommande vivement. La vidéo du dépôt du fauteuil fait chaud au cœur… Les duʿâ de l’étudiant m’ont vraiment émue.</p>",
-            "author": "S.O",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_EJnRnY": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>J’ai eu des frissons en voyant les vidéos… un moment très intense, qui touche profondément le cœur.</p>",
-            "author": "Bea",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_6pppCN": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>J’ai été émue en voyant la vidéo de la sadaqa “fauteuil roulant” faite pour mon père. BarakAllahou fikoum.</p>",
-            "author": "F.M",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_ETX9yx": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Vidéos bien reçues pour plusieurs fauteuils roulants… Ma maman était très heureuse de ce cadeau, vraiment émue.</p>",
-            "author": "Linda",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_f73q3U": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Sadaqa d’un fauteuil roulant pour une personne décédée… équipe très réactive, et la vidéo est superbe.</p>",
-            "author": "Marine Antunes",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_TWAC9K": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Première expérience avec MySadaka… sadaqa dédiée à mon père, mon grand-père, et ma mère actuellement malade.</p>",
-            "author": "Jasmine",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_WwCDJ6": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>C’est avec émotion que je reçois les vidéos du dépôt… merci pour le sérieux et la rapidité, qu’Allah accepte.</p>",
-            "author": "Samira",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_dBqGXV": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Très heureuse d’avoir les vidéos de la sadaqa pour ma mère et moi… mention spéciale à l’étudiant.</p>",
-            "author": "Chaima Lahmar",
-            "verified": "Avis vérifié",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        },
-        "testimonial_Ny9ibe": {
-          "type": "testimonial",
-          "settings": {
-            "title": "",
-            "text": "<p>Je recommande à 100%… vidéos visionnées avec beaucoup d’émotions, qu’Allah accepte.</p>",
-            "author": "Sara A.",
-            "verified": "Verified customer",
-            "use_icon": true,
-            "stars_count": 5
-          }
-        }
-      },
-      "block_order": [
-        "rating_pYbdMy",
-        "testimonial_EGh3AJ",
-        "testimonial_EJnRnY",
-        "testimonial_6pppCN",
-        "testimonial_ETX9yx",
-        "testimonial_f73q3U",
-        "testimonial_TWAC9K",
-        "testimonial_WwCDJ6",
-        "testimonial_dBqGXV",
-        "testimonial_Ny9ibe"
-      ],
-      "name": "SS - Testimonials #8 pro",
-      "settings": {
-        "content_align": "center",
-        "content_align_mobile": "center",
-        "slider_view": 4,
-        "slider_view_mobile": 1.2,
-        "slider_gap": 24,
-        "slider_gap_mobile": 12,
-        "slider_mt": 40,
-        "slider_mt_mobile": 30,
-        "autoplay": false,
-        "autoplay_delay": 4,
-        "slide_padding_horizontal": 40,
-        "slide_padding_horizontal_mobile": 24,
-        "slide_padding_vertical": 30,
-        "slide_padding_vertical_mobile": 24,
-        "slide_radius": 16,
-        "slide_border_thickness": 0,
-        "slide_shadow": false,
-        "slide_shadow_color": "#959da5",
-        "uniform_slide_height": true,
-        "slide_content_align": "left",
-        "slide_content_align_mobile": "left",
-        "slide_stars_size": 28,
-        "slide_stars_size_mobile": 24,
-        "slide_stars_gap": 2,
-        "title_custom": false,
-        "title_font": "josefin_sans_n4",
-        "title_size": 14,
-        "title_size_mobile": 14,
-        "title_height": 130,
-        "title_mt": 16,
-        "title_mt_mobile": 12,
-        "text_custom": false,
-        "text_font": "josefin_sans_n4",
-        "text_size": 14,
-        "text_size_mobile": 14,
-        "text_height": 150,
-        "text_mt": 20,
-        "text_mt_mobile": 16,
-        "text_border_thickness": 2,
-        "author_image_size": 42,
-        "author_image_size_mobile": 42,
-        "author_image_radius": 100,
-        "author_image_border_thickness": 0,
-        "author_custom": false,
-        "author_font": "josefin_sans_n4",
-        "author_size": 14,
-        "author_size_mobile": 12,
-        "author_height": 130,
-        "author_mt": 16,
-        "author_mt_mobile": 12,
-        "verified_custom": false,
-        "verified_font": "josefin_sans_n4",
-        "verified_size": 12,
-        "verified_size_mobile": 10,
-        "verified_height": 130,
-        "verified_mt": 4,
-        "verified_mt_mobile": 4,
-        "arrow_show_desktop": true,
-        "arrow_show_mobile": false,
-        "arrow_size": 48,
-        "arrow_size_mobile": 38,
-        "arrow_icon_size": 10,
-        "arrow_icon_size_mobile": 8,
-        "arrow_border_thickness": 0,
-        "arrow_radius": 100,
-        "arrow_hover_effect": "color",
-        "arrow_shadow": true,
-        "title_color": "#121212",
-        "text_color": "#121212",
-        "text_border_color": "#dedede",
-        "author_color": "#121212",
-        "verified_color": "#121212",
-        "verified_icon_color": "#00b67a",
-        "slide_bg_color": "#ffffff",
-        "slide_border_color": "#121212",
-        "slide_stars_color": "#ffac00",
-        "slide_stars_bg_color": "#ffffff",
-        "slide_stars_bg_half_color": "#dddddd",
-        "author_image_color": "#020202",
-        "author_image_bg_color": "#fff3e4",
-        "author_image_border_color": "#121212",
-        "arrow_color": "#121212",
-        "arrow_hover_color": "#121212",
-        "arrow_bg_color": "#ffffff",
-        "arrow_bg_hover_color": "#fcfcfc",
-        "arrow_border_color": "#c7c7c7",
-        "arrow_border_hover_color": "#c7c7c7",
-        "background_style": "gradient",
-        "background_color": "#ffffff",
-        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 243, 1) 100%, rgba(176, 247, 147, 1) 150%)",
-        "border_color": "#121212",
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "margin_horizontal": 0,
-        "margin_horizontal_mobile": 0,
-        "padding_top": 36,
-        "padding_bottom": 0,
-        "padding_horizontal": 5,
-        "padding_horizontal_mobile": 1.5,
-        "full_width": true,
-        "content_width": 1200,
-        "border_thickness": 0,
-        "section_radius": 0,
-        "lazy": true
-      }
-    },
-    "rich_text_9GBPNW": {
-      "type": "rich-text",
-      "blocks": {
-        "button_JAztk8": {
-          "type": "button",
-          "settings": {
-            "button_label": "Découvrir plus de témoignages",
-            "button_link": "shopify://products/mon-fauteuil-roulant-a-makkah",
-            "button_style": "primary"
-          }
-        }
-      },
-      "block_order": [
-        "button_JAztk8"
-      ],
-      "custom_css": [
-        ".rich-text.rich-text--full-width.rich-text--align-center {background: #faf6f3;}"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "color_scheme": "scheme-b5e79bca-07cd-4cf8-b8b4-4ce55a4cca52",
-        "full_width": true,
-        "alignment": "center",
-        "margin_top": "no-indent",
-        "margin_bottom": "no-indent",
-        "padding_top": "no-indent",
-        "padding_bottom": "m"
       }
     },
     "efficacy_stats_slider_pBdnwg": {
@@ -984,6 +667,264 @@
         "lazy": true
       }
     },
+    "ss_testimonials_48_kXNCkD": {
+      "type": "ss-testimonials-48",
+      "blocks": {
+        "sub_heading_PtkpCp": {
+          "type": "sub_heading",
+          "settings": {
+            "sub_heading": "<p>HALF OF THE STOCK IS ALREADY SOLD!</p>",
+            "sub_heading_custom": false,
+            "sub_heading_font": "josefin_sans_n4",
+            "sub_heading_size": 12,
+            "sub_heading_size_mobile": 12,
+            "sub_heading_advanced": false,
+            "sub_heading_height": 130,
+            "sub_heading_mt": 0,
+            "sub_heading_mt_mobile": 0,
+            "background": true,
+            "sub_heading_radius": 100,
+            "sub_heading_border_thickness": 0,
+            "sub_heading_padding_horizontal": 16,
+            "sub_heading_padding_horizontal_mobile": 12,
+            "sub_heading_padding_vertical": 8,
+            "sub_heading_padding_vertical_mobile": 6,
+            "sub_heading_color": "#121212",
+            "sub_heading_bg_color": "#F7F7F7",
+            "sub_heading_border_color": "#121212"
+          }
+        },
+        "heading_9MMqCt": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h2><strong>+50 000</strong> Musulmans témoignent</h2>",
+            "heading_custom": true,
+            "heading_font": "poppins_n5",
+            "heading_accent_font": "poppins_n7",
+            "heading_size": 32,
+            "heading_size_mobile": 22,
+            "heading_advanced": true,
+            "heading_height": 130,
+            "heading_mt": 16,
+            "heading_mt_mobile": 16,
+            "heading_color": "#121212",
+            "heading_accent_color": "#006d6c"
+          }
+        },
+        "text_7Ek4Ft": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This section should be structured clearly, ensuring the reader understands the purpose and value of the content</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_advanced": true,
+            "text_height": 150,
+            "text_max_width": 34,
+            "text_max_width_mobile": 100,
+            "text_mt": 16,
+            "text_mt_mobile": 16,
+            "text_color": "#121212"
+          }
+        },
+        "button_UMykLh": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button": "Voir plus d'avis",
+            "url": "",
+            "open_in_new_tab": false,
+            "button_style": "outline",
+            "button_custom": false,
+            "button_font": "josefin_sans_n4",
+            "button_size": 14,
+            "button_size_mobile": 14,
+            "button_advanced": false,
+            "button_height": 100,
+            "button_padding_horizontal": 32,
+            "button_padding_horizontal_mobile": 32,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_radius": 100,
+            "button_border_thickness": 1,
+            "button_mt": 24,
+            "button_mt_mobile": 16,
+            "use_shadow": false,
+            "button_color": "#ffffff",
+            "button_hover_color": "#FFFFFF",
+            "button_bg_color": "#efae45",
+            "button_bg_hover_color": "#efae45",
+            "button_border_color": "#ffffff",
+            "button_border_hover_color": "#ffffff"
+          }
+        },
+        "testimonial_T9VnGz": {
+          "type": "testimonial",
+          "settings": {
+            "stars_count": 5,
+            "text": "<p>Je suis passée par mysadaka pour faire un don en l ́honneur de mon defunt frere. J ́ai reçu une confirmation et une video deposant le coran au nom de mon frere . Je les recommande les yeux fermes et un grand merci qu’allah nous guide.</p>",
+            "author": "Sousou Ben",
+            "subcopy_author": "🇫🇷 FR • 4 avis",
+            "author_image": "shopify://shop_images/sousouben.png"
+          }
+        },
+        "testimonial_QDqrMq": {
+          "type": "testimonial",
+          "settings": {
+            "stars_count": 5,
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "subcopy_author": "Subcoppy"
+          }
+        },
+        "testimonial_FKryBf": {
+          "type": "testimonial",
+          "settings": {
+            "stars_count": 5,
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "subcopy_author": "Subcoppy"
+          }
+        },
+        "testimonial_zDHanH": {
+          "type": "testimonial",
+          "settings": {
+            "stars_count": 5,
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "author": "Author's name",
+            "subcopy_author": "Subcoppy"
+          }
+        }
+      },
+      "block_order": [
+        "sub_heading_PtkpCp",
+        "heading_9MMqCt",
+        "text_7Ek4Ft",
+        "button_UMykLh",
+        "testimonial_T9VnGz",
+        "testimonial_QDqrMq",
+        "testimonial_FKryBf",
+        "testimonial_zDHanH"
+      ],
+      "name": "SS - Testimonials #48",
+      "settings": {
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "scrolling_velocity": 40,
+        "scrolling_velocity_mobile": 40,
+        "reverse_direction": false,
+        "pause_hover": true,
+        "slider_advanced": false,
+        "scrolling_gap": 16,
+        "scrolling_gap_mobile": 16,
+        "cards_mt": 32,
+        "cards_mt_mobile": 16,
+        "card_padding_advanced": true,
+        "card_width": 400,
+        "card_width_mobile": 290,
+        "card_padding_horizontal": 30,
+        "card_padding_horizontal_mobile": 26,
+        "card_padding_vertical": 30,
+        "card_padding_vertical_mobile": 26,
+        "card_radius": 10,
+        "card_border_thickness": 0,
+        "card_shadow": true,
+        "card_shadow_color": "#b1b1b1",
+        "card_content_align": "left",
+        "card_content_align_mobile": "left",
+        "author_image_size": 42,
+        "author_image_size_mobile": 42,
+        "author_image_radius": 40,
+        "author_image_border_thickness": 0,
+        "author_custom": true,
+        "author_font": "poppins_n5",
+        "author_size": 14,
+        "author_size_mobile": 14,
+        "author_height": 130,
+        "subcopy_author_custom": false,
+        "subcopy_author_font": "josefin_sans_n4",
+        "subcopy_author_size": 12,
+        "subcopy_author_size_mobile": 12,
+        "subcopy_advanced": false,
+        "subcopy_author_height": 130,
+        "subcopy_author_mt": 4,
+        "subcopy_author_mt_mobile": 4,
+        "subcopy_text_length": 24,
+        "slide_stars_size": 18,
+        "slide_stars_size_mobile": 18,
+        "slide_stars_advanced": false,
+        "slide_stars_gap": 2,
+        "slide_stars_mt": 10,
+        "slide_stars_mt_mobile": 10,
+        "text_custom": false,
+        "text_font": "josefin_sans_n4",
+        "text_size": 14,
+        "text_size_mobile": 12,
+        "text_advanced": true,
+        "text_height": 150,
+        "text_mt": 20,
+        "text_mt_mobile": 14,
+        "text_color": "#121212",
+        "text_bg_color": "#fffaa4",
+        "author_color": "#000000",
+        "subcopy_author_color": "#6e6e6e",
+        "card_bg_color": "#FFFFFF",
+        "card_border_color": "#121212",
+        "slide_stars_color": "#FFFFFF",
+        "slide_stars_bg_color": "#00B67A",
+        "slide_stars_bg_half_color": "#DDDDDD",
+        "author_image_color": "#FFFFFF",
+        "author_image_bg_color": "#e4e4e4",
+        "author_image_border_color": "#121212",
+        "background_style": "gradient",
+        "background_color": "#FFFFFF",
+        "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 243, 1) 100%)",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 20,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "width": "page",
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "rich_text_9GBPNW": {
+      "type": "rich-text",
+      "blocks": {
+        "button_JAztk8": {
+          "type": "button",
+          "settings": {
+            "button_label": "Découvrir plus de témoignages",
+            "button_link": "shopify://products/mon-fauteuil-roulant-a-makkah",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "button_JAztk8"
+      ],
+      "custom_css": [
+        ".rich-text.rich-text--full-width.rich-text--align-center {background: #faf6f3;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "scheme-b5e79bca-07cd-4cf8-b8b4-4ce55a4cca52",
+        "full_width": true,
+        "alignment": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "no-indent",
+        "padding_bottom": "m"
+      }
+    },
     "17668814935de4826b": {
       "type": "apps",
       "blocks": {
@@ -1113,11 +1054,10 @@
     "ss_tabs_block_JDcrAp",
     "176688954139a47093",
     "separateur_avec_texte_PcBFEH",
-    "rich_text_eC7MXb",
-    "ss_testimonials_8_pro_zNmhMG",
-    "rich_text_9GBPNW",
     "efficacy_stats_slider_pBdnwg",
     "text_with_progress_bar_FECBpy",
+    "ss_testimonials_48_kXNCkD",
+    "rich_text_9GBPNW",
     "17668814935de4826b",
     "product-recommendations",
     "9b6afe8a-c2c6-4c06-ab47-03a55d729b4b"
