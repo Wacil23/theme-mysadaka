@@ -670,28 +670,19 @@
     "ss_testimonials_48_kXNCkD": {
       "type": "ss-testimonials-48",
       "blocks": {
-        "sub_heading_PtkpCp": {
-          "type": "sub_heading",
+        "icon_XMrG76": {
+          "type": "icon",
           "settings": {
-            "sub_heading": "<p>HALF OF THE STOCK IS ALREADY SOLD!</p>",
-            "sub_heading_custom": false,
-            "sub_heading_font": "josefin_sans_n4",
-            "sub_heading_size": 12,
-            "sub_heading_size_mobile": 12,
-            "sub_heading_advanced": false,
-            "sub_heading_height": 130,
-            "sub_heading_mt": 0,
-            "sub_heading_mt_mobile": 0,
-            "background": true,
-            "sub_heading_radius": 100,
-            "sub_heading_border_thickness": 0,
-            "sub_heading_padding_horizontal": 16,
-            "sub_heading_padding_horizontal_mobile": 12,
-            "sub_heading_padding_vertical": 8,
-            "sub_heading_padding_vertical_mobile": 6,
-            "sub_heading_color": "#121212",
-            "sub_heading_bg_color": "#F7F7F7",
-            "sub_heading_border_color": "#121212"
+            "icon_image": "shopify://shop_images/FR_TRUSTPILOT.svg",
+            "icon_size": 200,
+            "icon_size_mobile": 160,
+            "icon_align": "center",
+            "icon_align_mobile": "center",
+            "icon_advanced": false,
+            "icon_mt": 16,
+            "icon_mt_mobile": 16,
+            "icon_use_custom_color": false,
+            "icon_color": "#121212"
           }
         },
         "heading_9MMqCt": {
@@ -705,8 +696,8 @@
             "heading_size_mobile": 22,
             "heading_advanced": true,
             "heading_height": 130,
-            "heading_mt": 16,
-            "heading_mt_mobile": 16,
+            "heading_mt": 32,
+            "heading_mt_mobile": 26,
             "heading_color": "#121212",
             "heading_accent_color": "#006d6c"
           }
@@ -752,7 +743,7 @@
             "button_mt_mobile": 16,
             "use_shadow": false,
             "button_color": "#ffffff",
-            "button_hover_color": "#FFFFFF",
+            "button_hover_color": "#ffffff",
             "button_bg_color": "#efae45",
             "button_bg_hover_color": "#efae45",
             "button_border_color": "#ffffff",
@@ -798,7 +789,7 @@
         }
       },
       "block_order": [
-        "sub_heading_PtkpCp",
+        "icon_XMrG76",
         "heading_9MMqCt",
         "text_7Ek4Ft",
         "button_UMykLh",
@@ -869,16 +860,16 @@
         "text_bg_color": "#fffaa4",
         "author_color": "#000000",
         "subcopy_author_color": "#6e6e6e",
-        "card_bg_color": "#FFFFFF",
+        "card_bg_color": "#ffffff",
         "card_border_color": "#121212",
-        "slide_stars_color": "#FFFFFF",
-        "slide_stars_bg_color": "#00B67A",
-        "slide_stars_bg_half_color": "#DDDDDD",
-        "author_image_color": "#FFFFFF",
+        "slide_stars_color": "#ffffff",
+        "slide_stars_bg_color": "#00b67a",
+        "slide_stars_bg_half_color": "#dddddd",
+        "author_image_color": "#ffffff",
         "author_image_bg_color": "#e4e4e4",
         "author_image_border_color": "#121212",
         "background_style": "gradient",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 243, 1) 100%)",
         "border_color": "#121212",
         "margin_top": 0,
@@ -923,6 +914,103 @@
         "margin_bottom": "no-indent",
         "padding_top": "no-indent",
         "padding_bottom": "m"
+      }
+    },
+    "rich_text_ANqLQ6": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_LTaYyf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ce que le Prophète ﷺ dit",
+            "heading_size": "medium",
+            "heading_level": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_LTaYyf"
+      ],
+      "custom_css": [
+        ".rich-text.rich-text--full-width.rich-text--align-center {background: #faf6f3;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "scheme-b5e79bca-07cd-4cf8-b8b4-4ce55a4cca52",
+        "full_width": true,
+        "alignment": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "ss_hadith_UWHxLt": {
+      "type": "ss-hadith",
+      "blocks": {
+        "hadith_fgE6rg": {
+          "type": "hadith",
+          "settings": {
+            "hadith_text": "<p>\"Lorsque la personne meurt, ses actes lui sont coupés à l'exception de trois choses : une aumône continue, une science dont les gens profitent et un enfant pieux qui invoque pour lui.\"</p>"
+          }
+        }
+      },
+      "block_order": [
+        "hadith_fgE6rg"
+      ],
+      "name": "SS - Hadith",
+      "settings": {
+        "background_color": "#faf6f3",
+        "content_max_width": 630,
+        "section_radius": 0,
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "padding_horizontal": 20,
+        "padding_horizontal_mobile": 16,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bismillah_text": "",
+        "bismillah_use_custom_font": false,
+        "bismillah_font": "josefin_sans_n4",
+        "bismillah_size": 32,
+        "bismillah_size_mobile": 24,
+        "bismillah_color": "#3D2E1F",
+        "bismillah_mb": 0,
+        "separator_show": false,
+        "separator_width": 40,
+        "separator_thickness": 1,
+        "separator_radius": 0,
+        "separator_color": "#e4dfdb",
+        "separator_mb": 24,
+        "hadith_use_custom_font": true,
+        "hadith_font": "poppins_n3",
+        "hadith_font_style": "normal",
+        "hadith_size": 16,
+        "hadith_size_mobile": 14,
+        "hadith_line_height": 170,
+        "hadith_spacing": 12,
+        "hadith_color": "#000000",
+        "prophet_text": "Prophète Muhammad ﷺ",
+        "prophet_use_custom_font": false,
+        "prophet_font": "josefin_sans_n4",
+        "prophet_size": 16,
+        "prophet_size_mobile": 14,
+        "prophet_color": "#543a20",
+        "prophet_mt": 36,
+        "prophet_show_lines": true,
+        "prophet_line_width": 40,
+        "prophet_line_thickness": 1,
+        "prophet_line_gap": 12,
+        "prophet_line_color": "#C4A882",
+        "references_text": "Sahih Muslim n°1631",
+        "references_use_custom_font": false,
+        "references_font": "josefin_sans_n4",
+        "references_size": 12,
+        "references_size_mobile": 11,
+        "references_color": "#8B7B6B",
+        "references_mt": 8
       }
     },
     "17668814935de4826b": {
@@ -1058,6 +1146,8 @@
     "text_with_progress_bar_FECBpy",
     "ss_testimonials_48_kXNCkD",
     "rich_text_9GBPNW",
+    "rich_text_ANqLQ6",
+    "ss_hadith_UWHxLt",
     "17668814935de4826b",
     "product-recommendations",
     "9b6afe8a-c2c6-4c06-ab47-03a55d729b4b"
