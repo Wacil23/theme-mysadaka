@@ -1,0 +1,730 @@
+{%- liquid 
+  assign background_color = section.settings.background_color
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign padding_top_mobile = section.settings.padding_top_mobile
+  assign padding_bottom_mobile = section.settings.padding_bottom_mobile
+  assign padding_horizontal = section.settings.padding_horizontal
+  assign padding_horizontal_mobile = section.settings.padding_horizontal_mobile
+  assign margin_top = section.settings.margin_top
+  assign margin_bottom = section.settings.margin_bottom
+  assign content_max_width = section.settings.content_max_width
+  assign section_radius = section.settings.section_radius
+-%}
+
+<style>
+  {% if section.settings.bismillah_use_custom_font %}
+    {{ section.settings.bismillah_font | font_face: font_display: 'swap' }}
+  {% endif %}
+  {% if section.settings.hadith_use_custom_font %}
+    {{ section.settings.hadith_font | font_face: font_display: 'swap' }}
+  {% endif %}
+  {% if section.settings.prophet_use_custom_font %}
+    {{ section.settings.prophet_font | font_face: font_display: 'swap' }}
+  {% endif %}
+  {% if section.settings.references_use_custom_font %}
+    {{ section.settings.references_font | font_face: font_display: 'swap' }}
+  {% endif %}
+
+  /* Section */
+  .hadith-section-{{ section.id }} {
+    background-color: {{ background_color }};
+    padding: {{ padding_top_mobile }}px {{ padding_horizontal_mobile }}px {{ padding_bottom_mobile }}px;
+    margin: {{ margin_top }}px 0 {{ margin_bottom }}px;
+    border-radius: {{ section_radius }}px;
+  }
+
+  .hadith-container-{{ section.id }} {
+    max-width: {{ content_max_width }}px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Bismillah */
+  .hadith-bismillah-{{ section.id }} {
+    font-size: {{ section.settings.bismillah_size_mobile }}px;
+    color: {{ section.settings.bismillah_color }};
+    margin-bottom: {{ section.settings.bismillah_mb }}px;
+    line-height: 1.8;
+  }
+
+  {% if section.settings.bismillah_use_custom_font %}
+    .hadith-bismillah-{{ section.id }} {
+      font-family: {{ section.settings.bismillah_font.family }}, {{ section.settings.bismillah_font.fallback_families }};
+      font-weight: {{ section.settings.bismillah_font.weight }};
+      font-style: {{ section.settings.bismillah_font.style }};
+    }
+  {% endif %}
+
+  /* Separator */
+  .hadith-separator-{{ section.id }} {
+    width: {{ section.settings.separator_width }}px;
+    height: {{ section.settings.separator_thickness }}px;
+    background-color: {{ section.settings.separator_color }};
+    margin-bottom: {{ section.settings.separator_mb }}px;
+    border-radius: {{ section.settings.separator_radius }}px;
+  }
+
+  /* Hadith texts */
+  .hadith-texts-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.hadith_spacing }}px;
+    width: 100%;
+  }
+
+  .hadith-text-{{ section.id }} {
+    text-align: center;
+  }
+
+  .hadith-text-{{ section.id }} * {
+    margin: 0;
+    font-size: {{ section.settings.hadith_size_mobile }}px;
+    color: {{ section.settings.hadith_color }};
+    line-height: {{ section.settings.hadith_line_height }}%;
+    font-style: {{ section.settings.hadith_font_style }};
+    text-decoration: none;
+    word-break: break-word;
+  }
+
+  {% if section.settings.hadith_use_custom_font %}
+    .hadith-text-{{ section.id }} * {
+      font-family: {{ section.settings.hadith_font.family }}, {{ section.settings.hadith_font.fallback_families }};
+      font-weight: {{ section.settings.hadith_font.weight }};
+    }
+  {% endif %}
+
+  /* Prophet */
+  .hadith-prophet-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ section.settings.prophet_line_gap }}px;
+    margin-top: {{ section.settings.prophet_mt }}px;
+  }
+
+  .hadith-prophet-text-{{ section.id }} {
+    font-size: {{ section.settings.prophet_size_mobile }}px;
+    color: {{ section.settings.prophet_color }};
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  {% if section.settings.prophet_use_custom_font %}
+    .hadith-prophet-text-{{ section.id }} {
+      font-family: {{ section.settings.prophet_font.family }}, {{ section.settings.prophet_font.fallback_families }};
+      font-weight: {{ section.settings.prophet_font.weight }};
+      font-style: {{ section.settings.prophet_font.style }};
+    }
+  {% endif %}
+
+  .hadith-prophet-line-{{ section.id }} {
+    display: inline-block;
+    width: {{ section.settings.prophet_line_width }}px;
+    height: {{ section.settings.prophet_line_thickness }}px;
+    background-color: {{ section.settings.prophet_line_color }};
+    flex-shrink: 0;
+  }
+
+  /* References */
+  .hadith-references-{{ section.id }} {
+    font-size: {{ section.settings.references_size_mobile }}px;
+    color: {{ section.settings.references_color }};
+    margin-top: {{ section.settings.references_mt }}px;
+    line-height: 1.4;
+  }
+
+  {% if section.settings.references_use_custom_font %}
+    .hadith-references-{{ section.id }} {
+      font-family: {{ section.settings.references_font.family }}, {{ section.settings.references_font.fallback_families }};
+      font-weight: {{ section.settings.references_font.weight }};
+      font-style: {{ section.settings.references_font.style }};
+    }
+  {% endif %}
+
+  /* Desktop */
+  @media(min-width: 1024px) {
+    .hadith-section-{{ section.id }} {
+      padding: {{ padding_top }}px {{ padding_horizontal }}px {{ padding_bottom }}px;
+    }
+
+    .hadith-bismillah-{{ section.id }} {
+      font-size: {{ section.settings.bismillah_size }}px;
+    }
+
+    .hadith-text-{{ section.id }} * {
+      font-size: {{ section.settings.hadith_size }}px;
+    }
+
+    .hadith-prophet-text-{{ section.id }} {
+      font-size: {{ section.settings.prophet_size }}px;
+    }
+
+    .hadith-references-{{ section.id }} {
+      font-size: {{ section.settings.references_size }}px;
+    }
+  }
+</style>
+
+<div class="hadith-section-{{ section.id }}">
+  <div class="hadith-container-{{ section.id }}">
+
+    {% if section.settings.bismillah_text != blank %}
+      <div class="hadith-bismillah-{{ section.id }}">{{ section.settings.bismillah_text }}</div>
+    {% endif %}
+
+    {% if section.settings.separator_show %}
+      <div class="hadith-separator-{{ section.id }}"></div>
+    {% endif %}
+
+    <div class="hadith-texts-{{ section.id }}">
+      {% for block in section.blocks %}
+        {% if block.type == 'hadith' %}
+          {% if block.settings.hadith_text != blank %}
+            <div class="hadith-text-{{ section.id }}" {{ block.shopify_attributes }}>
+              {{ block.settings.hadith_text }}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.prophet_text != blank %}
+      <div class="hadith-prophet-{{ section.id }}">
+        {% if section.settings.prophet_show_lines %}
+          <span class="hadith-prophet-line-{{ section.id }}"></span>
+        {% endif %}
+        <span class="hadith-prophet-text-{{ section.id }}">{{ section.settings.prophet_text }}</span>
+        {% if section.settings.prophet_show_lines %}
+          <span class="hadith-prophet-line-{{ section.id }}"></span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.references_text != blank %}
+      <div class="hadith-references-{{ section.id }}">{{ section.settings.references_text }}</div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "SS - Hadith",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#F5F0E8"
+      },
+      {
+        "type": "range",
+        "id": "content_max_width",
+        "min": 300,
+        "max": 1000,
+        "step": 10,
+        "unit": "px",
+        "label": "Content max width",
+        "default": 700
+      },
+      {
+        "type": "range",
+        "id": "section_radius",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "label": "Section roundness",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top - mobile",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom - mobile",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding horizontal",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_horizontal_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding horizontal - mobile",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Bismillah"
+      },
+      {
+        "type": "text",
+        "id": "bismillah_text",
+        "label": "Bismillah text",
+        "default": "﷽",
+        "info": "Unicode: ﷽ ou بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
+      },
+      {
+        "type": "checkbox",
+        "id": "bismillah_use_custom_font",
+        "label": "Use custom font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "bismillah_font",
+        "label": "Font family",
+        "default": "josefin_sans_n4",
+        "visible_if": "{{ section.settings.bismillah_use_custom_font }}"
+      },
+      {
+        "type": "range",
+        "id": "bismillah_size",
+        "min": 10,
+        "max": 80,
+        "step": 2,
+        "unit": "px",
+        "label": "Font size",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "bismillah_size_mobile",
+        "min": 10,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Font size - mobile",
+        "default": 24
+      },
+      {
+        "type": "color",
+        "id": "bismillah_color",
+        "label": "Color",
+        "default": "#3D2E1F"
+      },
+      {
+        "type": "range",
+        "id": "bismillah_mb",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Separator"
+      },
+      {
+        "type": "checkbox",
+        "id": "separator_show",
+        "label": "Show separator",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "separator_width",
+        "min": 10,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Width",
+        "default": 40,
+        "visible_if": "{{ section.settings.separator_show }}"
+      },
+      {
+        "type": "range",
+        "id": "separator_thickness",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "label": "Thickness",
+        "default": 1,
+        "visible_if": "{{ section.settings.separator_show }}"
+      },
+      {
+        "type": "range",
+        "id": "separator_radius",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "px",
+        "label": "Roundness",
+        "default": 0,
+        "visible_if": "{{ section.settings.separator_show }}"
+      },
+      {
+        "type": "color",
+        "id": "separator_color",
+        "label": "Color",
+        "default": "#C4A882",
+        "visible_if": "{{ section.settings.separator_show }}"
+      },
+      {
+        "type": "range",
+        "id": "separator_mb",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 24,
+        "visible_if": "{{ section.settings.separator_show }}"
+      },
+      {
+        "type": "header",
+        "content": "Hadith style"
+      },
+      {
+        "type": "checkbox",
+        "id": "hadith_use_custom_font",
+        "label": "Use custom font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "hadith_font",
+        "label": "Font family",
+        "default": "playfair_n4",
+        "visible_if": "{{ section.settings.hadith_use_custom_font }}"
+      },
+      {
+        "type": "select",
+        "id": "hadith_font_style",
+        "label": "Font style",
+        "default": "italic",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Italic",
+            "value": "italic"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "hadith_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "hadith_size_mobile",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size - mobile",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "hadith_line_height",
+        "min": 100,
+        "max": 250,
+        "step": 10,
+        "unit": "%",
+        "label": "Line height",
+        "default": 170
+      },
+      {
+        "type": "range",
+        "id": "hadith_spacing",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Spacing between hadiths",
+        "default": 12
+      },
+      {
+        "type": "color",
+        "id": "hadith_color",
+        "label": "Color",
+        "default": "#3D2E1F"
+      },
+      {
+        "type": "header",
+        "content": "Prophet"
+      },
+      {
+        "type": "text",
+        "id": "prophet_text",
+        "label": "Text",
+        "default": "Prophète Muhammad ﷺ"
+      },
+      {
+        "type": "checkbox",
+        "id": "prophet_use_custom_font",
+        "label": "Use custom font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "prophet_font",
+        "label": "Font family",
+        "default": "josefin_sans_n4",
+        "visible_if": "{{ section.settings.prophet_use_custom_font }}"
+      },
+      {
+        "type": "range",
+        "id": "prophet_size",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "prophet_size_mobile",
+        "min": 10,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size - mobile",
+        "default": 14
+      },
+      {
+        "type": "color",
+        "id": "prophet_color",
+        "label": "Text color",
+        "default": "#C17F3E"
+      },
+      {
+        "type": "range",
+        "id": "prophet_mt",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 20
+      },
+      {
+        "type": "header",
+        "content": "Prophet - Decorative lines"
+      },
+      {
+        "type": "checkbox",
+        "id": "prophet_show_lines",
+        "label": "Show lines",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "prophet_line_width",
+        "min": 10,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Line width",
+        "default": 40,
+        "visible_if": "{{ section.settings.prophet_show_lines }}"
+      },
+      {
+        "type": "range",
+        "id": "prophet_line_thickness",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "label": "Line thickness",
+        "default": 1,
+        "visible_if": "{{ section.settings.prophet_show_lines }}"
+      },
+      {
+        "type": "range",
+        "id": "prophet_line_gap",
+        "min": 4,
+        "max": 30,
+        "step": 2,
+        "unit": "px",
+        "label": "Gap between text and lines",
+        "default": 12,
+        "visible_if": "{{ section.settings.prophet_show_lines }}"
+      },
+      {
+        "type": "color",
+        "id": "prophet_line_color",
+        "label": "Line color",
+        "default": "#C4A882",
+        "visible_if": "{{ section.settings.prophet_show_lines }}"
+      },
+      {
+        "type": "header",
+        "content": "References"
+      },
+      {
+        "type": "text",
+        "id": "references_text",
+        "label": "References",
+        "default": "Sahih Al-Bukhari n°1863 · Sahih Muslim n°1256"
+      },
+      {
+        "type": "checkbox",
+        "id": "references_use_custom_font",
+        "label": "Use custom font",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "references_font",
+        "label": "Font family",
+        "default": "josefin_sans_n4",
+        "visible_if": "{{ section.settings.references_use_custom_font }}"
+      },
+      {
+        "type": "range",
+        "id": "references_size",
+        "min": 8,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "references_size_mobile",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size - mobile",
+        "default": 11
+      },
+      {
+        "type": "color",
+        "id": "references_color",
+        "label": "Color",
+        "default": "#8B7B6B"
+      },
+      {
+        "type": "range",
+        "id": "references_mt",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 8
+      }
+    ],
+    "blocks": [
+      {
+        "type": "hadith",
+        "name": "Hadith",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "hadith_text",
+            "label": "Hadith text",
+            "default": "<p>« Une Omra durant Ramadan équivaut à un Hajj en ma compagnie. »</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "SS - Hadith",
+        "blocks": [
+          {
+            "type": "hadith"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
