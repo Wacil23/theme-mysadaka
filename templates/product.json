@@ -189,7 +189,7 @@
           }
         },
         "stepper_stepper_C9HVKP": {
-          "type": "shopify://apps/stepper/blocks/stepper/eb4ad5d3-817f-46d3-8369-160512b421b8",
+          "type": "shopify://apps/mysadaka-stepper/blocks/stepper/eb4ad5d3-817f-46d3-8369-160512b421b8",
           "settings": {}
         },
         "section_store_block_shipping_info_MiyMeQ": {
@@ -202,15 +202,15 @@
             "shipping_within_days": 3,
             "include_weekend": true,
             "ships_by_font_size": 14,
-            "ships_by_text_color": "#000",
+            "ships_by_text_color": "#000000",
             "fast_shipping_text": "COUNTRY_FLAG <strong>Fast</strong> COUNTRY_CODE Shipping",
             "allow_all_countries": true,
             "allowed_countries": "US,CH,DE,AT,FR,IT",
             "fast_shipping_text_for_rest_countries": "Fast International Shipping",
-            "fast_shipping_text_color": "#000",
+            "fast_shipping_text_color": "#000000",
             "border_style": "none",
             "border_width": 1,
-            "border_color": "#000",
+            "border_color": "#000000",
             "border_radius": 8,
             "bg_color": "#f6f6f6",
             "padding_vertical": 6,
@@ -818,13 +818,84 @@
         "padding_bottom": "m"
       }
     },
+    "efficacy_stats_slider_pBdnwg": {
+      "type": "efficacy-stats-slider",
+      "blocks": {
+        "stat_DMKimt": {
+          "type": "stat",
+          "settings": {
+            "value": "🔴 9 000",
+            "label": "<p>fauteuils mis à disposition au Haram</p>"
+          }
+        },
+        "stat_3rQY4d": {
+          "type": "stat",
+          "settings": {
+            "value": "1 673 230",
+            "label": "<p>Pèlerins Hajj 2025</p>"
+          }
+        },
+        "stat_iV3UAf": {
+          "type": "stat",
+          "settings": {
+            "value": "15 222 497",
+            "label": "<p>Omra – T1 2025</p>"
+          }
+        },
+        "stat_R6MxRm": {
+          "type": "stat",
+          "settings": {
+            "value": "5 443 393",
+            "label": "<p>Omra – T2 2025</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_DMKimt",
+        "stat_3rQY4d",
+        "stat_iV3UAf",
+        "stat_R6MxRm"
+      ],
+      "disabled": true,
+      "name": "Efficacité — stats slider",
+      "settings": {
+        "layout": "full",
+        "box_radius": 16,
+        "columns_gap": 60,
+        "mobile_gap": 40,
+        "inner_padding": 34,
+        "inner_padding_mobile": 26,
+        "bg_color": "#f1fff9",
+        "text_color": "#006d6c",
+        "accent_color": "#006d6c",
+        "fade_color": "#f1fff9",
+        "heading": "Un besoin concret de fauteuils",
+        "heading_size": 22,
+        "subheading": "et des millions de pèlerins chaque année",
+        "subheading_size": 14,
+        "text": "",
+        "text_size": 12,
+        "items_gap": 36,
+        "slide_min_width": 160,
+        "slide_min_width_mobile": 140,
+        "number_size": 24,
+        "label_size": 12,
+        "slider_padding_bottom": 20,
+        "track_bg": "#0b4a4326",
+        "track_fill": "#0b4a43",
+        "track_height": 2,
+        "fade_width": 44,
+        "padding_top": "l",
+        "padding_bottom": "m"
+      }
+    },
     "text_with_progress_bar_FECBpy": {
       "type": "text-with-progress-bar",
       "blocks": {
         "heading_VCF6Qm": {
           "type": "heading",
           "settings": {
-            "heading": "Comment est réalisée votre sadaqa ?",
+            "heading": "Parcours de votre sadaqa de chez vous à Makkah",
             "heading_size": "medium",
             "heading_level": "h2"
           }
@@ -873,10 +944,11 @@
         "step_K9xhcT",
         "step_zYN8Aa"
       ],
+      "disabled": true,
       "name": "Text with progress bar",
       "settings": {
         "image_position": "image_left",
-        "image": "shopify://shop_images/Step3_compressed.webp",
+        "image": "shopify://shop_images/WheelchairTawaf.png",
         "image_padding_y": 0,
         "image_padding_x": 0,
         "image_padding_y_mobile": 0,
@@ -888,10 +960,10 @@
         "content_padding_x_mobile": 20,
         "full_width_background": true,
         "background_style": "solid",
-        "background_color": "#ffffff",
+        "background_color": "#f1fff9",
         "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
-        "box_enable": false,
-        "box_background": "#f2f2f2",
+        "box_enable": true,
+        "box_background": "#ffffff",
         "box_radius": 16,
         "box_padding_y": 48,
         "box_padding_x": 48,
@@ -907,7 +979,7 @@
         "dot_size": 10,
         "inactive_opacity": 0.3,
         "fade_range": 140,
-        "padding_top": "l",
+        "padding_top": "no-indent",
         "padding_bottom": "l",
         "lazy": true
       }
@@ -1044,6 +1116,7 @@
     "rich_text_eC7MXb",
     "ss_testimonials_8_pro_zNmhMG",
     "rich_text_9GBPNW",
+    "efficacy_stats_slider_pBdnwg",
     "text_with_progress_bar_FECBpy",
     "17668814935de4826b",
     "product-recommendations",
